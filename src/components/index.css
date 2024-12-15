@@ -46,13 +46,7 @@ body::before {
 h1,
 h2 {
   border: 2px solid white;
-  /* padding-right: 300px;
-  padding-left: 300px;
-  padding-top: 5px;
-  padding-bottom: 5px; */
   text-align: center;
-
-  /* display: inline-block; */
 }
 h1 {
   font-size: 2.5em;
@@ -63,10 +57,6 @@ h1 {
   width: 90%; /* Responsive width - 50% of the container */
   max-width: 2000px; /* Ensures it doesn't get too wide on large screens */
   box-sizing: border-box; /* Includes padding and border in the width */
-  /* padding-right: 200px;
-  padding-left: 200px;
-  padding-top: 5px;
-  padding-bottom: 5px; */
 }
 h2 {
   font-size: 2.2em;
@@ -78,13 +68,9 @@ h2 {
   display: block;
   width: 300px; /* Fixed width for h2, smaller than h1 */
   box-sizing: border-box;
-  /* padding-right: 150px;
-  padding-left: 150px;
-  padding-top: 5px;
-  padding-bottom: 5px; */
 }
 h3{
-  font-size: 2.2em;
+  font-size: 2.0em;
   margin: 1px;
   padding: 0;
 }
@@ -153,8 +139,6 @@ button:focus {
   align-items: center;
   list-style: none;
   margin: 0;
-  /* padding-left: 15px; */
-  /* flex: 1; */
 }
 
 .link-container li {
@@ -202,7 +186,6 @@ button:focus {
   list-style: none;
   margin: 0;
   flex: 1;
-  /* padding-right: 15px; */
 }
 .social-icon {
   font-size: 2.5rem;
@@ -221,8 +204,6 @@ button:focus {
   padding: 20px;
 }
 .image-text-container img {
-  /* width: 50%; */
-  /* width: 300px; */
   display: block;
   object-fit: contain;
   max-width: 40%;
@@ -275,7 +256,6 @@ ul {
 li {
   padding: 10px;
   border-radius: 5px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   text-align: center;
 }
 
@@ -319,17 +299,120 @@ li {
   line-height: 1.5; /* Improves readability */
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+    padding-top: 165px; /* Adjust navbar spacing for smaller screens */
+    padding-bottom: 30px; /* Reduce bottom padding */
+  }
+
+  section {
+    padding: 10px; /* Reduce padding for smaller screens */
+    box-sizing: border-box; /* Ensure padding doesn't affect total width */
+  }
+
+  .event-text-container {
+    padding: 10px; /* Adjust padding to prevent overflow */
+    gap: 20px; /* Ensure proper spacing between elements */
+    max-width: 100%; /* Prevent the container from extending beyond the viewport */
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  h3{
+    font-size: 1.3em;
+    margin: 1px;
+    padding: 0;
+  }
+
   .navbar {
-    flex-direction: column;
+    grid-template-columns: 1fr; /* Stack navbar items vertically */
+    padding: 5px 0;
     align-items: center;
+    padding-bottom: 5px;
+    text-align: center; 
   }
+
   .link-container {
-    justify-content: center;
-    margin-bottom: 10px;
+    flex-direction: row; /* Stack links vertically */
+    gap: 0px; /* Increase space between links */
   }
+
+  .logo-container {
+    margin-top: -10px;
+    margin-bottom: 0px auto; /* Adjust spacing for the logo */
+    padding: 5px;
+  }
+
   .logo {
-    width: 120px;
+    width: 130px;
+    margin: 0;
+  }
+
+  .social-media-container {
+    flex-direction: row; /* Keep icons in a row */
+    justify-content: center; /* Center icons */
+    gap: 40px; /* Add spacing between icons */
+  }
+
+  .artist-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px; /* Reduce gap between items */
+    padding: 0; /* Adjust padding */
+    margin: 0 auto; /* Center the list */
+    max-width: 100%; /* Ensure it fits within the screen */
+    box-sizing: border-box; /* Include padding and borders in total width */
+    max-width: 100%;
+  }
+
+  .artist-list li {
+    text-align: center;
+    padding: 5px; /* Reduce padding for smaller screens */
+    font-size: 0.9rem; /* Smaller font size for mobile */
+    word-wrap: break-word; /* Break long words to avoid overflow */
+    overflow: hidden;
+  }
+
+  ul {
+    padding-left: 0; /* Remove default padding */
+    margin: 0; /* Remove unnecessary margin */
+    list-style: none; /* Remove bullet points */
+  }
+
+  .video-gallery {
+    grid-template-columns: 1fr; /* Videos stack vertically */
+    gap: 15px; /* Reduce spacing */
+    padding: 10px;
+  }
+
+  .flyer, .flyer-large {
+    max-width: 90%; /* Ensure flyers are responsive */
+    margin: 10px auto; /* Center flyers with proper spacing */
+  }
+
+  .contact-text-container {
+    padding: 10px; /* Reduce padding for smaller screens */
+    gap: 5px; /* Adjust spacing between text */
+  }
+
+  .image-text-container {
+    flex-direction: column; /* Stack image and text vertically */
+    gap: 10px; /* Add spacing */
+    padding: 10px; /* Adjust padding */
+  }
+
+  .image-text-container img {
+    max-width: 80%; /* Adjust image size */
+  }
+
+  .icon-container {
+    gap: 10px; /* Adjust spacing between icons */
+    flex-wrap: wrap; /* Allow wrapping if necessary */
   }
 }
 
@@ -343,8 +426,7 @@ li {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  /* height: 100vh; */
-  padding: 30px;
+  padding: 22px;
 }
 
 .visional-text {
@@ -390,7 +472,7 @@ section {
 
 .artist-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   list-style: none;
   padding: 20px; /* Add padding for spacing inside the shadow */
