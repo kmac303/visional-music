@@ -24,7 +24,7 @@ a:hover {
 
 body {
   margin: 0;
-  padding-top: 150px; /* Adjust this to match the height of your navbar */
+  padding-top: 100px; /* Adjust this to match the height of your navbar */
   font-family: Inter, system-ui, sans-serif;
   color: rgba(255, 255, 255, 0.87);
   overflow: auto;
@@ -45,15 +45,48 @@ body::before {
 
 h1,
 h2 {
+  border: 2px solid white;
+  /* padding-right: 300px;
+  padding-left: 300px;
+  padding-top: 5px;
+  padding-bottom: 5px; */
   text-align: center;
+
+  /* display: inline-block; */
 }
 h1 {
-  font-size: 3.2em;
+  font-size: 2.5em;
   line-height: 1.1;
+  padding: 10px;
+  margin: 30px auto; /* Center the h1 horizontally */
+  display: block; /* Ensure it behaves like a block */
+  width: 90%; /* Responsive width - 50% of the container */
+  max-width: 2000px; /* Ensures it doesn't get too wide on large screens */
+  box-sizing: border-box; /* Includes padding and border in the width */
+  /* padding-right: 200px;
+  padding-left: 200px;
+  padding-top: 5px;
+  padding-bottom: 5px; */
 }
 h2 {
   font-size: 2.2em;
   line-height: 1.0;
+  border: 2px solid white; /* Optional if you want consistent borders */
+  text-align: center;
+  padding: 10px;
+  margin: 10px auto;
+  display: block;
+  width: 300px; /* Fixed width for h2, smaller than h1 */
+  box-sizing: border-box;
+  /* padding-right: 150px;
+  padding-left: 150px;
+  padding-top: 5px;
+  padding-bottom: 5px; */
+}
+h3{
+  font-size: 2.2em;
+  margin: 1px;
+  padding: 0;
 }
 
 button {
@@ -93,12 +126,12 @@ button:focus {
   left: 0;
   right: 0;
   background-color: #1a1a1a;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   justify-content: space-between;
-  align-items: center;
-  padding: 7px 10px;
+  align-items: center; /* Center all items vertically */
+  padding: 5px 0px; /* Controls navbar spacing */
   z-index: 1000;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .navbar.show {
@@ -112,18 +145,22 @@ button:focus {
 }
 
 .link-container {
+  flex: 0 0 50%;
   display: flex;
   flex-wrap: wrap;
   gap: 3px;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   list-style: none;
   margin: 0;
-  padding: 0;
-  flex: 1;
+  /* padding-left: 15px; */
+  /* flex: 1; */
 }
+
 .link-container li {
   display: inline;
 }
+
 .link-container a {
   text-decoration: none;
   color: white;
@@ -131,27 +168,41 @@ button:focus {
   font-size: 1.3rem;
   transition: color 0.3s ease;
 }
+
 .link-container a:hover {
   color: #54d8f2;
 }
 
 .logo-container {
+  flex: 0 0 auto; /* Prevent shrinking or growing */
   display: flex;
   justify-content: center;
-  align-items: center;
-  text-align: center;
+  align-items: center; /* Center vertically */
+  margin: 0 auto; /* Center horizontally within its flex container */
 }
 
 .logo {
-  width: 180px;
-  height: auto;
+  width: 150px; /* Adjust size as needed */
+  height: auto; /* Maintain aspect ratio */
+  display: block;
+  object-fit: contain; /* Ensure image is properly scaled */
+}
+
+.logo:hover {
+  transform: scale(1.05); /* Optional hover effect */
 }
 
 .social-media-container {
+  flex: 0 0 50%;
   display: flex;
+  flex-wrap: wrap;
   gap: 30px;
-  justify-content: flex-end;
+  justify-content: center; /* Center the icons horizontally within this half */
+  align-items: center;
+  list-style: none;
+  margin: 0;
   flex: 1;
+  /* padding-right: 15px; */
 }
 .social-icon {
   font-size: 2.5rem;
@@ -159,27 +210,35 @@ button:focus {
   transition: color 0.3s ease;
 }
 .social-icon:hover {
-  color: #ff6464;
+  color: #fc1616;
 }
 
 .image-text-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
+  padding: 20px;
 }
 .image-text-container img {
-  width: 35%;
+  /* width: 50%; */
+  /* width: 300px; */
+  display: block;
+  object-fit: contain;
+  max-width: 40%;
   height: auto;
-  padding: 50px;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .image-text-container p {
   margin: 0;
   font-size: 1.2rem;
   align-self: flex-start;
-  padding-right: 50px;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid white;
+  display: block;
+  box-sizing: border-box;
 }
 
 .event-text-container {
@@ -187,9 +246,10 @@ button:focus {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 20px;
+  gap: 0px;
   padding-left: 50px;
   padding-right: 50px;
+  margin: 0;
 }
 
 .lesson-text-container {
@@ -276,9 +336,28 @@ li {
 .headshot {
   max-width: 35%;
   height: auto;
+  object-fit: cover;
+}
+
+.visional-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* height: 100vh; */
+  padding: 30px;
+}
+
+.visional-text {
+  display: block;
+  margin: 0 auto;
+  max-width: 50%;
+  height: auto;
 }
 
 .flyer {
+  display: block;
+  margin: 0 auto;
+  padding: 0;
   max-width: 50%;
   height: auto;
 }
@@ -298,4 +377,33 @@ li {
 .resolume {
   max-width: 15%; /* Adjust the size of each icon */
   height: auto; /* Maintain aspect ratio */
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center horizontally */
+  text-align: center; /* Ensure text aligns center for fallback */
+  height: auto; /* Adjust to fit your content or use a specific height */
+  padding: 20px; 
+}
+
+.artist-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  list-style: none;
+  padding: 20px; /* Add padding for spacing inside the shadow */
+  margin: 0 auto; /* Center the list */
+  font-size: 1.2em;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  border-radius: 10px; /* Rounded corners */
+  background-color: rgba(36, 36, 36, 0.9); /* Optional: slightly darker background */
+  max-width: 1200px; /* Ensures the list doesn’t stretch too far */
+  box-sizing: border-box;
+}
+
+.artist-list li {
+  text-align: center; /* Keep list items centered */
+  padding: 10px;
 }

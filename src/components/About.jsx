@@ -1,9 +1,12 @@
 import headshot from "../assets/images/Visional Headshot.jpg";
+import visional from "../assets/images/Visional Text.png";
 
 function About() {
     return (
         <section>
-            <h1>ABOUT</h1>
+            <div className="visional-text-container">
+                <img src={visional} alt="visional" className="visional-text" />
+            </div>
             <div className="image-text-container">
                 <img src={headshot} alt="Headshot" className="headshot" />
                 <p>Specializing in concert visuals, Visional has developed his own unique style of live visuals within a few short years. 

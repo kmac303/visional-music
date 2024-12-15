@@ -20,16 +20,16 @@ function Events() {
             <h1>UPCOMING EVENTS</h1>
                 <div className="event-text-container">
                     <img src={decadence} alt="decadence" className="flyer-large"/>
-                <h2>Decadence 2024</h2>
-            <h1>PAST EVENTS</h1>
-                <img src={secretDreams} alt="secret dreams" className="flyer"/>
-                <h2>Secret Dreams 2024</h2>
-            <br /><br /><br />
-                <img src={sonicBloom} alt="sonic bloom" className="flyer"/>
-                <h2>Sonic Bloom 2023</h2>
-            </div>
+                    <h3>Decadence 2024</h3>
+                    <h1>PAST EVENTS</h1>
+                        <img src={secretDreams} alt="secret dreams" className="flyer"/>
+                        <h3>Secret Dreams 2024</h3>
+                    <br /><br /><br />
+                        <img src={sonicBloom} alt="sonic bloom" className="flyer"/>
+                        <h3>Sonic Bloom 2023</h3>
+                </div>
             <h1>Artists Visional Has Worked With</h1>
-                <ul>
+                <ul className="artist-list">
                     {artistList.map((artist, index) => (
                         <li key={index}>{artist}</li>
                     ))}
