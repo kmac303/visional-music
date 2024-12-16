@@ -220,6 +220,10 @@ button:focus {
   border: 2px solid white;
   display: block;
   box-sizing: border-box;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  border-radius: 10px; /* Rounded corners */
+  background-color: rgba(36, 36, 36, 0.9); /* Optional: slightly darker background */
+  max-width: 1200px; /* Ensures the list doesn’t stretch too far */
 }
 
 .event-text-container {
@@ -280,6 +284,33 @@ li {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+/* .video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  z-index: 10; 
+  cursor: pointer; 
+  transition: opacity 0.3s ease;
+} */
+
+/* .video-overlay:hover {
+  opacity: 0.4; 
+} */
+
+.loading-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000; /* Placeholder background color */
+  z-index: 5;
+  opacity: 0.6;
 }
 
 .contact-text-container {
