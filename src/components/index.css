@@ -24,7 +24,7 @@ a:hover {
 
 body {
   margin: 0;
-  padding-top: 100px; /* Adjust this to match the height of your navbar */
+  padding-top: 100px; 
   font-family: Inter, system-ui, sans-serif;
   color: rgba(255, 255, 255, 0.87);
   overflow: auto;
@@ -52,21 +52,21 @@ h1 {
   font-size: 2.5em;
   line-height: 1.1;
   padding: 10px;
-  margin: 30px auto; /* Center the h1 horizontally */
-  display: block; /* Ensure it behaves like a block */
-  width: 90%; /* Responsive width - 50% of the container */
-  max-width: 2000px; /* Ensures it doesn't get too wide on large screens */
-  box-sizing: border-box; /* Includes padding and border in the width */
+  margin: 30px auto;
+  display: block;
+  width: 90%; 
+  max-width: 2000px;
+  box-sizing: border-box;
 }
 h2 {
   font-size: 2.2em;
   line-height: 1.0;
-  border: 2px solid white; /* Optional if you want consistent borders */
+  border: 2px solid white; 
   text-align: center;
   padding: 10px;
   margin: 10px auto;
   display: block;
-  width: 300px; /* Fixed width for h2, smaller than h1 */
+  width: 300px;
   box-sizing: border-box;
 }
 h3{
@@ -93,19 +93,6 @@ button:focus {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
 .navbar {
   position: fixed;
   top: 0;
@@ -113,27 +100,37 @@ button:focus {
   right: 0;
   background-color: #1a1a1a;
   display: grid;
+  align-items: center;
   grid-template-columns: 1fr auto 1fr;
-  justify-content: space-between;
-  align-items: center; /* Center all items vertically */
-  padding: 5px 0px; /* Controls navbar spacing */
+  justify-content: center;
+  padding: 5px 20px;
   z-index: 1000;
 }
 
 .navbar.show {
-  transform: translateY(0); /* Fully visible */
+  transform: translateY(0);
   opacity: 1;
 }
 
 .navbar.hide {
-  transform: translateY(-100%); /* Hidden above the viewport */
+  transform: translateY(-100%); 
   opacity: 0;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
 }
 
 .link-container {
   flex: 0 0 50%;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 3px;
   justify-content: center;
   align-items: center;
@@ -141,8 +138,13 @@ button:focus {
   margin: 0;
 }
 
+
+.link-container.open {
+  display: flex;
+}
+
 .link-container li {
-  display: inline;
+  margin: 10px 0; 
 }
 
 .link-container a {
@@ -157,36 +159,61 @@ button:focus {
   color: #54d8f2;
 }
 
+
 .logo-container {
-  flex: 0 0 auto; /* Prevent shrinking or growing */
+  flex-grow: 1; 
   display: flex;
   justify-content: center;
-  align-items: center; /* Center vertically */
-  margin: 0 auto; /* Center horizontally within its flex container */
+  align-items: center;
+  min-width: 150px;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between logo and text */
+}
+
+.logo-icon {
+  width: 150px; /* Adjust size as needed */
+  height: auto;
+}
+
+.logo-text {
+  width: 150px; /* Adjust size as needed */
+  height: auto;
 }
 
 .logo {
-  width: 150px; /* Adjust size as needed */
-  height: auto; /* Maintain aspect ratio */
-  display: block;
-  object-fit: contain; /* Ensure image is properly scaled */
+  width: 150px;
+  height: auto;
 }
 
 .logo:hover {
-  transform: scale(1.05); /* Optional hover effect */
+  transform: scale(1.05); 
 }
 
 .social-media-container {
   flex: 0 0 50%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
   gap: 30px;
-  justify-content: center; /* Center the icons horizontally within this half */
+  justify-content: center; 
   align-items: center;
   list-style: none;
   margin: 0;
   flex: 1;
 }
+
+.social-media-container.social-media-desktop {
+  display: flex;
+}
+
+.social-media-container.social-media-mobile {
+  display: none;
+}
+
 .social-icon {
   font-size: 2.5rem;
   color: white;
@@ -220,10 +247,10 @@ button:focus {
   border: 2px solid white;
   display: block;
   box-sizing: border-box;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-  border-radius: 10px; /* Rounded corners */
-  background-color: rgba(36, 36, 36, 0.9); /* Optional: slightly darker background */
-  max-width: 1200px; /* Ensures the list doesn’t stretch too far */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 10px; 
+  background-color: rgba(36, 36, 36, 0.9); 
+  max-width: 1200px;
 }
 
 .event-text-container {
@@ -286,165 +313,32 @@ li {
   border: none;
 }
 
-/* .video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; 
-  z-index: 10; 
-  cursor: pointer; 
-  transition: opacity 0.3s ease;
-} */
-
-/* .video-overlay:hover {
-  opacity: 0.4; 
-} */
-
 .loading-placeholder {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #000; /* Placeholder background color */
+  background-color: #000;
   z-index: 5;
   opacity: 0.6;
 }
 
 .contact-text-container {
-  display: flex; /* Enables Flexbox layout */
-  justify-content: center; /* Centers the content horizontally */
-  align-items: center; /* Centers the content vertically */
-  flex-direction: column; /* Stacks text vertically */
-  text-align: center; /* Centers the text itself */
-  gap: 10px; /* Adds spacing between lines (optional) */
-  margin: 20px auto; /* Adds space around the container and centers it */
-  max-width: 600px; /* Optional: Limits the width for better readability */
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column; 
+  text-align: center;
+  gap: 10px;
+  margin: 20px auto; 
+  max-width: 600px;
 }
 
 .contact-text-container p {
-  font-size: 1.5rem; /* Adjusts the font size */
-  margin: 0; /* Removes default paragraph margins */
-  line-height: 1.5; /* Improves readability */
-}
-
-@media (max-width: 768px) {
-  body {
-    overflow-x: hidden;
-    padding-top: 165px; /* Adjust navbar spacing for smaller screens */
-    padding-bottom: 30px; /* Reduce bottom padding */
-  }
-
-  section {
-    padding: 10px; /* Reduce padding for smaller screens */
-    box-sizing: border-box; /* Ensure padding doesn't affect total width */
-  }
-
-  .event-text-container {
-    padding: 10px; /* Adjust padding to prevent overflow */
-    gap: 20px; /* Ensure proper spacing between elements */
-    max-width: 100%; /* Prevent the container from extending beyond the viewport */
-  }
-
-  h1 {
-    font-size: 1.8em;
-  }
-  h2 {
-    font-size: 1.5em;
-  }
-  h3{
-    font-size: 1.3em;
-    margin: 1px;
-    padding: 0;
-  }
-
-  .navbar {
-    grid-template-columns: 1fr; /* Stack navbar items vertically */
-    padding: 5px 0;
-    align-items: center;
-    padding-bottom: 5px;
-    text-align: center; 
-  }
-
-  .link-container {
-    flex-direction: row; /* Stack links vertically */
-    gap: 0px; /* Increase space between links */
-  }
-
-  .logo-container {
-    margin-top: -10px;
-    margin-bottom: 0px auto; /* Adjust spacing for the logo */
-    padding: 5px;
-  }
-
-  .logo {
-    width: 130px;
-    margin: 0;
-  }
-
-  .social-media-container {
-    flex-direction: row; /* Keep icons in a row */
-    justify-content: center; /* Center icons */
-    gap: 40px; /* Add spacing between icons */
-  }
-
-  .artist-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px; /* Reduce gap between items */
-    padding: 0; /* Adjust padding */
-    margin: 0 auto; /* Center the list */
-    max-width: 100%; /* Ensure it fits within the screen */
-    box-sizing: border-box; /* Include padding and borders in total width */
-    max-width: 100%;
-  }
-
-  .artist-list li {
-    text-align: center;
-    padding: 5px; /* Reduce padding for smaller screens */
-    font-size: 0.9rem; /* Smaller font size for mobile */
-    word-wrap: break-word; /* Break long words to avoid overflow */
-    overflow: hidden;
-  }
-
-  ul {
-    padding-left: 0; /* Remove default padding */
-    margin: 0; /* Remove unnecessary margin */
-    list-style: none; /* Remove bullet points */
-  }
-
-  .video-gallery {
-    grid-template-columns: 1fr; /* Videos stack vertically */
-    gap: 15px; /* Reduce spacing */
-    padding: 10px;
-  }
-
-  .flyer, .flyer-large {
-    max-width: 90%; /* Ensure flyers are responsive */
-    margin: 10px auto; /* Center flyers with proper spacing */
-  }
-
-  .contact-text-container {
-    padding: 10px; /* Reduce padding for smaller screens */
-    gap: 5px; /* Adjust spacing between text */
-  }
-
-  .image-text-container {
-    flex-direction: column; /* Stack image and text vertically */
-    gap: 10px; /* Add spacing */
-    padding: 10px; /* Adjust padding */
-  }
-
-  .image-text-container img {
-    max-width: 80%; /* Adjust image size */
-  }
-
-  .icon-container {
-    gap: 10px; /* Adjust spacing between icons */
-    flex-wrap: wrap; /* Allow wrapping if necessary */
-  }
+  font-size: 1.5rem; 
+  margin: 0;
+  line-height: 1.5; 
 }
 
 .headshot {
@@ -481,23 +375,23 @@ li {
 }
 
 .icon-container {
-  display: flex; /* Enables Flexbox layout */
-  justify-content: center; /* Centers the icons horizontally */
-  align-items: center; /* Aligns icons vertically */
-  gap: 20px; /* Adds space between the icons */
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  gap: 20px; 
 }
 
 .resolume {
-  max-width: 15%; /* Adjust the size of each icon */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 15%;
+  height: auto;
 }
 
 section {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center horizontally */
-  text-align: center; /* Ensure text aligns center for fallback */
-  height: auto; /* Adjust to fit your content or use a specific height */
+  justify-content: center;
+  text-align: center;
+  height: auto; 
   padding: 20px; 
 }
 
@@ -506,17 +400,210 @@ section {
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   list-style: none;
-  padding: 20px; /* Add padding for spacing inside the shadow */
-  margin: 0 auto; /* Center the list */
+  padding: 20px; 
+  margin: 0 auto;
   font-size: 1.2em;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-  border-radius: 10px; /* Rounded corners */
-  background-color: rgba(36, 36, 36, 0.9); /* Optional: slightly darker background */
-  max-width: 1200px; /* Ensures the list doesn’t stretch too far */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); 
+  border-radius: 10px; 
+  background-color: rgba(36, 36, 36, 0.9); 
+  max-width: 1200px; 
   box-sizing: border-box;
 }
 
 .artist-list li {
-  text-align: center; /* Keep list items centered */
+  text-align: center;
   padding: 10px;
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+    padding-top: 165px; 
+    padding-bottom: 30px; 
+  }
+
+  .social-media-container.social-media-desktop {
+    display: none; 
+  }
+
+  .social-media-container.social-media-mobile {
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  section {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .event-text-container {
+    padding: 10px;
+    gap: 20px; 
+    max-width: 100%; 
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  h3{
+    font-size: 1.3em;
+    margin: 1px;
+    padding: 0;
+  }
+
+  .navbar {
+    grid-template-columns: 1fr 1fr 1fr; 
+    padding: 5px 0;
+    align-items: center;
+    padding-bottom: 5px;
+    text-align: center; 
+  }
+
+  .menu-toggle {
+    display: block; 
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .link-container {
+    display: none; 
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: rgba(26, 26, 26, 0.95);
+    padding: 10px 0;
+    text-align: center;
+    z-index: 1000;
+  }
+
+  .link-container li {
+    margin: 10px 0;
+  }
+
+  .link-container .social-media-container {
+    display: none; 
+  }
+
+  .logo-container {
+    order: 2;
+    flex-grow: 1;
+    margin-top: -10px;
+    margin-bottom: 0px auto; 
+    padding: 5px;
+  }
+
+  .logo-wrapper {
+    flex-direction: column; /* Stack vertically for mobile */
+    align-items: center;
+  }
+
+  .logo-icon {
+    width: 120px; /* Adjust size for mobile */
+  }
+
+  .logo-text {
+    width: 120px; /* Adjust size for mobile */
+  }
+  
+
+  .logo {
+    width: 130px;
+    margin: 0;
+  }
+
+  .social-media-container {
+    display: none; 
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  .link-container.open .social-media-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px; 
+  }
+
+  .artist-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px; 
+    padding: 0;
+    margin: 0 auto; 
+    max-width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .artist-list li {
+    text-align: center;
+    padding: 5px; 
+    font-size: 0.9rem; 
+    word-wrap: break-word; 
+    overflow: hidden;
+  }
+
+  ul {
+    padding-left: 0;
+    margin: 0;
+    list-style: none; 
+  }
+
+  .video-gallery {
+    grid-template-columns: 1fr; 
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .flyer, .flyer-large {
+    max-width: 90%; 
+    margin: 10px auto; 
+  }
+
+  .contact-text-container {
+    padding: 10px; 
+    gap: 5px; 
+  }
+
+  .image-text-container {
+    flex-direction: column; 
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .image-text-container img {
+    max-width: 80%;
+  }
+
+  .icon-container {
+    gap: 10px; 
+    flex-wrap: wrap; 
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
 }
