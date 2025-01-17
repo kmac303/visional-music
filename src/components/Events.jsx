@@ -1,6 +1,7 @@
 import decadence from "../assets/images/Decadence.jpg";
 import secretDreams from "../assets/images/Secret Dreams 24.jpg";
 import sonicBloom from "../assets/images/Sonic Bloom 23.jpg";
+import phatjazz from "../assets/images/PhatJazz-Ogden.jpg";
 
 
 function Events() {
@@ -19,14 +20,18 @@ function Events() {
         <section>
             <h1>UPCOMING EVENTS</h1>
                 <div className="event-text-container">
-                    <img src={decadence} alt="decadence" className="flyer-large"/>
-                    <h3>Decadence 2024</h3>
-                    <h1>PAST EVENTS</h1>
-                        <img src={secretDreams} alt="secret dreams" className="flyer"/>
-                        <h3>Secret Dreams 2024</h3>
-                    <br /><br /><br />
-                        <img src={sonicBloom} alt="sonic bloom" className="flyer"/>
-                        <h3>Sonic Bloom 2023</h3>
+                <img src={phatjazz} alt="phatjazz" className="flyer-large"/>
+                <h3>PhatJazz at The Ogden Theatre</h3>
+            <h1>PAST EVENTS</h1>
+                <img src={decadence} alt="decadence" className="flyer-large"/>
+                <h3>Decadence 2024</h3>
+                <br /><br /><br />
+                <img src={secretDreams} alt="secret dreams" className="flyer"/>
+                <h3>Secret Dreams 2024</h3>
+                <br /><br /><br />
+                <img src={sonicBloom} alt="sonic bloom" className="flyer"/>
+                <h3>Sonic Bloom 2023</h3>
+                <br />
                 </div>
             <h1>Artists Visional Has Worked With</h1>
                 <ul className="artist-list">
