@@ -36,7 +36,7 @@ function Events() {
                 </Link>
             <h1>PAST EVENTS</h1>
                 <Link to="https://decadencenye.com" target="_blank" rel="noopener noreferrer">
-                    <img src={decadence} alt="decadence" className="flyer-small"/>
+                    <img src={decadence} alt="decadence" className="flyer-medium"/>
                     <h3>Decadence 2024</h3><br /><br />
                 </Link>
                 <Link to="https://www.secretdreamsfest.com" target="_blank" rel="noopener noreferrer">
