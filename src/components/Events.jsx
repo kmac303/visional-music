@@ -31,12 +31,12 @@ function Events() {
                     <h3>Drive Theory at Mission Ballroom</h3><br />
                 </Link>
                 <Link to="https://www.ticketweb.com/event/ritual-fridays-ft-valentino-khan-the-church-nightclub-tickets/14155733" target="_blank" rel="noopener noreferrer">
-                    <img src={vk} alt="vk" className="flyer-small"/>
+                    <img src={vk} alt="vk" className="flyer"/>
                     <h3>Valentino Khan at The Church</h3><br />
                 </Link>
             <h1>PAST EVENTS</h1>
                 <Link to="https://decadencenye.com" target="_blank" rel="noopener noreferrer">
-                    <img src={decadence} alt="decadence" className="flyer-medium"/>
+                    <img src={decadence} alt="decadence" className="flyer-small"/>
                     <h3>Decadence 2024</h3><br /><br />
                 </Link>
                 <Link to="https://www.secretdreamsfest.com" target="_blank" rel="noopener noreferrer">
