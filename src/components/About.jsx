@@ -4,9 +4,9 @@ import visional from "/public/assets/Visional Text.png";
 function About() {
     return (
         <section>
-            <div className="visional-text-container">
+            {/* <div className="visional-text-container">
                 <img src={visional} alt="visional" className="visional-text" />
-            </div>
+            </div> */}
             <div className="image-text-container">
                 <img src={headshot} alt="Headshot" className="headshot" />
                 <p>Specializing in concert visuals, Visional has developed his own unique style of live visuals within a few short years. 
