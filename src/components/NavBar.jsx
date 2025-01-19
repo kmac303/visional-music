@@ -1,23 +1,25 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import logo from "/public/assets/Visional Icon.png";
+import { useEffect, useState, useRef } from 'react';
+import logo from "/public/assets/Logo.png";
 // import visional from "../assets/images/Visional Text.png";
 import { FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
 
 function NavBar() {
     const [isScrollingUp, setIsScrollingUp] = useState(true);
     const [menuOpen, setMenuOpen] = useState(false);
-    let lastScrollY = 0;
+    let lastScrollY = useRef(0);
 
     // Scroll handling logic
     const handleScroll = () => {
         const currentScrollY = window.scrollY;
-        if (currentScrollY > lastScrollY) {
+        if (currentScrollY < 10) {
+            setIsScrollingUp(true);
+        } else if (currentScrollY > lastScrollY.current) {
             setIsScrollingUp(false); // User is scrolling down
         } else {
             setIsScrollingUp(true); // User is scrolling up
         }
-        lastScrollY = currentScrollY;
+        lastScrollY.current = currentScrollY;
     };
 
     const toggleMenu = () => {
