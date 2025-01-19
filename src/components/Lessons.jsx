@@ -1,5 +1,5 @@
-import resolume from "../assets/images/Resolume_Arena.png";
-import synesthesia from "../assets/images/synesthesia_logo.png";
+import resolume from "/public/assets/Resolume_Arena.png";
+import synesthesia from "/public/assets/synesthesia_logo.png";
 
 function Lessons() {
     return (

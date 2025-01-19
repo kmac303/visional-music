@@ -1,5 +1,5 @@
-import headshot from "../assets/images/Visional Headshot.jpg";
-import visional from "../assets/images/Visional Text.png";
+import headshot from "/public/assets/Visional Headshot.jpg";
+import visional from "/public/assets/Visional Text.png";
 
 function About() {
     return (

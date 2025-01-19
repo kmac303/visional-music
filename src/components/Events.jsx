@@ -1,7 +1,7 @@
-import decadence from "../assets/images/Decadence.jpg";
-import secretDreams from "../assets/images/Secret Dreams 24.jpg";
-import sonicBloom from "../assets/images/Sonic Bloom 23.jpg";
-import phatjazz from "../assets/images/PhatJazz-Ogden.jpg";
+import decadence from "/public/assets/Decadence.jpg";
+import secretDreams from "/public/assets/Secret Dreams 24.jpg";
+import sonicBloom from "/public/assets/Sonic Bloom 23.jpg";
+import phatjazz from "/public/assets/PhatJazz-Ogden.jpg";
 
 
 function Events() {

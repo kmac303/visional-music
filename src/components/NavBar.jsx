@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import logo from "../assets/images/Visional Icon.png";
+import logo from "/public/assets/Visional Icon.png";
 // import visional from "../assets/images/Visional Text.png";
 import { FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
 

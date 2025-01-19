@@ -1,19 +1,14 @@
-// import { defineConfig } from 'vite'
-// import react from '@vitejs/plugin-react'
-
-// // https://vite.dev/config/
-// export default defineConfig({
-//   // plugins: [react()],
-//   plugins: import.meta.env.MODE === "development" ? [react()] : [],
-// })
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: './',
   plugins: [react()],
-  // define: {
-  //   'import.meta.env.VITE_NODE_ENV': JSON.stringify('production')
-  // }
+  build: {
+    outDir: 'dist',        // Ensure output goes to "dist"
+    assetsDir: 'assets',   // Put images, CSS, and JS in "assets"
+    manifest: true,        // Generate manifest.json for Netlify/Vercel
+    rollupOptions: {
+      input: './index.html',  // Ensure Vite builds from index.html
+    }
+  }
 });
