@@ -5,6 +5,10 @@ function Lessons() {
     return (
         <section>
             <h1>LESSONS</h1>
+            <div className="icon-container">
+                <img src={resolume} alt="resolume" className="resolume"/>
+                <img src={synesthesia} alt="synesthesia" className="resolume"/>
+            </div>
             <div className="lesson-text-container">
             <p>Want to get into VJing, but don’t know where to start?<br />
                 Are you already a VJ but want to step up your know-how?<br />
@@ -17,10 +21,6 @@ function Lessons() {
                 <br />
                 <strong>Email contact@visionalmusic.com to book your session today and bring your visuals to life!</strong>
             </p>
-            </div>
-            <div className="icon-container">
-                <img src={resolume} alt="resolume" className="resolume"/>
-                <img src={synesthesia} alt="synesthesia" className="resolume"/>
             </div>
         </section>
     );
