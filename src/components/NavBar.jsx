@@ -26,6 +26,10 @@ function NavBar() {
         setMenuOpen(!menuOpen);
     };
 
+    const closeMenu = () => {
+        setMenuOpen(false);
+    }
+
     // Attach the scroll listener with passive option
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
@@ -43,10 +47,10 @@ function NavBar() {
 
             {/* Mobile Dropdown Menu */}
             <ul className={`link-container ${menuOpen ? "open" : ""}`}>
-                <li><Link to="/events">Events</Link></li>
-                <li><Link to="/gallery">Gallery</Link></li>
-                <li><Link to="/lessons">Lessons</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
+                <li><Link to="/events" onClick={closeMenu}>Events</Link></li>
+                <li><Link to="/gallery" onClick={closeMenu}>Gallery</Link></li>
+                <li><Link to="/lessons" onClick={closeMenu}>Lessons</Link></li>
+                <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
 
                 {/* Mobile Social Media Icons */}
                 <div className="social-media-container social-media-mobile">
