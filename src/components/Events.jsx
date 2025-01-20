@@ -10,7 +10,7 @@ function Events() {
         "Dela Moon", "Pauline Herr", "Heyz", "The Sponges", "UZ", "The Gaslamp Killer", 
         "Figure", "DMVU", "Toadface", "Kumarion", "Paws", "Bloomurian", "Swampz", "Covex", "Chozen", "Motifv", 
         "MZG", "Omas", "Chance Meridian", "Miilk", "Top Brahman", "Naughty Princess", "CJ.", "Owie", "Noetika", 
-        "Kyral x Banko", "Londen Summers", "Chuck Shadow", "Bass Temple", "CRL CRRLL", "Decker Rush", "Vinnie", "Shady Jones"
+        "Kyral x Banko", "Londen Summers", "Chuck Shadow", "Bass Temple", "CRL CRRLL", "Vinnie", "Decker Rush", "Shady Jones"
     ];
 
     // List of events (upcoming & past)
