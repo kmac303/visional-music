@@ -1,13 +1,13 @@
-import resolume from "/public/assets/Resolume_Arena.png";
-import synesthesia from "/public/assets/synesthesia_logo.png";
+// import resolume from "/public/assets/Resolume_Arena.png";
+// import synesthesia from "/public/assets/synesthesia_logo.png";
 
 function Lessons() {
     return (
         <section>
             <h1>LESSONS</h1>
             <div className="icon-container">
-                <img src={resolume} alt="resolume" className="resolume"/>
-                <img src={synesthesia} alt="synesthesia" className="resolume"/>
+                <img src="/assets/Resolume_Arena.png" alt="resolume" className="resolume"/>
+                <img src="/assets/synesthesia_logo.png" alt="synesthesia" className="resolume"/>
             </div>
             <div className="lesson-text-container">
             <p>Want to get into VJing, but don’t know where to start?<br />

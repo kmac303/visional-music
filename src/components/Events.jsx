@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import decadence from "/public/assets/Decadence.jpg";
-import secretDreams from "/public/assets/Secret Dreams 24.jpg";
-import sonicBloom from "/public/assets/Sonic Bloom 23.jpg";
-import phatjazz from "/public/assets/PhatJazz-Ogden.jpg";
-import driveTheory from "/public/assets/Drive Theory-Mission.jpg";
-import vk from "/public/assets/VK-Church.jpg";
+// import decadence from "/public/assets/Decadence.jpg";
+// import secretDreams from "/public/assets/Secret Dreams 24.jpg";
+// import sonicBloom from "/public/assets/Sonic Bloom 23.jpg";
+// import phatjazz from "/public/assets/PhatJazz-Ogden.jpg";
+// import driveTheory from "/public/assets/Drive Theory-Mission.jpg";
+// import vk from "/public/assets/VK-Church.jpg";
 
 function Events() {
 
@@ -23,28 +23,28 @@ function Events() {
             <h1>UPCOMING EVENTS</h1>
                 <div className="event-text-container">
                 <Link to="https://www.axs.com/uk/events/606664/ship-wrek-tickets" target="_blank" rel="noopener noreferrer">
-                    <img src={phatjazz} alt="phatjazz" className="flyer-medium"/>
+                    <img src="/assets/PhatJazz-Ogden.jpg" alt="phatjazz" className="flyer-medium"/>
                     <h3>PhatJazz at The Ogden Theatre</h3><br />
                 </Link>
                 <Link to="https://www.axs.com/uk/events/698484/loud-luxury-tickets" target="_blank" rel="noopener noreferrer">
-                    <img src={driveTheory} alt="driveTheory" className="flyer-medium"/>
+                    <img src="/assets/Drive Theory-Mission.jpg" alt="driveTheory" className="flyer-medium"/>
                     <h3>Drive Theory at Mission Ballroom</h3><br />
                 </Link>
                 <Link to="https://www.ticketweb.com/event/ritual-fridays-ft-valentino-khan-the-church-nightclub-tickets/14155733" target="_blank" rel="noopener noreferrer">
-                    <img src={vk} alt="vk" className="flyer"/>
+                    <img src="/assets/VK-Church.jpg" alt="vk" className="flyer"/>
                     <h3>Valentino Khan at The Church</h3><br />
                 </Link>
             <h1>PAST EVENTS</h1>
                 <Link to="https://decadencenye.com" target="_blank" rel="noopener noreferrer">
-                    <img src={decadence} alt="decadence" className="flyer-medium"/>
+                    <img src="/assets/Decadence.jpg" alt="decadence" className="flyer-medium"/>
                     <h3>Decadence 2024</h3><br /><br />
                 </Link>
                 <Link to="https://www.secretdreamsfest.com" target="_blank" rel="noopener noreferrer">
-                    <img src={secretDreams} alt="secret dreams" className="flyer"/>
+                    <img src="/assets/Secret Dreams 24.jpg" alt="secret dreams" className="flyer"/>
                     <h3>Secret Dreams 2024</h3><br /><br />
                 </Link>
                 <Link to="https://sonicbloomfestival.com" target="_blank" rel="noopener noreferrer">
-                    <img src={sonicBloom} alt="sonic bloom" className="flyer"/>
+                    <img src="/assets/Sonic Bloom 23.jpg" alt="sonic bloom" className="flyer"/>
                     <h3>Sonic Bloom 2023</h3><br />
                 </Link>
                 </div>
