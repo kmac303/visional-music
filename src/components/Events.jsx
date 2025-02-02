@@ -16,22 +16,6 @@ function Events() {
     // List of events (upcoming & past)
     const events = [
         { 
-            title: "PhatJazz at The Ogden Theatre", 
-            imgSrc: "/assets/PhatJazz-Ogden.jpg", 
-            alt: "phatjazz", 
-            className: "flyer-medium", 
-            link: "https://www.axs.com/uk/events/606664/ship-wrek-tickets", 
-            category: "upcoming" 
-        },
-        { 
-            title: "Drive Theory at Mission Ballroom", 
-            imgSrc: "/assets/Drive Theory-Mission.jpg", 
-            alt: "driveTheory", 
-            className: "flyer-medium", 
-            link: "https://www.axs.com/uk/events/698484/loud-luxury-tickets", 
-            category: "upcoming" 
-        },
-        { 
             title: "Valentino Khan at The Church", 
             imgSrc: "/assets/VK-Church.jpg", 
             alt: "vk", 
