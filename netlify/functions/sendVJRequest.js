@@ -24,7 +24,8 @@ exports.handler = async (event) => {
     });
 
     const mailOptions = {
-        from: `"Visional Music" <${process.env.EMAIL_USER}>`,
+        from: `"Visional" <no-reply@visionalmusic.com>`,
+        sender: process.env.EMAIL_USER,
         to: `${email}, ${process.env.EMAIL_USER}`,
         subject: "VJ Gig Request Confirmation",
         text: `Hello ${name},
