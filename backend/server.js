@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(cors({
-    origin: "*", // Allow all origins for now, but you can restrict it to your frontend URL
+    origin: "https://visionalmusic.com",
     methods: ["POST", "GET"],
     allowedHeaders: ["Content-Type"]
 }));
