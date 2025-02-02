@@ -28,13 +28,13 @@ app.post("/api/vj-gig-request", async (req, res) => {
 
     // Email content
     const mailOptions = {
-        from: `"Visional Music" <no-reply@visionalmusic.com>`,
+        from: `"Visional" <no-reply@visionalmusic.com>`,
         sender: process.env.EMAIL_USER,
         to: `${email}, ${process.env.EMAIL_USER}`, // Send to both the user and yourself
         subject: "VJ Gig Request Confirmation",
         text: `Hello ${name},
 
-Thank you for your VJ gig request! Here are the details you submitted:
+Thank you for your VJ Gig Request! Here are the details you submitted:
 
 - **Event Date:** ${eventDate}
 - **Venue:** ${venue}

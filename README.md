@@ -1,4 +1,4 @@
-# Visional Music 🎶🎨  
+# Visional Music 👁️‍🗨️  
 
 ### A Platform for Live Visuals, VJing Performances, and Lessons  
 

@@ -31,34 +31,40 @@ function VJGigRequestForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>VJ Gig Request Form</h2>
+        <section>
+            <h1>VJ Gig Request Form</h1>
+            <h4>Visional is based in Denver, CO.
+            If the event is located outside of the Denver metro area, please include in the message if travel/transportation will be provided</h4>
+        <form onSubmit={handleSubmit} action="">
+            <div class="form-group">
             <label>
-                Name:
-                <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+                Artist Name: 
+                <input required type="text" name="name" value={formData.name} onChange={handleChange} />
             </label>
             <label>
-                Email:
-                <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+                Email: 
+                <input required placeholder="email@address.com" type="email" name="email" value={formData.email} onChange={handleChange} />
             </label>
             <label>
-                Phone Number:
-                <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
+                Phone Number: 
+                <input placeholder="555-555-5555" type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
             </label>
             <label>
-                Event Date:
-                <input type="date" name="eventDate" value={formData.eventDate} onChange={handleChange} required />
+                Event Date: 
+                <input required type="date" name="eventDate" value={formData.eventDate} onChange={handleChange} />
             </label>
             <label>
-                Venue:
-                <input type="text" name="venue" value={formData.venue} onChange={handleChange} required />
+                Venue Info: 
+                <input required placeholder="Name and/or Location" type="text" name="venue" value={formData.venue} onChange={handleChange} />
             </label>
             <label>
-                Message:
-                <textarea name="message" value={formData.message} onChange={handleChange} />
+                Message: 
+                <input name="message" value={formData.message} onChange={handleChange} />
             </label>
+            </div>
             <button type="submit">Submit</button>
         </form>
+        </section>
     );
 }
 
