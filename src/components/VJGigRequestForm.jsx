@@ -16,7 +16,7 @@ function VJGigRequestForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/vj-gig-request", {
+        const response = await fetch("http://localhost:5001/api/vj-gig-request", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),

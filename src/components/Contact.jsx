@@ -1,4 +1,4 @@
-
+import VJGigRequestForm from "./VJGigRequestForm";
 
 function Contact() {
     return (
@@ -11,6 +11,7 @@ function Contact() {
                 <strong>Socials: @visionalmusic</strong>
                 </p>
             </div>
+            <VJGigRequestForm />
         </section>
     );
 };
