@@ -16,12 +16,12 @@ function VJGigRequestForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5001/api/vj-gig-request", {
+        const response = await fetch("/.netlify/functions/sendVJRequest", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
         });
-
+    
         if (response.ok) {
             alert("Request submitted successfully!");
             setFormData({ name: "", email: "", phoneNumber: "", eventDate: "", venue: "", message: "" });
