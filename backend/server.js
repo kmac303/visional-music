@@ -42,10 +42,10 @@ Thank you for your VJ gig request! Here are the details you submitted:
 - **Phone Number:** ${phoneNumber}
 - **Email:** ${email}
 
-We will get back to you shortly!
+I will get back to you shortly!
 
 Best,  
-Visional Music
+Kevin (Visional)
         `
     };
 

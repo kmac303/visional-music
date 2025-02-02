@@ -8,6 +8,8 @@ import Lessons from './Lessons';
 import Events from './Events';
 import Gallery from './Gallery';
 import Contact from './Contact';
+import VJGigRequestForm from "./VJGigRequestForm";
+
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -21,6 +23,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/lessons" element={<Lessons />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/vjgigrequestform" element={<VJGigRequestForm />} />
       </Routes>
     </div>
   )

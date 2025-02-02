@@ -1,4 +1,4 @@
-import VJGigRequestForm from "./VJGigRequestForm";
+import { Link } from "react-router-dom";
 
 function Contact() {
     return (
@@ -10,8 +10,14 @@ function Contact() {
                 <br />
                 <strong>Socials: @visionalmusic</strong>
                 </p>
+                <p>
+                    <strong>Want to book a VJ gig?</strong>
+                    <br />
+                    <Link to="/vjgigrequestform" className="gig-request-link">
+                        Fill out the VJ Gig Request Form
+                    </Link>
+                </p>
             </div>
-            <VJGigRequestForm />
         </section>
     );
 };

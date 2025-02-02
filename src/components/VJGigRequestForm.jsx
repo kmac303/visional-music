@@ -42,8 +42,8 @@ function VJGigRequestForm() {
                 <input type="email" name="email" value={formData.email} onChange={handleChange} required />
             </label>
             <label>
-                Email:
-                <input type="tel" name="phoneNumber" value={formData.email} onChange={handleChange} required />
+                Phone Number:
+                <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
             </label>
             <label>
                 Event Date:
