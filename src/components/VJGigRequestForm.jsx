@@ -32,13 +32,13 @@ function VJGigRequestForm() {
 
     return (
         <section>
-            <h1>VJ Gig Request Form</h1>
+            <h1>VJ Request Form</h1>
             <h4>Visional is based in Denver, CO.
             If the event is located outside of the Denver metro area, please include in the message if travel/transportation will be provided.</h4>
         <form onSubmit={handleSubmit} action="">
             <div class="form-group">
             <label>
-                Artist Name: 
+                Artist/Event Name: 
                 <input required type="text" name="name" value={formData.name} onChange={handleChange} />
             </label>
             <label>
@@ -46,7 +46,7 @@ function VJGigRequestForm() {
                 <input required placeholder="email@address.com" type="email" name="email" value={formData.email} onChange={handleChange} />
             </label>
             <label>
-                Phone Number: 
+                Phone Number: (optional)
                 <input placeholder="555-555-5555" type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
             </label>
             <label>
@@ -58,7 +58,7 @@ function VJGigRequestForm() {
                 <input required placeholder="Name and/or Location" type="text" name="venue" value={formData.venue} onChange={handleChange} />
             </label>
             <label>
-                Message: 
+                Message: (optional)
                 <input name="message" value={formData.message} onChange={handleChange} />
             </label>
             </div>

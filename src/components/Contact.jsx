@@ -9,7 +9,7 @@ function Contact() {
                     <strong>Want to book a VJ gig?
                     <br />
                     <Link to="/vjgigrequestform" className="gig-request-link">
-                    ➡ Fill out the VJ Gig Request Form ⬅
+                    ➡Fill out the VJ Request Form⬅
                     </Link>
                     </strong>
                 </p>
