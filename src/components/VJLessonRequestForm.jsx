@@ -31,7 +31,7 @@ function VJLessonRequestForm() {
     return (
         <section>
             <h1>VJ Lesson Request Form</h1>
-            <h4>Lessons are done virtually using the TeamViewer application</h4>
+            <h4>Lessons are taught virtually using the TeamViewer application</h4>
         <form onSubmit={handleSubmit} action="">
             <div className="form-group">
             <label>
