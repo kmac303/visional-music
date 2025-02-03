@@ -31,8 +31,8 @@
 ---
 
 ## ⭐ Support My Work
-If you enjoy my visuals and want to support my business, consider **booking a VJ lession** or **sharing my work**! 🎨🎶 You can also contribute directly by **sending a payment through Venmo or Cash App** to help fuel future creative projects. Every bit of support is greatly appreciated! 🙌
+If you enjoy my this project or my visuals and want to contribute directly, you can **send payment through Venmo or Cash App** to help fuel future creative projects. Every bit of support is greatly appreciated! 🙌
 - 🔗 Live Website: https://visionalmusic.com
-- 📌 Repo: https://github.com/kmac303
+- 📌 Repo: https://github.com/kmac303/visional-music
 - 💸 Venmo: @visionalmusic
 - 💸 Cash App: $visionalmusic
