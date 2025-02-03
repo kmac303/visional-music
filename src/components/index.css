@@ -191,8 +191,8 @@ button:focus {
   height: auto;
 }
 
-.logo:hover {
-  transform: scale(1.05); 
+.logo-wrapper:hover {
+  transform: scale(1.05);
 }
 
 .social-media-container {
