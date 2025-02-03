@@ -6,7 +6,7 @@ function Contact() {
             <h1>CONTACT</h1>
             <div className="contact-text-container">
                 <p>
-                    <strong>Want to book a VJ gig?
+                    <strong>Want to book a VJ set?
                     <br />
                     <Link to="/vjrequest" className="gig-request-link">
                     ➡ Fill out the VJ Request Form ⬅
