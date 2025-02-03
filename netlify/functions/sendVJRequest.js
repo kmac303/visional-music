@@ -38,7 +38,7 @@ exports.handler = async (event) => {
         - Phone Number: ${phoneNumber}
         - Email: ${email}
 
-        I will get back to you shortly!
+        I will get back to you ASAP!
 
         Best,
         Kevin (Visional)`
