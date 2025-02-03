@@ -27,7 +27,7 @@ exports.handler = async (event) => {
         from: `"Visional" <no-reply@visionalmusic.com>`,
         sender: process.env.EMAIL_USER,
         to: `${email}, ${process.env.EMAIL_USER}`,
-        subject: "VJ Gig Request Confirmation",
+        subject: "VJ Lesson Request Confirmation",
         text: `Hello ${name},
 
         Thank you for your VJ lesson request! Here are the details you submitted:
