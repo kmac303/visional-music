@@ -9,6 +9,8 @@ import Events from './Events';
 import Gallery from './Gallery';
 import Contact from './Contact';
 import VJGigRequestForm from "./VJGigRequestForm";
+import VJLessonRequestForm from "./VJLessonRequestForm";
+
 
 
 function App() {
@@ -23,7 +25,8 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/lessons" element={<Lessons />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/vjgigrequestform" element={<VJGigRequestForm />} />
+        <Route path="/vjrequest" element={<VJGigRequestForm />} />
+        <Route path="/lessonrequest" element={<VJLessonRequestForm />} />
       </Routes>
     </div>
   )
