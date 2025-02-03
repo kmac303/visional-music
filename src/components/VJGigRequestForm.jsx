@@ -34,7 +34,7 @@ function VJGigRequestForm() {
         <section>
             <h1>VJ Gig Request Form</h1>
             <h4>Visional is based in Denver, CO.
-            If the event is located outside of the Denver metro area, please include in the message if travel/transportation will be provided</h4>
+            If the event is located outside of the Denver metro area, please include in the message if travel/transportation will be provided.</h4>
         <form onSubmit={handleSubmit} action="">
             <div class="form-group">
             <label>
