@@ -30,7 +30,7 @@ exports.handler = async (event) => {
         subject: "VJ Gig Request Confirmation",
         text: `Hello ${name},
 
-        Thank you for your VJ gig request! Here are the details you submitted:
+        Thank you for your VJ lesson request! Here are the details you submitted:
 
         - Message: ${message}
         - Phone Number: ${phoneNumber}
