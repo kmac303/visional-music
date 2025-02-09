@@ -4,11 +4,14 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist',        // Ensure output goes to "dist"
-    assetsDir: 'assets',   // Put images, CSS, and JS in "assets"
-    manifest: true,        // Generate manifest.json for Netlify/Vercel
+    outDir: 'dist',        
+    assetsDir: 'assets',  
+    manifest: true,        
     rollupOptions: {
-      input: './index.html',  // Ensure Vite builds from index.html
+      input: './index.html',  
     }
+  },
+  optimizeDeps: {
+    include: ['three']
   }
 });

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
-// import logo from "/public/assets/Logo.png";
 import { FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
 
 function NavBar() {
@@ -71,7 +70,6 @@ function NavBar() {
                     <Link to="/">
                         <div className="logo-wrapper">
                         <img src="/assets/Logo.png" alt="Visional Music Logo" className="logo-icon" />
-                        {/* <img src={visional} alt="visional" className="logo-text" /> */}
                         </div>
                     </Link>
                 </div>

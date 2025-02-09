@@ -23,7 +23,6 @@ a:hover {
 }
 
 body {
-  /* position: relative; */
   margin: 0;
   padding-top: 0px; 
   font-family: Inter, system-ui, sans-serif;
@@ -173,16 +172,16 @@ button:focus {
 .logo-wrapper {
   display: flex;
   align-items: center;
-  gap: 10px; /* Space between logo and text */
+  gap: 10px; 
 }
 
 .logo-icon {
-  width: 170px; /* Adjust size as needed */
+  width: 170px;
   height: auto;
 }
 
 .logo-text {
-  width: 150px; /* Adjust size as needed */
+  width: 150px; 
   height: auto;
 }
 
@@ -225,7 +224,84 @@ button:focus {
   color: #fc1616;
 }
 
+canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#imageContainer {
+  position: relative;
+  width: 40%;
+  max-width: 550px;
+  min-width: 400px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  filter: saturate(.9);
+  transition: all ease 0.5s;
+}
+
+#imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  
+  z-index: 1;
+}
+
+#imageContainer canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none; 
+}
+
+#imageContainer:hover {
+  filter: saturate(110%);
+}
+
 .image-text-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+}
+
+.image-text-container p {
+  flex: 1;
+  margin: 0;
+  font-size: 1.2rem;
+  align-self: flex-start;
+  padding: 20px;
+  border: 2px solid white;
+  display: block;
+  box-sizing: border-box;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  background-color: rgba(36, 36, 36, 0.9); 
+  max-width: 550px;
+}
+
+/* 
+#imageContainer > * {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+} */
+
+/* .image-text-container {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -253,7 +329,7 @@ button:focus {
   border-radius: 10px; 
   background-color: rgba(36, 36, 36, 0.9); 
   max-width: 1200px;
-}
+} */
 
 .event-text-container {
   display: flex;
@@ -328,11 +404,6 @@ input:focus:invalid {
     gap: 0.25rem;
   }
 
-  /* html {
-    font-size: 2rem;
-    font-family: system-ui;
-    color-scheme: dark;
-  } */
 
   label {
     font-size: 1.5rem;
@@ -497,47 +568,11 @@ section {
     padding-bottom: 30px; 
   }
 
-  .social-media-container.social-media-desktop {
-    display: none; 
-  }
-
-  .social-media-container.social-media-mobile {
-    display: flex; 
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-  }
-
-  section {
-    padding: 10px;
-    box-sizing: border-box;
-  }
-
-  .event-text-container {
-    padding: 10px;
-    gap: 20px; 
-    max-width: 100%; 
-  }
-
-  h1 {
-    font-size: 1.8em;
-  }
-  h2 {
-    font-size: 1.5em;
-  }
-  h3{
-    font-size: 1.3em;
-    margin: 1px;
-    padding: 0;
-  }
-
   .navbar {
     grid-template-columns: 1fr 1fr 1fr; 
     position: relative;
     padding: 10px 0;
     align-items: center;
-    padding-bottom: 0px;
     text-align: center; 
   }
 
@@ -564,79 +599,62 @@ section {
     z-index: 1000;
   }
 
-  .link-container li {
-    margin: 10px 0;
-  }
-
-  .link-container .social-media-container {
-    display: none; 
-  }
-
   .logo-container {
     order: 2;
     flex-grow: 1;
     margin-top: -10px;
-    margin-bottom: 0px auto; 
     padding: 5px;
   }
 
-  .logo-wrapper {
-    flex-direction: column; /* Stack vertically for mobile */
+  .logo-icon, .logo-text {
+    width: 120px;
+  }
+
+  .image-text-container {
+    flex-direction: column;
     align-items: center;
+    gap: 10px;
+    padding: 10px;
   }
 
-  .logo-icon {
-    width: 120px; /* Adjust size for mobile */
+  #imageContainer {
+    width: 80%;
+    max-width: 300px;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
   }
 
-  .logo-text {
-    width: 120px; /* Adjust size for mobile */
-  }
-  
-
-  .logo {
-    width: 130px;
-    margin: 0;
+  #imageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  .social-media-container {
-    display: none; 
-    flex-direction: row;
+  #imageContainer canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  .image-text-container p {
+    font-size: 1rem;
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  .social-media-container.social-media-desktop {
+    display: none;
+  }
+
+  .social-media-container.social-media-mobile {
+    display: flex;
     justify-content: center;
     gap: 20px;
     margin-top: 10px;
   }
 
-  .link-container.open .social-media-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 40px; 
-  }
-
   .artist-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px; 
-    padding: 0;
-    margin: 0 auto; 
-    max-width: 100%;
-    box-sizing: border-box;
-    max-width: 100%;
-  }
-
-  .artist-list li {
-    text-align: center;
-    padding: 5px; 
-    font-size: 0.9rem; 
-    word-wrap: break-word; 
-    overflow: hidden;
-  }
-
-  ul {
-    padding-left: 0;
-    margin: 0;
-    list-style: none; 
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
   }
 
   .video-gallery {
@@ -655,19 +673,45 @@ section {
     gap: 5px; 
   }
 
-  .image-text-container {
-    flex-direction: column; 
-    gap: 10px;
-    padding: 10px;
-  }
-
-  .image-text-container img {
-    max-width: 80%;
-  }
-
   .icon-container {
     gap: 10px; 
     flex-wrap: wrap; 
+  }
+}
+
+@media (max-width: 480px) {
+  .image-text-container {
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+  }
+
+  #imageContainer {
+    width: 90%;
+    max-width: 250px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .image-text-container p {
+    font-size: 0.9rem;
+    padding: 10px;
+    max-width: 95%;
+  }
+
+  .logo-container {
+    padding: 3px;
+  }
+
+  .logo-icon, .logo-text {
+    width: 100px;
+  }
+
+  .social-media-container {
+    gap: 10px;
+  }
+
+  .artist-list {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -676,9 +720,11 @@ section {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }

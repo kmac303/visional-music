@@ -1,7 +1,5 @@
-// import resolume from "/public/assets/Resolume_Arena.png";
-// import synesthesia from "/public/assets/synesthesia_logo.png";
-import { Link } from "react-router-dom";
 
+import { Link } from "react-router-dom";
 
 function Lessons() {
     return (
@@ -17,7 +15,7 @@ function Lessons() {
                 <br />
                 <Link to="/lessonrequest" className="lesson-request-link">
                 <strong>Unlock your visual creativity!</strong><br />
-                    ➡ Request a VJ Lesson ⬅
+                    ➡️ Request a VJ Lesson ⬅️
                 </Link>
                 <br /><br />
                 Transform your live performances with expert VJ lessons designed for all skill levels.<br />

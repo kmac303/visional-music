@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 
 import './index.css';
 import { Routes, Route } from 'react-router-dom';
@@ -12,9 +11,7 @@ import VJGigRequestForm from "./VJGigRequestForm";
 import VJLessonRequestForm from "./VJLessonRequestForm";
 
 
-
 function App() {
-  // const [count, setCount] = useState(0)
 
   return (
     <div>
