@@ -16,6 +16,22 @@ function Events() {
     // List of events (upcoming & past)
     const events = [
         { 
+            title: "Heyz at Bluebird Theater", 
+            imgSrc: "/assets/Heyz_Bluebird.jpg", 
+            alt: "heyz", 
+            className: "flyer-large", 
+            link: "https://www.bluebirdtheater.net/events/detail/?event_id=774441", 
+            category: "upcoming" 
+        },
+        { 
+            title: "the Sunny Rave w/ DJ Pressed", 
+            imgSrc: "/assets/Sunny_Rave.png", 
+            alt: "sunnyrave", 
+            className: "flyer-medium", 
+            link: "https://etix.com/ticket/p/56026094?utm_source=website&utm_medium=sitedirect&utm_campaign=pressed&utm_id=sunny+rave", 
+            category: "upcoming" 
+        },
+        { 
             title: "Valentino Khan at The Church", 
             imgSrc: "/assets/VK-Church.jpg", 
             alt: "vk", 
