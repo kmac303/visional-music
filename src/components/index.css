@@ -610,6 +610,12 @@ section {
     width: 120px;
   }
 
+  h3{
+    font-size: 1.5em;
+    margin: 1px;
+    padding: 0;
+  }
+
   .image-text-container {
     flex-direction: column;
     align-items: center;
