@@ -24,7 +24,7 @@ function Events() {
             category: "upcoming" 
         },
         { 
-            title: "the Sunny Rave w/ DJ Pressed", 
+            title: "Sunny Rave w/ DJ Pressed", 
             imgSrc: "/assets/Sunny_Rave.png", 
             alt: "sunnyrave", 
             className: "flyer-medium", 
