@@ -501,22 +501,26 @@ input:focus:invalid {
   display: block;
   margin: 0 auto;
   padding: 0;
-  max-width: 50%;
+  max-width: 70%;
+  min-width: 40%;  
   height: auto;
 }
 
 .flyer-large {
   max-width: 100%;
+  margin: 0 auto;
   height: auto;
 }
 
 .flyer-medium {
-  max-width: 78%;
+  max-width: 700px;
+  margin: 0 auto;
   height: auto;
 }
 
 .flyer-small {
   max-width: 65%;
+  margin: 0 auto;
   height: auto;
 }
 

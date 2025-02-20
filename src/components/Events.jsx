@@ -19,7 +19,7 @@ function Events() {
             title: "Heyz at Bluebird Theater", 
             imgSrc: "/assets/Heyz_Bluebird.jpg", 
             alt: "heyz", 
-            className: "flyer-large", 
+            className: "flyer-medium", 
             link: "https://www.bluebirdtheater.net/events/detail/?event_id=774441", 
             category: "upcoming" 
         },
