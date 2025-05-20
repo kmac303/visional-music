@@ -4,40 +4,51 @@ import { Link } from "react-router-dom";
 function Events() {
     // List of artists
     const artistList = [
-        "Valentino Khan", "Midnight Tyrannosaurus", "Getter", "Space Laces", "Jkyl & Hyde", "Sidepiece", 
-        "The Glitch Mob", "Wreckno", "Skepsis", "Maddy O’Neal", "Jon Casey", "Sisto", 
-        "Rusko", "Phutureprimitive","Random Rab", "Lizzy Jane", "Savej", "David Starfire", 
-        "Dela Moon", "Pauline Herr", "Heyz", "The Sponges", "UZ", "The Gaslamp Killer", 
-        "Figure", "DMVU", "Toadface", "Kumarion", "Paws", "Bloomurian", "Swampz", "Covex", "Chozen", "Motifv", 
-        "MZG", "Omas", "Chance Meridian", "Miilk", "Top Brahman", "Naughty Princess", "CJ.", "Owie", "Noetika", 
-        "Kyral x Banko", "Londen Summers", "Chuck Shadow", "Bass Temple", "CRL CRRLL", "Vinnie", "Decker Rush", "Shady Jones"
+        "Valentino Khan", "Midnight Tyrannosaurus", "Getter", "Space Laces", "Hol!", "Jkyl & Hyde", "Sidepiece", 
+        "The Glitch Mob", "Wreckno", "Rusko", "Skepsis", "Maddy O’Neal", "Jon Casey", "Sisto", "OG Nixin", "Benda",
+         "Ayybo", "Phutureprimitive", "DJ Pressed", "Random Rab", "Lizzy Jane", "Savej", "David Starfire", 
+        "Dela Moon", "Pauline Herr", "Heyz", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", 
+        "DMVU", "Toadface", "Kumarion", "Swampz", "Covex", "Chozen", "Twopercent", "MZG", "Omas", "Miilk", "Top Brahman", 
+        "CJ.", "Owie", "Noetika", "Papajay"
     ];
 
     // List of events (upcoming & past)
     const events = [
         { 
+            title: "Hol!, OG Nixin b2b Benda, & Twopercent at Red Rocks", 
+            imgSrc: "/assets/ATLiens.jpg", 
+            alt: "atliens", 
+            className: "flyer-small",  
+            link: "https://www.axs.com/events/836697/atliens-hol-tickets", 
+            category: "past" 
+        },
+        { 
+            title: "Ayybo at Civic Center Park", 
+            imgSrc: "/assets/Ayybo.webp", 
+            alt: "ayybo", 
+            className: "flyer-small",  
+            category: "past" 
+        },
+        { 
             title: "Heyz at Bluebird Theater", 
             imgSrc: "/assets/Heyz_Bluebird.jpg", 
             alt: "heyz", 
             className: "flyer-medium", 
-            link: "https://www.bluebirdtheater.net/events/detail/?event_id=774441", 
-            category: "upcoming" 
+            category: "past" 
         },
         { 
             title: "Sunny Rave w/ DJ Pressed", 
             imgSrc: "/assets/Sunny_Rave.png", 
             alt: "sunnyrave", 
-            className: "flyer-medium", 
-            link: "https://etix.com/ticket/p/56026094?utm_source=website&utm_medium=sitedirect&utm_campaign=pressed&utm_id=sunny+rave", 
-            category: "upcoming" 
+            className: "flyer-small", 
+            category: "past" 
         },
         { 
             title: "Valentino Khan at The Church", 
             imgSrc: "/assets/VK-Church.jpg", 
             alt: "vk", 
             className: "flyer-medium", 
-            link: "https://www.ticketweb.com/event/ritual-fridays-ft-valentino-khan-the-church-nightclub-tickets/14155733", 
-            category: "upcoming" 
+            category: "past" 
         },
         { 
             title: "Decadence 2024", 
@@ -51,7 +62,7 @@ function Events() {
             title: "Secret Dreams 2024", 
             imgSrc: "/assets/Secret Dreams 24.jpg", 
             alt: "secret dreams", 
-            className: "flyer", 
+            className: "flyer-small", 
             link: "https://www.secretdreamsfest.com", 
             category: "past" 
         },
@@ -59,7 +70,7 @@ function Events() {
             title: "Sonic Bloom 2023", 
             imgSrc: "/assets/Sonic Bloom 23.jpg", 
             alt: "sonic bloom", 
-            className: "flyer", 
+            className: "flyer-small", 
             link: "https://sonicbloomfestival.com", 
             category: "past" 
         }

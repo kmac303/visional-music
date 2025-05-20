@@ -1,14 +1,16 @@
 
 function Gallery() {
     const liveSets = [
+        "w2wxdkdhYTU",
+        "2TBDQxYke6c",
         "8grws28uJjQ",
         "zxcvxfd-Pc0",
         "sX9OlZJ-myQ",
         "oFMawbkvfHU",
         "TLnfv-eQb24",
         "ge67BqNKB7M",
-        "kFf-zXOdVsU",
-        "_lVxrLXI6AI"
+        "5tvJvxBy1ms",
+        "/_n2plYZiDWM"
     ];
 
     const projects = [
@@ -19,6 +21,7 @@ function Gallery() {
         <section>
             <h1>GALLERY</h1>
             <h2>Live Sets</h2>
+            <h4>Recordings of sets Visional has performed live visuals for:</h4>
             <div className="video-gallery">
                 {liveSets.map((id, index) => (
                     <div className="video-container" key={index}>
@@ -33,6 +36,7 @@ function Gallery() {
                 ))}
             </div>
             <h2>Projects</h2>
+            <h4>Visual projects Visional has collaborated with musicians on:</h4>
             <div className="video-gallery">
                 {projects.map((id, index) => (
                     <div className="video-container" key={index}>
