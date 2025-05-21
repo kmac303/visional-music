@@ -1,6 +1,7 @@
 
 function Gallery() {
     const liveSets = [
+        "oB0On43-wU8",
         "w2wxdkdhYTU",
         "2TBDQxYke6c",
         "8grws28uJjQ",
@@ -10,7 +11,6 @@ function Gallery() {
         "TLnfv-eQb24",
         "ge67BqNKB7M",
         "5tvJvxBy1ms",
-        "/_n2plYZiDWM"
     ];
 
     const projects = [
@@ -36,7 +36,7 @@ function Gallery() {
                 ))}
             </div>
             <h2>Projects</h2>
-            <h4>Visual projects Visional has collaborated with musicians on:</h4>
+            <h4>Visual projects Visional has collaborated with artists on:</h4>
             <div className="video-gallery">
                 {projects.map((id, index) => (
                     <div className="video-container" key={index}>

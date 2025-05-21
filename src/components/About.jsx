@@ -98,6 +98,9 @@ function About() {
         
             renderer = new THREE.WebGLRenderer({ alpha: true });
             imageContainer.appendChild(renderer.domElement);
+            requestAnimationFrame(() => {
+            updateRendererSize(); // ensures the renderer aligns to the newly centered container
+            });
         
             // Initial size setup
             updateRendererSize();
@@ -108,6 +111,15 @@ function About() {
 
         const texture = new THREE.TextureLoader().load(imageElement.src);
         initializeScene(texture);
+        requestAnimationFrame(() => {
+        if (renderer && camera) {
+            const width = imageElement.clientWidth;
+            const height = imageElement.clientHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        }
+        });
         animateScene();
 
         function animateScene() {
@@ -194,11 +206,13 @@ function About() {
     }, []);
 
     return (
-        <section className="image-text-container">
-            <div ref={imageContainerRef} id="imageContainer">
-                <img ref={imageRef} src="/assets/Visional Headshot.jpg" alt="Headshot" />
-            </div>
-            <p>
+        <section>
+  <h1 style={{ textAlign: "center", marginBottom: "10px" }}>Who Is Visional?</h1>
+  <div className="image-text-container">
+    <div ref={imageContainerRef} id="imageContainer">
+      <img ref={imageRef} src="/assets/Visional Headshot.jpg" alt="Headshot" />
+    </div>
+    <p>
             Visional is the live visual project of Kevin McIntosh — a self-taught VJ and multimedia artist who brings music to life through immersive concert visuals (what you see on the screen).
             His journey began during the pandemic, providing weekly live visuals for a Twitch DJ collective - a formative experience that helped him develop 
             a unique visual style across a wide range of music genres, shaped by experimenting with audio-reactivity and custom camera effects in real-time.
@@ -207,6 +221,40 @@ function About() {
             crowd energy. Since bringing his work to the live concert space, he's delivered audio-reactive visuals at iconic venues like Red Rocks, Legend Valley, and 
             Burning Man — translating sound into unforgettable visual journeys, one set at a time.
             </p>
+            </div>
+    <h2 className="about-header">Testimonials</h2>
+    {/* <div className="testimonial-container">
+        <blockquote>"With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on." — Heyz</blockquote>
+        <blockquote>"Kevin has been instrumental in preparing and executing complex, time-coded sets. He's prepared for every variable, including translating the ramblings of a delusional artist with outrageous expectations."</blockquote>
+        <blockquote>"Every VJ I’ve shared this custom Resolume composition with has been blown away — Kevin’s work on it is next-level and deeply appreciated." — Savej</blockquote>
+    </div> */}
+    <div className="testimonial-card">
+        <img src="/assets/Heyz Headshot.jpg" alt="Heyz" className="testimonial-image" />
+        <div className="testimonial-text">
+            <p className="quote">
+            "With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on."
+            </p>
+            <p className="artist-name">— Heyz</p>
+        </div>
+    </div>
+    <div className="testimonial-card reverse">
+        <img src="/assets/DJ Pressed Headshot.jpg" alt="DJ Pressed" className="testimonial-image" />
+        <div className="testimonial-text">
+            <p className="quote">
+            "Kevin has been instrumental in preparing and executing complex, time-coded sets. He's prepared for every variable, including translating the ramblings of a delusional artist with outrageous expectations."
+            </p>
+            <p className="artist-name">— DJ Pressed</p>
+        </div>
+    </div>
+    <div className="testimonial-card">
+        <img src="/assets/Savej Headshot.webp" alt="Savej" className="testimonial-image" />
+        <div className="testimonial-text">
+            <p className="quote">
+            "Every VJ I’ve shared this custom Resolume composition with has been blown away — Kevin’s work on it is next-level and deeply appreciated."
+            </p>
+            <p className="artist-name">— Savej</p>
+        </div>
+    </div>
         </section>
     );
 }
