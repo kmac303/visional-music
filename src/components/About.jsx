@@ -222,7 +222,7 @@ function About() {
             Burning Man — translating sound into unforgettable visual journeys, one set at a time.
             </p>
             </div>
-    <h2 className="about-header">Testimonials</h2>
+    <h1 className="about-header">Testimonials</h1>
     {/* <div className="testimonial-container">
         <blockquote>"With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on." — Heyz</blockquote>
         <blockquote>"Kevin has been instrumental in preparing and executing complex, time-coded sets. He's prepared for every variable, including translating the ramblings of a delusional artist with outrageous expectations."</blockquote>
