@@ -250,7 +250,7 @@ function About() {
         <img src="/assets/Savej Headshot.webp" alt="Savej" className="testimonial-image" />
         <div className="testimonial-text">
             <p className="quote">
-            "Every VJ I’ve shared this custom Resolume composition with has been blown away — Kevin’s work on it is next-level and deeply appreciated."
+            "Every VJ I’ve shared my custom Resolume composition with has been blown away — Kevin’s work on creating this is next-level and deeply appreciated."
             </p>
             <p className="artist-name">— Savej</p>
         </div>
