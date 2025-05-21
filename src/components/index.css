@@ -52,9 +52,10 @@ h1 {
   font-size: 2.5em;
   line-height: 1.1;
   padding: 10px;
-  margin: 30px auto;
+  margin: 20px auto;
   display: block;
   width: 90%; 
+  border-radius: 12px;
   max-width: 2000px;
   box-sizing: border-box;
 }
@@ -62,6 +63,7 @@ h2 {
   font-size: 2.2em;
   line-height: 1.0;
   border: 2px solid white; 
+  border-radius: 12px;
   text-align: center;
   padding: 10px;
   margin: 10px auto;
@@ -610,7 +612,8 @@ section {
   padding: 20px;
   border: 1px solid white;
   border-radius: 12px;
-  margin: 30px auto;
+  margin: 16px auto;
+  margin-top: 15px;
   max-width: 850px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 }
