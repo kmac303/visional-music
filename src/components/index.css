@@ -723,7 +723,7 @@ section {
 }
 
 li {
-  font-size: .85em;
+  font-size: 1.0em;
 }
 
 /* .event-grid h4 {
@@ -765,7 +765,7 @@ li {
   }
 
   h1{
-    font-size: 1.5em;
+    font-size: 1.7em;
     margin: 1px auto;
     padding: 0;
     width: 100%;
@@ -773,12 +773,12 @@ li {
     box-sizing: border-box;
   }
   h3{
-    font-size: 1.0em;
+    font-size: 1.3em;
     margin: 1px;
     padding: 0;
   }
   h4{
-    font-size: 1.0em;
+    font-size: 1.2em;
     margin: 1px;
     padding: 0;
   }
