@@ -4,23 +4,15 @@ import { Link } from "react-router-dom";
 function Events() {
     // List of artists
     const artistList = [
-        "Valentino Khan", "Midnight Tyrannosaurus", "Getter", "Space Laces", "Hol!", "Jkyl & Hyde", "Sidepiece", 
-        "The Glitch Mob", "Wreckno", "Rusko", "Skepsis", "Maddy O’Neal", "Jon Casey", "Sisto", "OG Nixin", "Benda",
-         "Ayybo", "Phutureprimitive", "DJ Pressed", "Random Rab", "Lizzy Jane", "Savej", "David Starfire", 
-        "Dela Moon", "Pauline Herr", "Heyz", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", 
-        "DMVU", "Toadface", "Kumarion", "Swampz", "Covex", "Chozen", "Twopercent", "MZG", "Omas", "Miilk", "Top Brahman", 
-        "CJ.", "Owie", "Noetika", "Papajay"
+        "Valentino Khan", "Midnight Tyrannosaurus", "Sidepiece", "Hol!",  "The Glitch Mob", "Getter", "Maddy O’Neal", 
+        "Space Laces", "Jkyl & Hyde", "Wreckno", "Rusko", "Skepsis", "Jon Casey", "Sisto", "OG Nixin", "Benda",
+        "Ayybo", "Phutureprimitive", "Lizzy Jane", "DJ Pressed", "Random Rab", "Savej", "Heyz", "David Starfire", 
+        "Pauline Herr", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", "DMVU", "Toadface", 
+        "Kumarion", "Swampz", "Covex", "Chozen", "Twopercent", "MZG", "Omas", "Miilk", "Top Brahman", "Noetika", "Papajay"
     ];
 
     // List of events (upcoming & past)
     const events = [
-        { 
-            title: "PhatJazz at Mission Ballroom", 
-            imgSrc: "/assets/Phatjazz Mission.jpg", 
-            alt: "phatjazz", 
-            link: "https://www.axs.com/au/events/718028/malaa-tickets", 
-            category: "upcoming" 
-        },
         { 
             title: "PapaJay & Thresh at Larimer Lounge", 
             imgSrc: "/assets/Thresh.jpg", 
@@ -28,13 +20,13 @@ function Events() {
             link: "https://larimerlounge.com/event/avello-w-papajay-b2b-spoone-thresh-sam-burt/larimer-lounge/denver-colorado/", 
             category: "upcoming" 
         },
-        // { 
-        //     title: "Savej at Cervantes Masterpiece Ballrooom", 
-        //     imgSrc: "/assets/Savej.png", 
-        //     alt: "savej", 
-        //     link: "https://cervantesmasterpiece.com/event/maps-kickoff-party-hosted-by-tandava-with-poranguí-savej/cervantes-masterpiece-ballroom/denver-colorado/", 
-        //     category: "upcoming" 
-        // },
+        { 
+            title: "Savej at Cervantes Masterpiece Ballrooom", 
+            imgSrc: "/assets/Savej.jpg", 
+            alt: "savej", 
+            link: "https://cervantesmasterpiece.com/event/maps-kickoff-party-hosted-by-tandava-with-poranguí-savej/cervantes-masterpiece-ballroom/denver-colorado/", 
+            category: "upcoming" 
+        },
         { 
             title: "Hol!, OG Nixin b2b Benda, & Twopercent at Red Rocks", 
             imgSrc: "/assets/ATLiens.jpg", 

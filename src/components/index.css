@@ -363,8 +363,8 @@ canvas {
   align-items: center;
   text-align: center;
   gap: 20px;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 7px;
+  padding-right: 7px;
   font-size: 1.3em; 
 }
 
@@ -547,7 +547,18 @@ input:focus:invalid {
 }
 
 .resolume {
-  max-width: 15%;
+  max-width: 10%;
+  height: auto;
+  padding-right: 5px;
+}
+
+.showkontrol {
+  max-width: 25%;
+  height: auto;
+}
+
+.synesthesia {
+  max-width: 12%;
   height: auto;
 }
 
@@ -756,8 +767,8 @@ li {
   .logo-container {
     order: 2;
     flex-grow: 1;
-    margin-top: -10px;
-    padding: 5px;
+    margin-top: 0px;
+    padding: 0px;
   }
 
   .logo-icon, .logo-text {
@@ -881,14 +892,6 @@ li {
     padding: 10px;
     max-width: 95%;
     text-align: left;
-  }
-
-  .logo-container {
-    padding: 3px;
-  }
-
-  .logo-icon, .logo-text {
-    width: 100px;
   }
 
   .social-media-container {
