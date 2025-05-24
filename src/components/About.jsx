@@ -233,8 +233,7 @@ function About() {
         <div className="testimonial-text">
             <p className="quote">
             "With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on."
-            </p>
-            <p className="artist-name">— Heyz</p>
+            </p><p className="artist-name">— Heyz</p>
         </div>
     </div>
     <div className="testimonial-card reverse">
