@@ -256,9 +256,9 @@ function About() {
                 </p>
                 {/* Mobile layout */}
                 <div className="testimonial-footer">
-                    <p className="artist-name">— Heyz</p>
-                    <br />
                     <img src="/assets/Heyz Headshot.jpg" alt="Heyz" className="testimonial-image" />
+                    <br />
+                    <p className="artist-name">— Heyz</p>
                 </div>
                 </a>
             </div>
@@ -276,9 +276,9 @@ function About() {
 
                 {/* Mobile layout */}
                 <div className="testimonial-footer">
-                    <img src="/assets/DJ Pressed Headshot.jpg" alt="DJ Pressed" className="testimonial-image" />
-                    <br />
                     <p className="artist-name">— DJ Pressed</p>
+                    <br />
+                    <img src="/assets/DJ Pressed Headshot.jpg" alt="DJ Pressed" className="testimonial-image" />
                 </div>
                 </a>
             </div>
@@ -295,9 +295,9 @@ function About() {
 
                 {/* Mobile layout */}
                 <div className="testimonial-footer">
-                    <p className="artist-name">— Savej</p>
-                    <br />
                     <img src="/assets/Savej Headshot.webp" alt="Savej" className="testimonial-image" />
+                    <br />
+                    <p className="artist-name">— Savej</p>
                 </div>
                 </a>
             </div>
