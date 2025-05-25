@@ -219,7 +219,7 @@ function About() {
                     <br /><br />
                     Drawing from his background as a music producer and DJ, Visional approaches visual performances with a deep understanding of musical flow, song structure, and 
                     crowd energy. Since bringing his work to the live concert space, he's delivered audio-reactive visuals at iconic venues like Red Rocks, Legend Valley, and 
-                    Burning Man — translating sound into unforgettable visual journeys, one set at a time.
+                    Burning Man — translating sound into unforgettable visual journeys, one set at a time. 👁️‍🗨️
                     </p>
                 </div>
         <h1 className="about-header">Testimonials</h1>
