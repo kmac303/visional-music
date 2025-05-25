@@ -47,12 +47,12 @@ function About() {
                 float pixelDistanceToMouse = length(pixelToMouseDirection);
                 float strength = smoothstep(0.3, 0.0, pixelDistanceToMouse);
         
-                vec2 uvOffset = strength * - mouseDirection * 0.2;
+                vec2 uvOffset = strength * - mouseDirection * 0.4;
                 vec2 uv = vUv - uvOffset;
 
-                vec4 colorR = texture2D(u_texture, uv + vec2(strength * u_aberrationIntensity * 0.01, 0.0));
+                vec4 colorR = texture2D(u_texture, uv + vec2(strength * u_aberrationIntensity * 0.02, 0.0));
                 vec4 colorG = texture2D(u_texture, uv);
-                vec4 colorB = texture2D(u_texture, uv - vec2(strength * u_aberrationIntensity * 0.01, 0.0));
+                vec4 colorB = texture2D(u_texture, uv - vec2(strength * u_aberrationIntensity * 0.02, 0.0));
 
                 gl_FragColor = vec4(colorR.r, colorG.g, colorB.b, 1.0);
             }
@@ -192,7 +192,21 @@ function About() {
         imageContainer.addEventListener("mouseenter", handleMouseEnter);
         imageContainer.addEventListener("mouseleave", handleMouseLeave);
 
+        const resizeObserver = new ResizeObserver(() => {
+            if (renderer && camera) {
+            const width = imageContainer.clientWidth;
+            const height = imageContainer.clientHeight;
+
+            renderer.setSize(width, height, false);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            }
+        });
+
+  resizeObserver.observe(imageContainer);
+
         return () => {
+            resizeObserver.disconnect();
             if (isMobile) {
                 imageContainer.removeEventListener("touchstart", handleTouchStart);
             } else {
@@ -213,7 +227,7 @@ function About() {
                 <img ref={imageRef} src="/assets/Visional Headshot.jpg" alt="Headshot" />
                 </div>
                     <p>
-                    Visional is the live visual project of Kevin McIntosh — a self-taught VJ and multimedia artist who brings music to life through immersive concert visuals (what you see on the screen).
+                    Visional is the visual project of Kevin McIntosh — a self-taught VJ and multimedia artist who brings music to life through immersive concert visuals (what you see on the screen).
                     His journey began during the pandemic, providing weekly live visuals for a Twitch DJ collective - a formative experience that helped him develop 
                     a unique visual style across a wide range of music genres, shaped by experimenting with audio-reactivity and custom camera effects in real-time.
                     <br /><br />
