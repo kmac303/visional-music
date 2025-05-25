@@ -754,7 +754,7 @@ section {
 .testimonial-card {
   flex-direction: column;
   align-items: center;
-  text-align: right;
+  text-align: left;
 }
 
 .testimonial-meta {
@@ -790,6 +790,22 @@ section {
     gap: 12px;
     margin-top: 10px;
   }
+
+.resolume {
+max-width: 20%;
+height: auto;
+padding-right: 5px;
+}
+
+.showkontrol {
+  max-width: 35%;
+  height: auto;
+}
+
+.synesthesia {
+  max-width: 22%;
+  height: auto;
+}
 
 li {
   font-size: 1.0em;
