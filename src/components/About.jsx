@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function About() {
     const imageContainerRef = useRef(null);
@@ -222,6 +222,13 @@ function About() {
 
     return (
     <section>
+        <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ scale: 1 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.0, ease: "easeInOut" }}
+        viewport={{ once: true }}
+        >
         <h1 style={{ textAlign: "center", marginBottom: "10px" }}>Who Is Visional?</h1>
             <div className="image-text-container">
                 <div ref={imageContainerRef} id="imageContainer">
@@ -296,6 +303,7 @@ function About() {
             </div>
             <img src="/assets/Savej Headshot.webp" alt="Savej" className="testimonial-image desktop-only" />
         </div>
+        </motion.section>
     </section>
     );
 }
