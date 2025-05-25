@@ -1,6 +1,7 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { Link } from "react-router-dom";
 
 function About() {
     const imageContainerRef = useRef(null);
@@ -237,25 +238,22 @@ function About() {
                     </p>
                 </div>
         <h1 className="about-header">Testimonials</h1>
-        {/* <div className="testimonial-container">
-            <blockquote>"With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on." — Heyz</blockquote>
-            <blockquote>"Kevin has been instrumental in preparing and executing complex, time-coded sets. He's prepared for every variable, including translating the ramblings of a delusional artist with outrageous expectations."</blockquote>
-            <blockquote>"Every VJ I’ve shared this custom Resolume composition with has been blown away — Kevin’s work on it is next-level and deeply appreciated." — Savej</blockquote>
-        </div> */}
         <div className="testimonial-card reverse">
             <div className="testimonial-text">
                 <p className="quote">
                     "With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on."
                 </p>
                 {/* Desktop name display */}
-                <p className="artist-name desktop-only">— Heyz</p>
-
+                <a href="https://www.heyzmusic.com" target="_blank" rel="noopener noreferrer">
+                <p className="artist-name desktop-only">— Heyz
+                </p>
                 {/* Mobile layout */}
                 <div className="testimonial-footer">
                     <p className="artist-name">— Heyz</p>
                     <br />
                     <img src="/assets/Heyz Headshot.jpg" alt="Heyz" className="testimonial-image" />
                 </div>
+                </a>
             </div>
             <img src="/assets/Heyz Headshot.jpg" alt="Heyz" className="testimonial-image desktop-only" />
         </div>
@@ -265,7 +263,9 @@ function About() {
                     "Kevin has been instrumental in preparing and executing complex, time-coded sets. He's prepared for every variable, including translating the ramblings of a delusional artist with outrageous expectations."
                 </p>
                 {/* Desktop name display */}
-                <p className="artist-name desktop-only">— DJ Pressed</p>
+                <a href="https://www.instagram.com/djpressed/" target="_blank" rel="noopener noreferrer">
+                <p className="artist-name desktop-only">— DJ Pressed
+                </p>
 
                 {/* Mobile layout */}
                 <div className="testimonial-footer">
@@ -273,6 +273,7 @@ function About() {
                     <br />
                     <p className="artist-name">— DJ Pressed</p>
                 </div>
+                </a>
             </div>
             <img src="/assets/DJ Pressed Headshot.jpg" alt="DJ Pressed" className="testimonial-image desktop-only" />
         </div>
@@ -282,6 +283,7 @@ function About() {
                     "Every VJ I’ve shared my custom Resolume composition with has been blown away — Kevin’s work on creating this is next-level and deeply appreciated."
                 </p>
                 {/* Desktop name display */}
+                <a href="https://www.savejmusic.com" target="_blank" rel="noopener noreferrer">
                 <p className="artist-name desktop-only">— Savej</p>
 
                 {/* Mobile layout */}
@@ -290,6 +292,7 @@ function About() {
                     <br />
                     <img src="/assets/Savej Headshot.webp" alt="Savej" className="testimonial-image" />
                 </div>
+                </a>
             </div>
             <img src="/assets/Savej Headshot.webp" alt="Savej" className="testimonial-image desktop-only" />
         </div>
