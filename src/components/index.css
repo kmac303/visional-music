@@ -616,9 +616,16 @@ section {
   color: inherit;
 }
 
+.desktop-only {
+  display: block;
+}
+.mobile-only {
+  display: none;
+}
+
 .testimonial-card {
   display: flex;
-  text-align: left;
+  text-align: right;
   align-items: center;
   gap: 20px;
   background-color: rgba(36, 36, 36, 0.9);
@@ -631,9 +638,17 @@ section {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 }
 
+.testimonial-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
 .testimonial-card.reverse {
   flex-direction: row-reverse;
-  text-align: right;
+  text-align: left;
 }
 
 .testimonial-image {
@@ -658,14 +673,16 @@ section {
   font-weight: bold;
   font-size: 1rem;
   margin: 0;
+  text-align: center left;
 }
 
-.testimonial-meta {
-  display: flex;
+.testimonial-footer {
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
   gap: 8px;
+  margin-top: 10px; */
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -721,15 +738,37 @@ section {
   color: inherit;
 }
 
+.desktop-only {
+  display: none;
+}
+
+.mobile-only {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
 .testimonial-card {
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  text-align: right;
 }
+
+.testimonial-meta {
+    /* display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px; */
+    display: none;
+  }
 
 .testimonial-card.reverse {
   flex-direction: column;
-  text-align: center;
+  text-align: left;
 }
 
 .testimonial-text {
@@ -737,11 +776,20 @@ section {
 }
 
 .testimonial-image {
-  order: 2;
+  /* order: 2; */
   /* margin-top: 1px; */
   width: 100px;
   height: 100px;
 }
+
+.testimonial-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+  }
 
 li {
   font-size: 1.0em;
@@ -882,11 +930,6 @@ li {
     flex-wrap: wrap; 
   }
 
-  .testimonial-meta {
-    flex-direction: row;
-    justify-content: center;
-  }
-
   /* .testimonial-image {
     width: 50px;
     height: 50px;
@@ -895,6 +938,7 @@ li {
   .artist-name {
     font-size: 0.95rem;
     margin: 0;
+    /* text-align: center; */
   }
 
   .image-text-container {

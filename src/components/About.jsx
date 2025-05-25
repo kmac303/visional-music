@@ -206,55 +206,80 @@ function About() {
     }, []);
 
     return (
-        <section>
-  <h1 style={{ textAlign: "center", marginBottom: "10px" }}>Who Is Visional?</h1>
-  <div className="image-text-container">
-    <div ref={imageContainerRef} id="imageContainer">
-      <img ref={imageRef} src="/assets/Visional Headshot.jpg" alt="Headshot" />
-    </div>
-    <p>
-            Visional is the live visual project of Kevin McIntosh — a self-taught VJ and multimedia artist who brings music to life through immersive concert visuals (what you see on the screen).
-            His journey began during the pandemic, providing weekly live visuals for a Twitch DJ collective - a formative experience that helped him develop 
-            a unique visual style across a wide range of music genres, shaped by experimenting with audio-reactivity and custom camera effects in real-time.
-            <br /><br />
-            Drawing from his background as a music producer and DJ, Visional approaches visual performances with a deep understanding of musical flow, song structure, and 
-            crowd energy. Since bringing his work to the live concert space, he's delivered audio-reactive visuals at iconic venues like Red Rocks, Legend Valley, and 
-            Burning Man — translating sound into unforgettable visual journeys, one set at a time.
-            </p>
+    <section>
+        <h1 style={{ textAlign: "center", marginBottom: "10px" }}>Who Is Visional?</h1>
+            <div className="image-text-container">
+                <div ref={imageContainerRef} id="imageContainer">
+                <img ref={imageRef} src="/assets/Visional Headshot.jpg" alt="Headshot" />
+                </div>
+                    <p>
+                    Visional is the live visual project of Kevin McIntosh — a self-taught VJ and multimedia artist who brings music to life through immersive concert visuals (what you see on the screen).
+                    His journey began during the pandemic, providing weekly live visuals for a Twitch DJ collective - a formative experience that helped him develop 
+                    a unique visual style across a wide range of music genres, shaped by experimenting with audio-reactivity and custom camera effects in real-time.
+                    <br /><br />
+                    Drawing from his background as a music producer and DJ, Visional approaches visual performances with a deep understanding of musical flow, song structure, and 
+                    crowd energy. Since bringing his work to the live concert space, he's delivered audio-reactive visuals at iconic venues like Red Rocks, Legend Valley, and 
+                    Burning Man — translating sound into unforgettable visual journeys, one set at a time.
+                    </p>
+                </div>
+        <h1 className="about-header">Testimonials</h1>
+        {/* <div className="testimonial-container">
+            <blockquote>"With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on." — Heyz</blockquote>
+            <blockquote>"Kevin has been instrumental in preparing and executing complex, time-coded sets. He's prepared for every variable, including translating the ramblings of a delusional artist with outrageous expectations."</blockquote>
+            <blockquote>"Every VJ I’ve shared this custom Resolume composition with has been blown away — Kevin’s work on it is next-level and deeply appreciated." — Savej</blockquote>
+        </div> */}
+        <div className="testimonial-card reverse">
+            <div className="testimonial-text">
+                <p className="quote">
+                    "With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on."
+                </p>
+                {/* Desktop name display */}
+                <p className="artist-name desktop-only">— Heyz</p>
+
+                {/* Mobile layout */}
+                <div className="testimonial-footer">
+                    <p className="artist-name">— Heyz</p>
+                    <br />
+                    <img src="/assets/Heyz Headshot.jpg" alt="Heyz" className="testimonial-image" />
+                </div>
             </div>
-    <h1 className="about-header">Testimonials</h1>
-    {/* <div className="testimonial-container">
-        <blockquote>"With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on." — Heyz</blockquote>
-        <blockquote>"Kevin has been instrumental in preparing and executing complex, time-coded sets. He's prepared for every variable, including translating the ramblings of a delusional artist with outrageous expectations."</blockquote>
-        <blockquote>"Every VJ I’ve shared this custom Resolume composition with has been blown away — Kevin’s work on it is next-level and deeply appreciated." — Savej</blockquote>
-    </div> */}
-    <div className="testimonial-card">
-        <img src="/assets/Heyz Headshot.jpg" alt="Heyz" className="testimonial-image" />
-        <div className="testimonial-text">
-            <p className="quote">
-            "With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on."
-            </p><p className="artist-name">— Heyz</p>
+            <img src="/assets/Heyz Headshot.jpg" alt="Heyz" className="testimonial-image desktop-only" />
         </div>
-    </div>
-    <div className="testimonial-card reverse">
-        <img src="/assets/DJ Pressed Headshot.jpg" alt="DJ Pressed" className="testimonial-image" />
-        <div className="testimonial-text">
-            <p className="quote">
-            "Kevin has been instrumental in preparing and executing complex, time-coded sets. He's prepared for every variable, including translating the ramblings of a delusional artist with outrageous expectations."
-            </p>
-            <p className="artist-name">— DJ Pressed</p>
+        <div className="testimonial-card">
+            <div className="testimonial-text">
+                <p className="quote">
+                    "Kevin has been instrumental in preparing and executing complex, time-coded sets. He's prepared for every variable, including translating the ramblings of a delusional artist with outrageous expectations."
+                </p>
+                {/* Desktop name display */}
+                <p className="artist-name desktop-only">— DJ Pressed</p>
+
+                {/* Mobile layout */}
+                <div className="testimonial-footer">
+                    <img src="/assets/DJ Pressed Headshot.jpg" alt="DJ Pressed" className="testimonial-image" />
+                    <br />
+                    <p className="artist-name">— DJ Pressed</p>
+                </div>
+            </div>
+            <img src="/assets/DJ Pressed Headshot.jpg" alt="DJ Pressed" className="testimonial-image desktop-only" />
         </div>
-    </div>
-    <div className="testimonial-card">
-        <img src="/assets/Savej Headshot.webp" alt="Savej" className="testimonial-image" />
-        <div className="testimonial-text">
-            <p className="quote">
-            "Every VJ I’ve shared my custom Resolume composition with has been blown away — Kevin’s work on creating this is next-level and deeply appreciated."
-            </p>
-            <p className="artist-name">— Savej</p>
+        <div className="testimonial-card reverse">
+            <div className="testimonial-text">
+                <p className="quote">
+                    "Every VJ I’ve shared my custom Resolume composition with has been blown away — Kevin’s work on creating this is next-level and deeply appreciated."
+                </p>
+                {/* Desktop name display */}
+                <p className="artist-name desktop-only">— Savej</p>
+
+                {/* Mobile layout */}
+                <div className="testimonial-footer">
+                    <p className="artist-name">— Savej</p>
+                    <br />
+                    <img src="/assets/Savej Headshot.webp" alt="Savej" className="testimonial-image" />
+                </div>
+            </div>
+            <img src="/assets/Savej Headshot.webp" alt="Savej" className="testimonial-image desktop-only" />
         </div>
-    </div>
-        </section>
+    </section>
     );
 }
 

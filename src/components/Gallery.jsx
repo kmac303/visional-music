@@ -9,10 +9,8 @@ function Gallery() {
         "zxcvxfd-Pc0",
         "sX9OlZJ-myQ",
         "oFMawbkvfHU",
-        "TLnfv-eQb24",
         "ge67BqNKB7M",
         "5tvJvxBy1ms",
-        "_n2plYZiDWM"
     ];
 
     const projects = [
