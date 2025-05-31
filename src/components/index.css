@@ -598,10 +598,23 @@ section {
 .event-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  /* grid-template-columns: repeat(auto-fit, min-max(250px, 1fr)); */
   gap: 40px 20px;
   padding: 20px 50px;
   justify-items: center;
+  /* justify-content: center; */
   align-items: start;
+}
+
+.event-card {
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+.centered-event {
+  grid-column: 1 / -1;
+  /* justify-self: center; */
 }
 
 .event-grid img {

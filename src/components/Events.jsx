@@ -14,17 +14,24 @@ function Events() {
     // List of events (upcoming & past)
     const events = [
         { 
-            title: "PapaJay & Thresh at Larimer Lounge", 
-            imgSrc: "/assets/Thresh.jpg", 
-            alt: "thresh", 
-            link: "https://larimerlounge.com/event/avello-w-papajay-b2b-spoone-thresh-sam-burt/larimer-lounge/denver-colorado/", 
+            title: "6/15 - Portal 360 Dome w/ Mfinity & Nyrus", 
+            imgSrc: "/assets/Portal Dome.jpg", 
+            alt: "portalDome", 
+            link: "https://youaretheportal.com/events/portal-dome-jun-15-ecstatic-dance/", 
             category: "upcoming" 
         },
         { 
-            title: "Savej at Cervantes Masterpiece Ballrooom", 
+            title: "6/17 - Savej @ Cervantes Masterpiece Ballrooom", 
             imgSrc: "/assets/Savej.jpg", 
             alt: "savej", 
             link: "https://cervantesmasterpiece.com/event/maps-kickoff-party-hosted-by-tandava-with-poranguí-savej/cervantes-masterpiece-ballroom/denver-colorado/", 
+            category: "upcoming" 
+        },
+        { 
+            title: "6/20 & 6/22 - Lil Fish @ Mission Ballroom", 
+            imgSrc: "/assets/LSZee.jpg", 
+            alt: "lszee", 
+            link: "https://www.axs.com/au/artists/1118602/lszee-tickets", 
             category: "upcoming" 
         },
         { 
@@ -92,7 +99,8 @@ function Events() {
                 {events
                     .filter(event => event.category === "upcoming")
                     .map((event, index) => (
-                        <Link key={index} to={event.link} target="_blank" rel="noopener noreferrer">
+                        <Link key={index} to={event.link} target="_blank" rel="noopener noreferrer"
+                        className={`${event.title.includes("Lil") ? "centered-event" : ""}`}>
                             <img src={event.imgSrc} alt={event.alt} className={event.className} />
                             <h4>{event.title}</h4><br />
                         </Link>
