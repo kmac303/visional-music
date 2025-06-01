@@ -235,12 +235,12 @@ function About() {
                 <img ref={imageRef} src="/assets/Visional Headshot.jpg" alt="Headshot" />
                 </div>
                     <p>
-                    Visional is the visual project of Kevin McIntosh — a self-taught VJ and multimedia artist who brings music to life through immersive concert visuals (what you see on the screen).
+                    Visional is the visual project of Kevin McIntosh — a self-taught VJ and multimedia artist who brings music to life through immersive audio-reactive concert visuals (what you see on the screen).
                     His journey began during the pandemic, providing weekly live visuals for a Twitch DJ collective - a formative experience that helped him develop 
                     a unique visual style across a wide range of music genres, shaped by experimenting with audio-reactivity and custom camera effects in real-time.
                     <br /><br />
                     Drawing from his background as a music producer and DJ, Visional approaches visual performances with a deep understanding of musical flow, song structure, and 
-                    crowd energy. Since bringing his work to the live concert space, he's delivered audio-reactive visuals at iconic venues like Red Rocks, Legend Valley, and 
+                    crowd energy. Since bringing his work to the live concert space, he's delivered live visuals at iconic venues like Red Rocks, Legend Valley, and 
                     Burning Man — translating sound into unforgettable visual journeys, one set at a time. 👁️‍🗨️
                     </p>
                 </div>
