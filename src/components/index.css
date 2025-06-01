@@ -609,11 +609,13 @@ section {
 .event-card {
   text-align: center;
   width: 100%;
-  max-width: 300px;
+  max-width: 100px;
 }
 
 .centered-event {
   grid-column: 1 / -1;
+  text-align: center;
+  /* max-width: 300px; */
   /* justify-self: center; */
 }
 
@@ -766,6 +768,13 @@ section {
   align-items: center;
   gap: 12px;
   margin-top: 10px;
+}
+
+.centered-event {
+  grid-column: 1 / -1;
+  text-align: center;
+  max-width: 200px;
+  /* justify-self: center; */
 }
 
 .testimonial-card {
