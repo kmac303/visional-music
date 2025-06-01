@@ -23,7 +23,7 @@ function Gallery() {
         <section>
             {/* <h1>GALLERY</h1> */}
             <h1>Live Sets</h1>
-            <h3>Recordings of sets Visional has performed live visuals for:</h3>
+            <h3>Recordings of sets Visional has performed live visuals at:</h3>
             <div className="video-gallery">
                 {liveSets.map((id, index) => (
                     <div className="video-container" key={index}>
