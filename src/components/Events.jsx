@@ -14,6 +14,13 @@ function Events() {
     // List of events (upcoming & past)
     const events = [
         { 
+            title: "6/06 - Noetika @ Cervantes Masterpiece Ballroom", 
+            imgSrc: "/assets/Noetika.png", 
+            alt: "noetika", 
+            link: "https://cervantesmasterpiece.com/event/mport-w-noetika-critical-ht-yoko-x-skinny-limbs-dank-frank-big-nut-chuck/cervantes-masterpiece-ballroom/denver-colorado/", 
+            category: "upcoming" 
+        },
+        { 
             title: "6/15 - Portal 360 Dome w/ Mfinity & Nyrus", 
             imgSrc: "/assets/Portal Dome.jpg", 
             alt: "portalDome", 
@@ -100,7 +107,7 @@ function Events() {
                     .filter(event => event.category === "upcoming")
                     .map((event, index) => (
                         <Link key={index} to={event.link} target="_blank" rel="noopener noreferrer"
-                        className={`${event.title.includes("Lil") ? "centered-event" : ""}`}>
+                        className={`${event.title.includes("Big") ? "centered-event" : ""}`}>
                             <img src={event.imgSrc} alt={event.alt} className={event.className} />
                             <h4>{event.title}</h4><br />
                         </Link>
