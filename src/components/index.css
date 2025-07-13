@@ -603,7 +603,7 @@ section {
   padding: 20px 50px;
   justify-items: center;
   /* justify-content: center; */
-  align-items: start;
+  align-items: center;
 }
 
 .event-card {

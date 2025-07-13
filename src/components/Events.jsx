@@ -14,32 +14,32 @@ function Events() {
     // List of events (upcoming & past)
     const events = [
         { 
-            title: "6/06 - Noetika @ Cervantes Masterpiece Ballroom", 
-            imgSrc: "/assets/Noetika.png", 
-            alt: "noetika", 
-            link: "https://cervantesmasterpiece.com/event/mport-w-noetika-critical-ht-yoko-x-skinny-limbs-dank-frank-big-nut-chuck/cervantes-masterpiece-ballroom/denver-colorado/", 
+            title: "7/15 - Droptalk @ The Black Box", 
+            imgSrc: "/assets/Droptalk.png", 
+            alt: "droptalk", 
+            link: "https://events.blackboxdenver.co/e/etuesdays-july15/tickets", 
             category: "upcoming" 
         },
         { 
-            title: "6/15 - Portal 360 Dome w/ Mfinity & Nyrus", 
-            imgSrc: "/assets/Portal Dome.jpg", 
-            alt: "portalDome", 
-            link: "https://youaretheportal.com/events/portal-dome-jun-15-ecstatic-dance/", 
+            title: "7/17 - Chozen @ Larimer Lounge", 
+            imgSrc: "/assets/Chozen.png", 
+            alt: "chozen", 
+            link: "https://larimerlounge.com/event/wakaan-debut-ep-release-party-feat-chozen-w-mindsplitter-aeye-costa/larimer-lounge/denver-colorado/", 
             category: "upcoming" 
         },
         { 
-            title: "6/17 - Savej @ Cervantes Masterpiece Ballrooom", 
+            title: "Portal Dome Macrodose Throwdown", 
+            imgSrc: "/assets/PortalDome.jpeg", 
+            alt: "portaldome", 
+            link: "https://youaretheportal.com/events/portal-dome-macrodose-throwdown/", 
+            category: "past" 
+        },
+        { 
+            title: "Porangui & Savej @ Cervantes Masterpiece Ballrooom", 
             imgSrc: "/assets/Savej.jpg", 
             alt: "savej", 
             link: "https://cervantesmasterpiece.com/event/maps-kickoff-party-hosted-by-tandava-with-poranguí-savej/cervantes-masterpiece-ballroom/denver-colorado/", 
-            category: "upcoming" 
-        },
-        { 
-            title: "6/20 & 6/22 - Lil Fish @ Mission Ballroom", 
-            imgSrc: "/assets/LSZee.jpg", 
-            alt: "lszee", 
-            link: "https://www.axs.com/au/artists/1118602/lszee-tickets", 
-            category: "upcoming" 
+            category: "past" 
         },
         { 
             title: "Hol!, OG Nixin b2b Benda, & Twopercent at Red Rocks", 
