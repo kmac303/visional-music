@@ -14,10 +14,17 @@ function Events() {
     // List of events (upcoming & past)
     const events = [
         { 
-            title: "7/15 - Droptalk @ The Black Box", 
-            imgSrc: "/assets/Droptalk.png", 
-            alt: "droptalk", 
-            link: "https://events.blackboxdenver.co/e/etuesdays-july15/tickets", 
+            title: "9/12 - Sunny Rave w/ DJ Pressed - West Palm Beach", 
+            imgSrc: "/assets/Sunny WPB.jpg", 
+            alt: "sunnywpb", 
+            link: "https://www.ticketweb.com/event/dj-pressed-the-sunny-rave-the-banyan-live-tickets/13868914", 
+            category: "upcoming" 
+        },
+        { 
+            title: "9/13 - Sunny Rave w/ DJ Pressed - Houston", 
+            imgSrc: "/assets/Sunny Houston.jpg", 
+            alt: "sunnyhouston", 
+            link: "https://www.eventim.us/event/DJ-PRESSED-The-SUNNY-RAVE-Tour-Houston/657455?sp=S5C1KZ", 
             category: "upcoming" 
         },
         { 
@@ -25,7 +32,7 @@ function Events() {
             imgSrc: "/assets/Chozen.png", 
             alt: "chozen", 
             link: "https://larimerlounge.com/event/wakaan-debut-ep-release-party-feat-chozen-w-mindsplitter-aeye-costa/larimer-lounge/denver-colorado/", 
-            category: "upcoming" 
+            category: "past" 
         },
         { 
             title: "Portal Dome Macrodose Throwdown", 
@@ -35,14 +42,14 @@ function Events() {
             category: "past" 
         },
         { 
-            title: "Porangui & Savej @ Cervantes Masterpiece Ballrooom", 
+            title: "Porangui & Savej @ Cervantes", 
             imgSrc: "/assets/Savej.jpg", 
             alt: "savej", 
             link: "https://cervantesmasterpiece.com/event/maps-kickoff-party-hosted-by-tandava-with-poranguí-savej/cervantes-masterpiece-ballroom/denver-colorado/", 
             category: "past" 
         },
         { 
-            title: "Hol!, OG Nixin b2b Benda, & Twopercent at Red Rocks", 
+            title: "Hol!, OG Nixin b2b Benda, & Twopercent @ Red Rocks", 
             imgSrc: "/assets/ATLiens.jpg", 
             alt: "atliens", 
             link: "https://www.axs.com/events/836697/atliens-hol-tickets", 
