@@ -69,7 +69,7 @@ function NavBar() {
                 <div className="logo-container">
                     <Link to="/">
                         <div className="logo-wrapper">
-                        <img src="/assets/Logo.png" alt="Visional Music Logo" className="logo-icon" />
+                        <img src="/assets/VISIONAL Logo.png" alt="Visional Music Logo" className="logo-icon" />
                         </div>
                     </Link>
                 </div>
