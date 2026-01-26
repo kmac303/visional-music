@@ -14,17 +14,10 @@ function Events() {
     // List of events (upcoming & past)
     const events = [
         { 
-            title: "9/12 - Sunny Rave w/ DJ Pressed - West Palm Beach", 
-            imgSrc: "/assets/Sunny WPB.jpg", 
-            alt: "sunnywpb", 
-            link: "https://www.ticketweb.com/event/dj-pressed-the-sunny-rave-the-banyan-live-tickets/13868914", 
-            category: "upcoming" 
-        },
-        { 
-            title: "9/13 - Sunny Rave w/ DJ Pressed - Houston", 
-            imgSrc: "/assets/Sunny Houston.jpg", 
-            alt: "sunnyhouston", 
-            link: "https://www.eventim.us/event/DJ-PRESSED-The-SUNNY-RAVE-Tour-Houston/657455?sp=S5C1KZ", 
+            title: "Sunny Rave 2026", 
+            imgSrc: "/assets/sunny_rave26.png", 
+            alt: "sunnyrave26", 
+            link: "https://www.sunnyrave.com/tour", 
             category: "upcoming" 
         },
         { 
