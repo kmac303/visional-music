@@ -1,6 +1,12 @@
 
 function Gallery() {
     const liveSets = [
+        "koF3Oj2KLPE",
+        "8WJu0ZSTP-0?si",
+        "LiPEmsggcZs?si",
+        "-ed4y-uYdAU",
+        "bDPzBRwPQHM",
+        "oRSKuSKv_oc",
         "ZtlzUolyLk0",
         "ZPwsvjX0EWc",
         "JkARTwNcIBI?",

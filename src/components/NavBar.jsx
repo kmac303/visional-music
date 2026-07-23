@@ -48,7 +48,7 @@ function NavBar() {
                 <li><Link to="/events" onClick={closeMenu}>Events</Link></li>
                 <li><Link to="/gallery" onClick={closeMenu}>Gallery</Link></li>
                 <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
-                <li><Link to="/lessons" onClick={closeMenu}>Lessons</Link></li>
+                {/* <li><Link to="/lessons" onClick={closeMenu}>Lessons</Link></li> */}
 
                 {/* Mobile Social Media Icons */}
                 <div className="social-media-container social-media-mobile">
