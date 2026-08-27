@@ -30,8 +30,8 @@ function Gallery() {
     return (
         <section>
             {/* <h1>GALLERY</h1> */}
-            <h1>Live Sets</h1>
-            <h3>Concerts Featuring Visional's Visuals</h3>
+            <h1>Visional's Live VJ Sets</h1>
+            {/* <h3>Concerts Featuring Visional's Visuals</h3> */}
             <div className="video-gallery">
                 {liveSets.map((id, index) => (
                     <div className="video-container" key={index}>
@@ -45,8 +45,8 @@ function Gallery() {
                     </div>
                 ))}
             </div>
-            <h1>Projects</h1>
-            <h3>Artist Collaborations</h3>
+            <h1>Art Collaborations</h1>
+            {/* <h3>Artist Collaborations</h3> */}
             <div className="video-gallery">
                 {projects.map((id, index) => (
                     <div className="video-container" key={index}>
