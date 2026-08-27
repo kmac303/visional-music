@@ -1,6 +1,7 @@
 
 function Gallery() {
     const liveSets = [
+        "HoThrF1lgVA",
         "koF3Oj2KLPE",
         "8WJu0ZSTP-0?si",
         "LiPEmsggcZs?si",
@@ -20,7 +21,7 @@ function Gallery() {
         "oFMawbkvfHU",
         "TLnfv-eQb24",
         "ge67BqNKB7M",
-        "5tvJvxBy1ms",
+        // "5tvJvxBy1ms",
     ];
 
     const projects = [
