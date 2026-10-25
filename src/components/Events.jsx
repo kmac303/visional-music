@@ -21,13 +21,6 @@ function Events() {
             category: "past" 
         },
         { 
-            title: "Hostage Situation @ Ogden Theatre", 
-            imgSrc: "/assets/hostagesituation2.jpg", 
-            alt: "hostagesituation", 
-            link: "https://www.ticketmaster.com/hostage-situation-16-and-over-denver-05-09-2026/event/Z7r9jZ1A7--0O", 
-            category: "past" 
-        },
-        { 
             title: "Decadence 2025", 
             imgSrc: "/assets/Decadence2025.jpg", 
             alt: "decadence25", 
@@ -39,13 +32,6 @@ function Events() {
             imgSrc: "/assets/desertdwellers.jpg", 
             alt: "savej", 
             link: "https://blackspymarketing.com/event/desert-dwellers-at-cervantes-masterpiece/", 
-            category: "past" 
-        },
-        { 
-            title: "Ayybo @ Ogden Theatre", 
-            imgSrc: "/assets/ayybo.jpeg", 
-            alt: "ayybo", 
-            link: "https://do303.com/events/2025/11/1/ayybo-tickets",
             category: "past" 
         },
         { 
@@ -62,22 +48,8 @@ function Events() {
         //     link: "https://www.axs.com/events/836697/atliens-hol-tickets", 
         //     category: "past" 
         // },
-        { 
-            title: "Heyz @ Bluebird Theater", 
-            imgSrc: "/assets/Heyz.jpg", 
-            alt: "heyz", 
-            link: "https://www.axs.com/venues/100811/bluebird-theater-denver-tickets",
-            category: "past" 
-        },
-        { 
-            title: "Decadence 2024", 
-            imgSrc: "/assets/Decadence 24.jpg", 
-            alt: "decadence", 
-            link: "https://decadencenye.com", 
-            category: "past" 
-        },
-        { 
-            title: "Secret Dreams 2024", 
+        {
+            title: "Secret Dreams 2024",
             imgSrc: "/assets/Secret Dreams 24.jpg", 
             alt: "secret dreams", 
             link: "https://www.secretdreamsfest.com", 
