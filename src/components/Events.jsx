@@ -14,7 +14,70 @@ function Events() {
     // List of events (upcoming & past)
     const events = [
         { 
-            title: "Sunny Rave Tour w/ DJ Pressed", 
+            title: "MC4D - Denver", 
+            imgSrc: "/assets/MC4D Haunted Mansion Denver.jpeg", 
+            alt: "mc4ddenver", 
+            link: "https://www.ticketmaster.com/haunted-mansion-feat-loud-luxury-bryce-denver-colorado-10-30-2026/event/1E006514B88DDC53", 
+            category: "upcoming" 
+        },
+        { 
+            title: "Drive Theory - Denver", 
+            imgSrc: "/assets/Drive Theory OH 2026.jpeg", 
+            alt: "drivetheorydenver", 
+            link: "https://larimerlounge.com/event/open-house-feat-drive-theory-mirz-speedy-jd-luke-west/larimer-lounge/denver-colorado/", 
+            category: "upcoming" 
+        },
+        { 
+            title: "Decadence 2026", 
+            imgSrc: "/assets/Decadence CO 2026.jpg", 
+            alt: "decadence2026", 
+            link: "https://decadencenye.com", 
+            category: "upcoming" 
+        },
+        { 
+            title: "WonkyWilla - Lost Lands 2026", 
+            imgSrc: "/assets/Lost Lands 2026.jpeg", 
+            alt: "lostlands2026", 
+            link: "https://www.lostlandsfestival.com", 
+            category: "past" 
+        },
+        { 
+            title: "Global Dance Fest 2026", 
+            imgSrc: "/assets/GDF 2026.jpg", 
+            alt: "gdf2026", 
+            link: "https://globaldancefestival.com", 
+            category: "past" 
+        },
+        // { 
+        //     title: "Tynan - Denver", 
+        //     imgSrc: "/assets/Tynan Denver 2026.jpeg", 
+        //     alt: "tynandenver", 
+        //     link: "https://www.ticketmaster.com/tynan-16-and-over-denver-09-05-2026/event/Z7r9jZ1A7JeGV", 
+        //     category: "past" 
+        // },
+        // { 
+        //     title: "Bear Grillz - Denver", 
+        //     imgSrc: "/assets/Bear Grillz Summit Denver.png", 
+        //     alt: "beargrillzsummit", 
+        //     link: "https://www.insomniac.com/events/bear-grillz-2026-08-22-denver-co/", 
+        //     category: "past" 
+        // },
+        { 
+            title: "DJ Diesel - Vancouver, BC", 
+            imgSrc: "/assets/Diesel Harbour Vancouver.jpeg", 
+            alt: "dieselvancouver", 
+            link: "https://www.insomniac.com/events/dj-diesel-2026-08-21-vancouver-bc/", 
+            category: "past" 
+        },
+        // { 
+        //     title: "DJ Diesel - Fresno", 
+        //     imgSrc: "/assets/Diesel FW Fresno.jpeg", 
+        //     alt: "dieselfresno", 
+        //     link: "https://foamwonderland.com", 
+        //     category: "past" 
+        // },
+        { 
+            title: "Sunny Rave tour w/ DJ Pressed", 
             imgSrc: "/assets/sunnyrave.jpg", 
             alt: "sunnyrave", 
             link: "https://www.sunnyrave.com/tour", 
@@ -27,13 +90,13 @@ function Events() {
             link: "https://decadencenye.com", 
             category: "past" 
         },
-        { 
-            title: "Desert Dwellers, David Starfire, & Savej @ Cervantes", 
-            imgSrc: "/assets/desertdwellers.jpg", 
-            alt: "savej", 
-            link: "https://blackspymarketing.com/event/desert-dwellers-at-cervantes-masterpiece/", 
-            category: "past" 
-        },
+        // { 
+        //     title: "Desert Dwellers, David Starfire, & Savej - Denver", 
+        //     imgSrc: "/assets/desertdwellers.jpg", 
+        //     alt: "savej", 
+        //     link: "https://blackspymarketing.com/event/desert-dwellers-at-cervantes-masterpiece/", 
+        //     category: "past" 
+        // },
         { 
             title: "Portal Dome Macrodose Throwdown", 
             imgSrc: "/assets/PortalDome.jpeg", 
@@ -66,7 +129,7 @@ function Events() {
 
     return (
         <section>
-            {/* <h1>UPCOMING EVENTS</h1>
+            <h1>UPCOMING EVENTS</h1>
             <div className="event-grid">
                 {events
                     .filter(event => event.category === "upcoming")
@@ -78,8 +141,7 @@ function Events() {
                         </Link>
                     ))
                 }
-            </div> */}
-
+            </div>
             <h1>PAST EVENTS</h1>
             <div className="event-grid">
                 {events
