@@ -22,7 +22,7 @@ function Events() {
         },
         { 
             title: "Hostage Situation @ Ogden Theatre", 
-            imgSrc: "/assets/hostagesituation2.png", 
+            imgSrc: "/assets/hostagesituation2.jpg", 
             alt: "hostagesituation", 
             link: "https://www.ticketmaster.com/hostage-situation-16-and-over-denver-05-09-2026/event/Z7r9jZ1A7--0O", 
             category: "past" 
@@ -71,7 +71,7 @@ function Events() {
         },
         { 
             title: "Decadence 2024", 
-            imgSrc: "/assets/Decadence 24.png", 
+            imgSrc: "/assets/Decadence 24.jpg", 
             alt: "decadence", 
             link: "https://decadencenye.com", 
             category: "past" 

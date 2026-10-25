@@ -8,7 +8,7 @@
 - 🎟️ **Upcoming & Past Events** – Stay updated on where I’m performing next and explore past events.  
 - 📺 **YouTube Gallery** – Watch live VJ sets or collaborative projects, and experience the immersive visuals.  
 - 🎓 **VJ Lessons** – Learn how to create **stunning live visuals** using **Resolume & Synesthesia Live**.  
-- 🔗 **Contact & Booking** – Easily submit a form for **bookings** or **collaborations**.
+- 🔗 **Contact & Booking** – Reach out by email or Instagram for **bookings** or **collaborations**.
 
 ---
 
