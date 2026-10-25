@@ -1,6 +1,3 @@
-
-import { Link } from "react-router-dom";
-
 function Lessons() {
     return (
         <section>
@@ -18,22 +15,30 @@ function Lessons() {
                 <br />
                 Are you already a VJ,<br />but want to step up your know-how?<br />
                 <br />
-                <Link to="/lessonrequest" className="lesson-request-link">
-                <strong>Unlock your visual creativity!</strong><br />
-                    ➡️ Click here to request a VJ Lesson ⬅️
-                </Link>
+                <strong>Unlock your visual creativity!</strong>
+                <br />
+                Email{" "}
+                <a href="mailto:contact@visionalmusic.com">
+                    contact@visionalmusic.com
+                </a>
+                {" "}to book a lesson.
                 <br /><br />
                 Transform your live performances with expert VJ lessons designed for all skill levels.<br /><br />
                 Learn the art of creating captivating shows using tools like Resolume, Synesthesia Live, and ShowKontrol.<br /><br />
                 Whether you&apos;re just starting or looking to refine your craft, Visional’s tailored lessons will help you master the techniques and workflows to captivate any audience.<br />
                 <br />
-                <Link to="/lessonrequest" className="lesson-request-link">
-                    ➡️ Request a VJ Lesson now ⬅️
-                </Link>
+                Instagram:{" "}
+                <a
+                    href="https://www.instagram.com/visionalmusic"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    @visionalmusic
+                </a>
             </p>
             </div>
         </section>
     );
-};
+}
 
 export default Lessons;
