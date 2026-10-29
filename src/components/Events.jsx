@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 function Events() {
     // List of artists
     const artistList = [
-        "Valentino Khan", "Midnight Tyrannosaurus", "Sidepiece", "Hol!",  "The Glitch Mob", "Getter", "Maddy O’Neal", 
-        "Space Laces", "Jkyl & Hyde", "Wreckno", "Rusko", "Skepsis", "Jon Casey", "Sisto", "OG Nixin", "Benda",
-        "Ayybo", "Phutureprimitive", "Lizzy Jane", "DJ Pressed", "Random Rab", "Savej", "Heyz", "David Starfire", 
-        "Pauline Herr", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", "DMVU", "Toadface", "Kumarion", "Swampz", 
-        "Covex", "Chozen", "Twopercent", "MZG", "Vinnie Maniscalco", "Omas", "Top Brahman", "Noetika", "PapaJay"
+        "DJ Diesel (Shaq)", "Valentino Khan", "Noizu", "Shipwrek", "Sidepiece", "Hol!", "Wuki", "The Glitch Mob", "Getter", "Maddy O’Neal", 
+        "Space Laces", "Jkyl & Hyde", "Wreckno", "Rusko", "Skepsis", "Jon Casey", "Desert Dwellers", "Midnight Tyrannosaurus", "Sisto", "Hills", "Bolo", "OG Nixin", "Benda", "Tynan",
+        "Ayybo", "Bear Grillz", "Phutureprimitive", "Lizzy Jane", "DJ Pressed", "Random Rab", "Savej", "Heyz", "David Starfire", 
+        "Pauline Herr", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", "DMVU", "Toadface", "Kumarion", "Pretty Sweet", "Green Matter", "Hostage Situation", "Swampz", 
+        "Covex", "Chozen", "Twopercent", "Omas", "Tsu Nami", "Noetika", "PapaJay", "Vinnie Maniscalco", "Top Brahman", "Lil Fish", "Bruer", "MZG"
     ];
 
     // List of events (upcoming & past)
