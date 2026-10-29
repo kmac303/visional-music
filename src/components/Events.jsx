@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 function Events() {
     // List of artists
     const artistList = [
-        "DJ Diesel (Shaq)", "Valentino Khan", "Noizu", "Shipwrek", "Sidepiece", "Hol!", "Wuki", "The Glitch Mob", "Getter", "Maddy O’Neal", 
-        "Space Laces", "Jkyl & Hyde", "Wreckno", "Rusko", "Skepsis", "Jon Casey", "Desert Dwellers", "Midnight Tyrannosaurus", "Sisto", "Hills", "Bolo", "OG Nixin", "Benda", "Tynan",
-        "Ayybo", "Bear Grillz", "Phutureprimitive", "Lizzy Jane", "DJ Pressed", "Random Rab", "Savej", "Heyz", "David Starfire", 
-        "Pauline Herr", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", "DMVU", "Toadface", "Kumarion", "Pretty Sweet", "Green Matter", "Hostage Situation", "Swampz", 
-        "Covex", "Chozen", "Twopercent", "Omas", "Tsu Nami", "Noetika", "PapaJay", "Lil Fish", "Bruer", "Vinnie Maniscalco", "Top Brahman", "MZG"
+        "DJ Diesel (Shaq)", "Valentino Khan", "Noizu", "Shipwrek", "Sidepiece", "Hol!", "Netsky", "Wuki", "The Glitch Mob", "Getter", "Maddy O’Neal", 
+        "Space Laces", "Jkyl & Hyde", "Wreckno", "Rusko", "Skepsis", "WonkyWilla", "Jon Casey", "Ayybo", "Desert Dwellers", "Tynan", "Hills", "Midnight Tyrannosaurus", "Bolo", "OG Nixin", "Benda",
+         "Bear Grillz", "Sisto", "Lizzy Jane", "DJ Pressed", "Random Rab", "Savej", "Heyz", "David Starfire", 
+        "Pauline Herr", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", "DMVU", "Toadface", "Kumarion", "Pretty Sweet", "Green Matter", "Hostage Situation", "Phutureprimitive", "Swampz", 
+        "Covex", "Chozen", "Twopercent", "Toadface", "Habitaat", "Omas", "Tsu Nami", "Noetika", "PapaJay", "Lil Fish", "MZG", "Vinnie Maniscalco", "Bruer"
     ];
 
     // List of events (upcoming & past)
