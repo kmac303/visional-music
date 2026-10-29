@@ -8,7 +8,7 @@ function Events() {
         "Space Laces", "Jkyl & Hyde", "Wreckno", "Rusko", "Skepsis", "Jon Casey", "Desert Dwellers", "Midnight Tyrannosaurus", "Sisto", "Hills", "Bolo", "OG Nixin", "Benda", "Tynan",
         "Ayybo", "Bear Grillz", "Phutureprimitive", "Lizzy Jane", "DJ Pressed", "Random Rab", "Savej", "Heyz", "David Starfire", 
         "Pauline Herr", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", "DMVU", "Toadface", "Kumarion", "Pretty Sweet", "Green Matter", "Hostage Situation", "Swampz", 
-        "Covex", "Chozen", "Twopercent", "Omas", "Tsu Nami", "Noetika", "PapaJay", "Vinnie Maniscalco", "Top Brahman", "Lil Fish", "Bruer", "MZG"
+        "Covex", "Chozen", "Twopercent", "Omas", "Tsu Nami", "Noetika", "PapaJay", "Lil Fish", "Bruer", "Vinnie Maniscalco", "Top Brahman", "MZG"
     ];
 
     // List of events (upcoming & past)
