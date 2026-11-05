@@ -1101,3 +1101,39 @@ li {
     padding: 10px;
   }
 }
+
+/* Navbar logo glitch: red and cyan copies split apart with the music */
+.glitch-logo {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.glitch-logo-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.glitch-logo.glitching .glitch-logo-red,
+.glitch-logo.glitching .glitch-logo-cyan {
+  opacity: 1;
+  mix-blend-mode: screen;
+}
+
+.glitch-logo.glitching .glitch-logo-red {
+  transform: translate(var(--split-x, 0px), var(--split-y, 0px));
+}
+
+.glitch-logo.glitching .glitch-logo-cyan {
+  transform: translate(calc(var(--split-x, 0px) * -1), calc(var(--split-y, 0px) * -1));
+}
+
+.glitch-logo.glitching .glitch-logo-tear {
+  opacity: var(--tear, 0);
+  clip-path: inset(var(--tear-top, 40%) 0 var(--tear-bottom, 50%) 0);
+  transform: translateX(var(--tear-shift, 0px));
+}

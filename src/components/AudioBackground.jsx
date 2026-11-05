@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FaPlay, FaPause, FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
+import { audioLevels } from "./audioLevels";
 
 // Set to null to hide the play button.
 const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Savej – Solstice (Visional Remix)" };
@@ -14,18 +15,21 @@ const vertexShader = `
 `;
 
 const fragmentShader = `
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+    #else
     precision mediump float;
+    #endif
 
     uniform sampler2D u_texture;
     uniform vec2 u_res;
     uniform float u_time;
-    uniform float u_flow;
     uniform float u_bass;
     uniform float u_mid;
     uniform float u_high;
-    uniform float u_warp;
-    uniform float u_fold;
-    uniform vec3 u_swirl[3];
+    uniform vec2 u_grid;
+    uniform float u_seed;
+    uniform float u_amount;
     uniform float u_dim;
 
     float hash(vec2 p) {
@@ -34,23 +38,13 @@ const fragmentShader = `
         return fract(p.x * p.y);
     }
 
-    float noise(vec2 p) {
-        vec2 i = floor(p);
-        vec2 f = fract(p);
-        vec2 u = f * f * (3.0 - 2.0 * f);
-        return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
-                   mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+    vec2 hash2(vec2 p) {
+        return vec2(hash(p), hash(p + 17.31));
     }
 
-    float fbm(vec2 p) {
-        float v = 0.0;
-        float a = 0.5;
-        for (int i = 0; i < 4; i++) {
-            v += a * noise(p);
-            p = p * 2.03 + vec2(1.7, 9.2);
-            a *= 0.5;
-        }
-        return v;
+    // Cover-fit the square image to the screen, drifting slowly sideways
+    vec2 cover(vec2 screen) {
+        return (screen - 0.5) * (u_res / max(u_res.x, u_res.y)) * 0.9 + 0.5 + vec2(u_time * 0.004, 0.0);
     }
 
     // Mirror-repeat so the glitch image tiles without visible seams
@@ -58,49 +52,51 @@ const fragmentShader = `
         return texture2D(u_texture, 1.0 - abs(mod(uv, 2.0) - 1.0)).rgb;
     }
 
-    // Twist the liquid around a point, strongest at the center and fading outward
-    vec2 swirl(vec2 uv, vec3 s) {
-        vec2 d = uv - s.xy;
-        float angle = s.z * exp(-dot(d, d) / 0.06);
-        float c = cos(angle);
-        float n = sin(angle);
-        return s.xy + mat2(c, n, -n, c) * d;
-    }
-
     void main() {
         vec2 screen = gl_FragCoord.xy / u_res;
-        // Cover-fit the square image to the screen
-        vec2 uv = (screen - 0.5) * (u_res / max(u_res.x, u_res.y)) * 0.9 + 0.5;
-        float t = u_flow;
+        vec2 uv = cover(screen);
 
-        // Kicks stir the liquid: each one leaves a swirl that slowly relaxes
-        for (int i = 0; i < 3; i++) {
-            uv = swirl(uv, u_swirl[i]);
+        // Block corruption: large blocks and smaller sub-blocks jump out of place.
+        // u_amount sets how many blocks break, u_grid sets their size.
+        vec2 cell = floor(screen * u_grid);
+        vec2 sub = floor(screen * u_grid * vec2(4.0, 3.0));
+        float roll = hash(cell + u_seed);
+        float subRoll = hash(sub + u_seed * 1.37);
+        vec2 shift = vec2(0.0);
+        float lift = 0.0;
+
+        if (roll < u_amount * 0.45) {
+            shift = (hash2(cell + u_seed + 3.1) - 0.5) * vec2(0.4, 0.1);
+            lift = 0.25;
+        } else if (subRoll < u_amount * 0.2) {
+            shift = (hash2(sub + u_seed + 5.7) - 0.5) * vec2(0.15, 0.03);
         }
 
-        // Domain-warped flow: noise bends the image like marbled liquid.
-        // Bass deepens the warp and mids tighten the folds.
-        vec2 p = uv * 1.6;
-        vec2 q = vec2(fbm(p + vec2(0.0, t * 0.6)), fbm(p + vec2(5.2, -t * 0.5)));
-        vec2 r = vec2(fbm(p + u_fold * q + vec2(1.7, 9.2) + t * 0.15),
-                      fbm(p + u_fold * q + vec2(8.3, 2.8) - t * 0.12));
-        vec2 flow = (r - 0.5) * vec2(1.6, 1.0);
-        uv += flow * u_warp + vec2(t * 0.02, 0.0);
+        // Some blocks smear their left edge across the whole block
+        if (hash(cell + u_seed + 9.1) < u_amount * 0.15) {
+            uv.x = cover(vec2(cell.x / u_grid.x, screen.y)).x;
+            lift = 0.15;
+        }
 
-        // Hi-hats occasionally make thin horizontal bands slip sideways
-        float band = floor(screen.y * 60.0);
+        // Hi-hats occasionally make thin horizontal lines slip sideways
+        float line = floor(screen.y * 90.0);
         float tick = floor(u_time * 16.0);
-        float slip = step(0.985 - 0.06 * u_high, hash(vec2(band, tick)));
-        uv.x += slip * (hash(vec2(band, tick + 3.0)) - 0.5) * 0.06;
+        if (hash(vec2(line, tick)) > 0.99 - 0.05 * u_high) {
+            shift.x += (hash(vec2(line, tick + 3.0)) - 0.5) * 0.05;
+        }
+        uv += shift;
 
-        // Red/cyan fringes along the flow. Keeping the unshifted image as the
-        // core leaves the glitches white, like the original.
-        vec2 split = normalize(flow + 0.0001) * (0.002 + 0.002 * u_mid);
+        // Red/cyan fringes, plus blocks where only one color layer jumps
+        vec2 split = vec2(0.002 + 0.003 * u_mid, 0.0);
+        vec2 channel = vec2(0.0);
+        if (hash(cell + u_seed + 2.2) < u_amount * 0.3) {
+            channel.x = (hash(cell + u_seed + 4.4) - 0.5) * 0.06;
+        }
         vec3 core = glitch(uv);
-        vec3 fringe = vec3(glitch(uv + split).r, glitch(uv - split).gb);
-        vec3 col = max(core * 0.9, fringe);
+        vec3 fringe = vec3(glitch(uv + split + channel).r, glitch(uv - split - channel).gb);
+        vec3 col = max(core * 0.9, fringe) * (1.0 + lift);
 
-        col *= 0.9 + 0.25 * u_bass;
+        col *= 0.9 + 0.2 * u_bass;
         col += (hash(gl_FragCoord.xy + fract(u_time)) - 0.5) * 0.03;
         col *= smoothstep(1.2, 0.35, length(screen - 0.5));
 
@@ -202,7 +198,7 @@ function AudioBackground() {
         gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
 
         const uniforms = {};
-        ["u_texture", "u_res", "u_time", "u_flow", "u_bass", "u_mid", "u_high", "u_warp", "u_fold", "u_swirl", "u_dim"].forEach((name) => {
+        ["u_texture", "u_res", "u_time", "u_bass", "u_mid", "u_high", "u_grid", "u_seed", "u_amount", "u_dim"].forEach((name) => {
             uniforms[name] = gl.getUniformLocation(program, name);
         });
         gl.uniform1f(uniforms.u_dim, 0.55);
@@ -242,14 +238,19 @@ function AudioBackground() {
         let lastDraw = 0;
         const frameInterval = isMobile ? 1000 / 30 : 0;
         const start = performance.now();
-        let flow = 0;
         let lastFrame = start;
-        let warp = 0.12;
-        let fold = 3.0;
         let kicksSeen = 0;
-        // Three swirl slots reused in turn: x, y, current twist, target twist
-        const swirls = [0, 1, 2].map(() => ({ x: 0.5, y: 0.5, twist: 0, target: 0 }));
-        const swirlData = new Float32Array(9);
+        let amount = 0;
+        let seed = 0;
+        let nextRefresh = 0;
+        let grid = [24, 14];
+
+        // Bigger bass means bigger blocks; rows follow the screen shape so blocks stay wide
+        function pickGrid(bass) {
+            const columns = bass > 0.75 ? 6 : bass > 0.45 ? 12 : 24;
+            const rows = Math.max(3, Math.round(columns * (canvas.height / canvas.width) * 1.8));
+            return [columns, rows];
+        }
 
         function draw(now) {
             frame = requestAnimationFrame(draw);
@@ -268,45 +269,44 @@ function AudioBackground() {
             }
 
             const { level } = analysis;
-            // The liquid speeds up with the music instead of jumping, so motion stays smooth
             const dt = Math.min(0.1, (now - lastFrame) / 1000);
             lastFrame = now;
-            flow += dt * (0.1 + 0.7 * level.bass + 0.3 * level.mid);
 
-            // Bass deepens the warp quickly and lets it settle slowly, so the liquid breathes
-            const warpTarget = 0.1 + 0.45 * level.bass;
-            warp += (warpTarget - warp) * Math.min(1, dt * (warpTarget > warp ? 8 : 1.5));
-            fold += (3.0 + 2.5 * level.mid - fold) * Math.min(1, dt * 1.5);
-
-            // Each new kick drops a swirl at a random spot, alternating direction
-            while (kicksSeen < level.kicks) {
-                const slot = swirls[kicksSeen % swirls.length];
-                if (Math.abs(slot.twist) < 0.3) {
-                    // Pick a spot inside the visible part of the cover-fitted image
-                    const longest = Math.max(canvas.width, canvas.height);
-                    slot.x = 0.5 + (Math.random() - 0.5) * 0.55 * (canvas.width / longest);
-                    slot.y = 0.5 + (Math.random() - 0.5) * 0.55 * (canvas.height / longest);
-                }
-                slot.target += (kicksSeen % 2 ? -1 : 1) * (0.9 + 0.6 * level.bass);
-                kicksSeen += 1;
+            // Each kick breaks a fresh set of blocks; they snap back within a fraction of a second
+            if (kicksSeen < level.kicks) {
+                audioLevels.kicks += level.kicks - kicksSeen;
+                kicksSeen = level.kicks;
+                amount = Math.max(amount, 0.5 + 0.5 * level.bass);
+                grid = pickGrid(level.bass);
+                seed += 1;
+                nextRefresh = now + 70;
+            } else if (!analyser && Math.random() < dt / 4) {
+                // With no sound, an occasional small burst keeps the background alive
+                amount = 0.35;
+                grid = pickGrid(Math.random());
+                seed += 1;
             }
-            swirls.forEach((slot, i) => {
-                // Ease into the twist, then let it unwind over a couple of seconds
-                slot.twist += (slot.target - slot.twist) * Math.min(1, dt * 6);
-                slot.target *= Math.exp(-dt / 1.6);
-                swirlData[i * 3] = slot.x;
-                swirlData[i * 3 + 1] = slot.y;
-                swirlData[i * 3 + 2] = slot.twist;
-            });
+            const baseline = 0.02 + 0.12 * level.bass + 0.08 * level.high;
+            amount = baseline + (amount - baseline) * Math.exp(-dt / 0.18);
+
+            // While blocks are broken, reshuffle them quickly so the corruption jitters
+            if (now > nextRefresh) {
+                seed += 1;
+                nextRefresh = now + (amount > 0.15 ? 70 : 600);
+            }
+
+            audioLevels.bass = level.bass;
+            audioLevels.mid = level.mid;
+            audioLevels.high = level.high;
+            audioLevels.kick = level.kick;
 
             gl.uniform1f(uniforms.u_time, (now - start) / 1000);
-            gl.uniform1f(uniforms.u_flow, flow);
             gl.uniform1f(uniforms.u_bass, level.bass);
             gl.uniform1f(uniforms.u_mid, level.mid);
             gl.uniform1f(uniforms.u_high, level.high);
-            gl.uniform1f(uniforms.u_warp, warp);
-            gl.uniform1f(uniforms.u_fold, fold);
-            gl.uniform3fv(uniforms.u_swirl, swirlData);
+            gl.uniform2f(uniforms.u_grid, grid[0], grid[1]);
+            gl.uniform1f(uniforms.u_seed, seed % 97);
+            gl.uniform1f(uniforms.u_amount, amount);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         }
         frame = requestAnimationFrame(draw);
@@ -331,6 +331,10 @@ function AudioBackground() {
             gl.deleteShader(fs);
         };
     }, [animate]);
+
+    useEffect(() => {
+        audioLevels.playing = mode !== "off";
+    }, [mode]);
 
     // Release the mic and audio context when the component goes away
     useEffect(() => {

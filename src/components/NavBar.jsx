@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
+import GlitchLogo from './GlitchLogo';
 
 function NavBar() {
     const [isScrollingUp, setIsScrollingUp] = useState(true);
@@ -69,7 +70,7 @@ function NavBar() {
                 <div className="logo-container">
                     <Link to="/">
                         <div className="logo-wrapper">
-                        <img src="/assets/VISIONAL Logo.png" alt="Visional Music Logo" className="logo-icon" />
+                        <GlitchLogo src="/assets/VISIONAL Logo.png" alt="Visional Music Logo" className="logo-icon" />
                         </div>
                     </Link>
                 </div>
