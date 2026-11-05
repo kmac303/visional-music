@@ -201,12 +201,25 @@ function createTarget(gl, width, height) {
     return { texture, framebuffer };
 }
 
-// Turns raw FFT data into smoothed bass/mid/high levels plus a kick pulse.
+// Turns raw FFT data into smoothed bass/mid/high levels plus a beat pulse.
+// "kick" means any strong hit (kick, snare, clap), found by onset detection.
 function createAnalysis() {
     const level = { bass: 0, mid: 0, high: 0, kick: 0, kicks: 0 };
     const peak = { bass: 0.2, mid: 0.2, high: 0.2 };
-    let bassAverage = 0;
+    const floor = { bass: 0, mid: 0, high: 0 };
+    let previous = null;
+    let fluxAverage = 0;
+    let fluxSpread = 0.01;
     let lastKick = 0;
+
+    // How much a band got louder since the last frame (spectral flux)
+    function bandFlux(data, binHz, lo, hi) {
+        const start = Math.max(1, Math.floor(lo / binHz));
+        const end = Math.min(data.length - 1, Math.ceil(hi / binHz));
+        let sum = 0;
+        for (let i = start; i <= end; i++) sum += Math.max(0, data[i] - previous[i]);
+        return sum / ((end - start + 1) * 255);
+    }
 
     function bandAverage(data, binHz, lo, hi) {
         const start = Math.max(1, Math.floor(lo / binHz));
@@ -217,9 +230,12 @@ function createAnalysis() {
     }
 
     function smooth(name, value) {
-        // Auto-gain: quiet mics and loud tracks both fill the 0-1 range
-        peak[name] = Math.max(value, peak[name] * 0.995, 0.08);
-        const normalized = Math.min(1, value / peak[name]);
+        // Auto-gain: stretch each band between its recent quietest and loudest points,
+        // so quiet mics and loud, steady masters both swing across the full 0-1 range
+        peak[name] = Math.max(value, peak[name] - (peak[name] - value) * 0.003);
+        floor[name] = Math.min(value, floor[name] + (value - floor[name]) * 0.003);
+        const range = Math.max(0.06, peak[name] - floor[name]);
+        const normalized = Math.min(1, Math.max(0, (value - floor[name]) / range));
         const rate = normalized > level[name] ? 0.5 : 0.1;
         level[name] += (normalized - level[name]) * rate;
     }
@@ -232,12 +248,25 @@ function createAnalysis() {
             smooth("mid", bandAverage(data, binHz, 250, 2000));
             smooth("high", bandAverage(data, binHz, 4000, 12000));
 
-            bassAverage += (bass - bassAverage) * 0.05;
-            if (bass - bassAverage > 0.08 && now - lastKick > 180) {
-                level.kick = 1;
-                level.kicks += 1;
-                lastKick = now;
+            // A hit is a sudden rise in energy across the spectrum, weighted toward the low end,
+            // that stands out from how busy the music has been lately. This catches kicks,
+            // snares, and claps even when a track's sub-bass is one sustained wall.
+            if (previous) {
+                const flux = 0.5 * bandFlux(data, binHz, 30, 250)
+                    + 0.35 * bandFlux(data, binHz, 250, 4000)
+                    + 0.15 * bandFlux(data, binHz, 4000, 12000);
+                const excess = flux - fluxAverage;
+                fluxAverage += excess * 0.05;
+                fluxSpread += (Math.abs(excess) - fluxSpread) * 0.05;
+                if (excess > Math.max(0.004, fluxSpread * 3.5) && now - lastKick > 180) {
+                    level.kick = 1;
+                    level.kicks += 1;
+                    lastKick = now;
+                }
+            } else {
+                previous = new Uint8Array(data.length);
             }
+            previous.set(data);
             level.kick *= 0.9;
         },
         decay() {
@@ -491,7 +520,12 @@ function AudioBackground() {
             audio.context = new AudioContext();
             audio.analyser = audio.context.createAnalyser();
             audio.analyser.fftSize = 1024;
-            audio.analyser.smoothingTimeConstant = 0.75;
+            // Faster response keeps kicks sharp
+            audio.analyser.smoothingTimeConstant = 0.5;
+            // The default ceiling (-30 dB) is far below a mastered track's bass,
+            // which would pin the readings at 100% and leave nothing to react to
+            audio.analyser.minDecibels = -90;
+            audio.analyser.maxDecibels = -5;
         }
         // Browsers only allow audio to start from a click, so resume here
         audio.context.resume();
