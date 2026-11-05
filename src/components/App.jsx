@@ -7,12 +7,14 @@ import Lessons from './Lessons';
 import Events from './Events';
 import Gallery from './Gallery';
 import Contact from './Contact';
+import AudioBackground from './AudioBackground';
 
 
 function App() {
 
   return (
     <div>
+      <AudioBackground />
       <NavBar />
       <Routes>
         <Route path="/" element={<About />} />
