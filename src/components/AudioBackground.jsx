@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { FaPlay, FaPause, FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 
-// Set to { src: "/audio/your-track.mp3", title: "Track name" } to show the play button.
-const TRACK = null;
+// Set to null to hide the play button.
+const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Savej – Solstice (Visional Remix)" };
 
 const vertexShader = `
     attribute vec2 a_position;
