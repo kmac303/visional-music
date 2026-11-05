@@ -14,23 +14,31 @@ const vertexShader = `
     }
 `;
 
-const fragmentShader = `
+const PRECISION = `
     #ifdef GL_FRAGMENT_PRECISION_HIGH
     precision highp float;
     #else
     precision mediump float;
     #endif
+`;
 
+// Pass 1: builds each frame from the previous one, like a video codec with its
+// refresh frames removed. Blocks of old pixels get dragged along motion vectors,
+// and only some blocks are redrawn from the clean glitch image.
+const moshShader = PRECISION + `
     uniform sampler2D u_texture;
+    uniform sampler2D u_prev;
     uniform vec2 u_res;
     uniform float u_time;
-    uniform float u_bass;
     uniform float u_mid;
     uniform float u_high;
     uniform vec2 u_grid;
     uniform float u_seed;
     uniform float u_amount;
-    uniform float u_dim;
+    uniform float u_motion;
+    uniform float u_refresh;
+    uniform float u_frame;
+    uniform float u_field;
 
     float hash(vec2 p) {
         p = fract(p * vec2(123.34, 456.21));
@@ -40,6 +48,14 @@ const fragmentShader = `
 
     vec2 hash2(vec2 p) {
         return vec2(hash(p), hash(p + 17.31));
+    }
+
+    float noise(vec2 p) {
+        vec2 i = floor(p);
+        vec2 f = fract(p);
+        vec2 u = f * f * (3.0 - 2.0 * f);
+        return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
+                   mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
     }
 
     // Cover-fit the square image to the screen, drifting slowly sideways
@@ -52,12 +68,10 @@ const fragmentShader = `
         return texture2D(u_texture, 1.0 - abs(mod(uv, 2.0) - 1.0)).rgb;
     }
 
-    void main() {
-        vec2 screen = gl_FragCoord.xy / u_res;
+    // The clean glitch image, with block corruption on kicks and red/cyan fringes
+    vec3 fresh(vec2 screen) {
         vec2 uv = cover(screen);
 
-        // Block corruption: large blocks and smaller sub-blocks jump out of place.
-        // u_amount sets how many blocks break, u_grid sets their size.
         vec2 cell = floor(screen * u_grid);
         vec2 sub = floor(screen * u_grid * vec2(4.0, 3.0));
         float roll = hash(cell + u_seed);
@@ -86,7 +100,6 @@ const fragmentShader = `
         }
         uv += shift;
 
-        // Red/cyan fringes, plus blocks where only one color layer jumps
         vec2 split = vec2(0.002 + 0.003 * u_mid, 0.0);
         vec2 channel = vec2(0.0);
         if (hash(cell + u_seed + 2.2) < u_amount * 0.3) {
@@ -94,12 +107,48 @@ const fragmentShader = `
         }
         vec3 core = glitch(uv);
         vec3 fringe = vec3(glitch(uv + split + channel).r, glitch(uv - split - channel).gb);
-        vec3 col = max(core * 0.9, fringe) * (1.0 + lift);
+        return max(core * 0.9, fringe) * (1.0 + lift);
+    }
 
+    void main() {
+        vec2 screen = gl_FragCoord.xy / u_res;
+
+        // 8x8 pixel macroblocks, each with a motion vector from a smooth field,
+        // so neighbouring blocks slide together like moving objects in a video
+        vec2 block = floor(gl_FragCoord.xy / 8.0);
+        vec2 motion = vec2(noise(block * 0.12 + u_field), noise(block * 0.12 + u_field + 19.7)) - 0.5;
+        motion *= 2.0 * (0.4 + hash(block + u_field));
+
+        // Whole-pixel steps keep the smears crisp instead of blurring over time
+        vec2 from = gl_FragCoord.xy - floor(motion * u_motion + 0.5);
+        vec3 moshed = texture2D(u_prev, from / u_res).rgb;
+
+        // A few blocks per frame refresh from the clean image
+        float refresh = step(hash(block + u_frame), u_refresh);
+        gl_FragColor = vec4(mix(moshed, fresh(screen), refresh), 1.0);
+    }
+`;
+
+// Pass 2: shows the moshed frame with grain, vignette, and dimming for readability
+const presentShader = PRECISION + `
+    uniform sampler2D u_frameTex;
+    uniform vec2 u_res;
+    uniform float u_time;
+    uniform float u_bass;
+    uniform float u_dim;
+
+    float hash(vec2 p) {
+        p = fract(p * vec2(123.34, 456.21));
+        p += dot(p, p + 45.32);
+        return fract(p.x * p.y);
+    }
+
+    void main() {
+        vec2 screen = gl_FragCoord.xy / u_res;
+        vec3 col = texture2D(u_frameTex, screen).rgb;
         col *= 0.9 + 0.2 * u_bass;
         col += (hash(gl_FragCoord.xy + fract(u_time)) - 0.5) * 0.03;
         col *= smoothstep(1.2, 0.35, length(screen - 0.5));
-
         gl_FragColor = vec4(col * u_dim, 1.0);
     }
 `;
@@ -114,6 +163,42 @@ function compile(gl, type, source) {
         return null;
     }
     return shader;
+}
+
+function createProgram(gl, fragmentSource) {
+    const vs = compile(gl, gl.VERTEX_SHADER, vertexShader);
+    const fs = compile(gl, gl.FRAGMENT_SHADER, fragmentSource);
+    if (!vs || !fs) return null;
+    const program = gl.createProgram();
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+    // The shaders are owned by the program now
+    gl.deleteShader(vs);
+    gl.deleteShader(fs);
+    const uniforms = {};
+    const count = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
+    for (let i = 0; i < count; i++) {
+        const { name } = gl.getActiveUniform(program, i);
+        uniforms[name] = gl.getUniformLocation(program, name);
+    }
+    return { program, uniforms, position: gl.getAttribLocation(program, "a_position") };
+}
+
+// A screen-sized texture the mosh pass can draw into and read back next frame
+function createTarget(gl, width, height) {
+    const texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+    const framebuffer = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    return { texture, framebuffer };
 }
 
 // Turns raw FFT data into smoothed bass/mid/high levels plus a kick pulse.
@@ -181,34 +266,34 @@ function AudioBackground() {
         const gl = canvas.getContext("webgl", { antialias: false, powerPreference: "low-power" });
         if (!gl) return;
 
-        const program = gl.createProgram();
-        const vs = compile(gl, gl.VERTEX_SHADER, vertexShader);
-        const fs = compile(gl, gl.FRAGMENT_SHADER, fragmentShader);
-        if (!vs || !fs) return;
-        gl.attachShader(program, vs);
-        gl.attachShader(program, fs);
-        gl.linkProgram(program);
-        gl.useProgram(program);
+        const mosh = createProgram(gl, moshShader);
+        const present = createProgram(gl, presentShader);
+        if (!mosh || !present) return;
 
         const buffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-        const position = gl.getAttribLocation(program, "a_position");
-        gl.enableVertexAttribArray(position);
-        gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
 
-        const uniforms = {};
-        ["u_texture", "u_res", "u_time", "u_bass", "u_mid", "u_high", "u_grid", "u_seed", "u_amount", "u_dim"].forEach((name) => {
-            uniforms[name] = gl.getUniformLocation(program, name);
-        });
-        gl.uniform1f(uniforms.u_dim, 0.55);
-        gl.uniform1i(uniforms.u_texture, 0);
+        function usePass(pass) {
+            gl.useProgram(pass.program);
+            gl.enableVertexAttribArray(pass.position);
+            gl.vertexAttribPointer(pass.position, 2, gl.FLOAT, false, 0, 0);
+        }
+
+        // Texture units: 0 = glitch image, 1 = previous/current mosh frame
+        usePass(mosh);
+        gl.uniform1i(mosh.uniforms.u_texture, 0);
+        gl.uniform1i(mosh.uniforms.u_prev, 1);
+        usePass(present);
+        gl.uniform1i(present.uniforms.u_frameTex, 1);
+        gl.uniform1f(present.uniforms.u_dim, 0.55);
 
         // The same glitch image the page shows as its fallback background
         const texture = gl.createTexture();
         let textureReady = false;
         const image = new Image();
         image.onload = () => {
+            gl.activeTexture(gl.TEXTURE0);
             gl.bindTexture(gl.TEXTURE_2D, texture);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
@@ -223,11 +308,27 @@ function AudioBackground() {
         // Render below screen resolution: it's a soft background, and this keeps phones cool
         const isMobile = window.matchMedia("(max-width: 768px)").matches;
         const scale = isMobile ? 0.35 : 0.5;
+        // Two frames that swap each draw: read last frame from one, write the next into the other
+        let targets = [];
+        let readIndex = 0;
+        let cleanFrame = true;
+        function deleteTargets() {
+            targets.forEach(({ texture: t, framebuffer }) => {
+                gl.deleteTexture(t);
+                gl.deleteFramebuffer(framebuffer);
+            });
+        }
         function resize() {
             canvas.width = Math.max(1, Math.round(window.innerWidth * scale));
             canvas.height = Math.max(1, Math.round(window.innerHeight * scale));
             gl.viewport(0, 0, canvas.width, canvas.height);
-            gl.uniform2f(uniforms.u_res, canvas.width, canvas.height);
+            deleteTargets();
+            targets = [createTarget(gl, canvas.width, canvas.height), createTarget(gl, canvas.width, canvas.height)];
+            cleanFrame = true;
+            [mosh, present].forEach((pass) => {
+                usePass(pass);
+                gl.uniform2f(pass.uniforms.u_res, canvas.width, canvas.height);
+            });
         }
         resize();
         window.addEventListener("resize", resize);
@@ -244,6 +345,9 @@ function AudioBackground() {
         let seed = 0;
         let nextRefresh = 0;
         let grid = [24, 14];
+        let moshing = 0;
+        let field = 0;
+        let frameCount = 0;
 
         // Bigger bass means bigger blocks; rows follow the screen shape so blocks stay wide
         function pickGrid(bass) {
@@ -257,8 +361,10 @@ function AudioBackground() {
             if (!textureReady || now - lastDraw < frameInterval) return;
             lastDraw = now;
 
+            // The analyser outlives a pause, so also check that sound is actually on
             const { analyser } = audioRef.current;
-            if (analyser) {
+            const listening = Boolean(analyser) && audioLevels.playing;
+            if (listening) {
                 if (!data || data.length !== analyser.frequencyBinCount) {
                     data = new Uint8Array(analyser.frequencyBinCount);
                 }
@@ -280,7 +386,7 @@ function AudioBackground() {
                 grid = pickGrid(level.bass);
                 seed += 1;
                 nextRefresh = now + 70;
-            } else if (!analyser && Math.random() < dt / 4) {
+            } else if (!listening && Math.random() < dt / 4) {
                 // With no sound, an occasional small burst keeps the background alive
                 amount = 0.35;
                 grid = pickGrid(Math.random());
@@ -300,14 +406,47 @@ function AudioBackground() {
             audioLevels.high = level.high;
             audioLevels.kick = level.kick;
 
-            gl.uniform1f(uniforms.u_time, (now - start) / 1000);
-            gl.uniform1f(uniforms.u_bass, level.bass);
-            gl.uniform1f(uniforms.u_mid, level.mid);
-            gl.uniform1f(uniforms.u_high, level.high);
-            gl.uniform2f(uniforms.u_grid, grid[0], grid[1]);
-            gl.uniform1f(uniforms.u_seed, seed % 97);
-            gl.uniform1f(uniforms.u_amount, amount);
+            // How hard the image moshes: builds fast with the music, recovers slowly when it calms
+            const moshTarget = listening ? Math.min(1, 0.2 + 0.9 * level.bass + 0.3 * level.mid) : 0;
+            const settle = moshTarget > moshing ? 6 : listening ? 0.8 : 2.5;
+            moshing += (moshTarget - moshing) * Math.min(1, dt * settle);
+            // Heavy kicks send the blocks off in new directions, like a cut in a mosh edit
+            if (level.kick > 0.85 && level.bass > 0.4) field += 0.37;
+
+            const time = (now - start) / 1000;
+            frameCount = (frameCount + 1) % 997;
+
+            // Pass 1: draw the next moshed frame into the write target
+            const write = 1 - readIndex;
+            gl.bindFramebuffer(gl.FRAMEBUFFER, targets[write].framebuffer);
+            usePass(mosh);
+            gl.activeTexture(gl.TEXTURE1);
+            gl.bindTexture(gl.TEXTURE_2D, targets[readIndex].texture);
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            const u = mosh.uniforms;
+            gl.uniform1f(u.u_time, time);
+            gl.uniform1f(u.u_mid, level.mid);
+            gl.uniform1f(u.u_high, level.high);
+            gl.uniform2f(u.u_grid, grid[0], grid[1]);
+            gl.uniform1f(u.u_seed, seed % 97);
+            gl.uniform1f(u.u_amount, amount);
+            gl.uniform1f(u.u_motion, moshing * (0.6 + 2.5 * level.bass) + 5 * level.kick * moshing);
+            gl.uniform1f(u.u_refresh, cleanFrame ? 1 : 0.01 + 0.5 * (1 - moshing) * (1 - moshing));
+            gl.uniform1f(u.u_frame, frameCount);
+            gl.uniform1f(u.u_field, field);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
+            cleanFrame = false;
+
+            // Pass 2: show it on screen
+            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+            usePass(present);
+            gl.activeTexture(gl.TEXTURE1);
+            gl.bindTexture(gl.TEXTURE_2D, targets[write].texture);
+            gl.uniform1f(present.uniforms.u_time, time);
+            gl.uniform1f(present.uniforms.u_bass, level.bass);
+            gl.drawArrays(gl.TRIANGLES, 0, 3);
+            readIndex = write;
         }
         frame = requestAnimationFrame(draw);
 
@@ -325,10 +464,10 @@ function AudioBackground() {
             canvas.classList.remove("ready");
             image.onload = null;
             gl.deleteTexture(texture);
+            deleteTargets();
             gl.deleteBuffer(buffer);
-            gl.deleteProgram(program);
-            gl.deleteShader(vs);
-            gl.deleteShader(fs);
+            gl.deleteProgram(mosh.program);
+            gl.deleteProgram(present.program);
         };
     }, [animate]);
 
