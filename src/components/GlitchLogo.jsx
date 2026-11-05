@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { audioLevels } from "./audioLevels";
 
-// Red-only and cyan-only copies of the logo; on top of each other they add back up to the original
+// Red-only and cyan-only copies of the logo that peek out from behind it
 const RED_LAYER = "/assets/logo-glitch-red.png";
 const CYAN_LAYER = "/assets/logo-glitch-cyan.png";
 

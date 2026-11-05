@@ -1118,41 +1118,35 @@ li {
   pointer-events: none;
 }
 
-.glitch-logo.glitching .glitch-logo-red,
-.glitch-logo.glitching .glitch-logo-cyan {
-  opacity: 1;
-  mix-blend-mode: screen;
+/* Everything uses normal alpha blending, so nothing brightens toward white:
+   the real logo stays on top and the colored copies show only around its edges */
+.glitch-logo-base {
+  position: relative;
+  z-index: 3;
 }
 
 .glitch-logo.glitching .glitch-logo-red {
+  opacity: 0.9;
+  z-index: 2;
   transform: translate(var(--split-x, 0px), var(--split-y, 0px));
 }
 
 .glitch-logo.glitching .glitch-logo-cyan {
+  opacity: 0.9;
+  z-index: 2;
   transform: translate(calc(var(--split-x, 0px) * -1), calc(var(--split-y, 0px) * -1));
 }
 
 .glitch-logo.glitching .glitch-logo-tear {
+  z-index: 4;
   opacity: var(--tear, 0);
   clip-path: inset(var(--tear-top, 40%) 0 var(--tear-bottom, 50%) 0);
   transform: translateX(var(--tear-shift, 0px));
 }
 
-/* Feedback echoes: each one trails further behind, grows a little, and fades */
-.glitch-logo-base {
-  position: relative;
-  z-index: 1;
-}
-
-.glitch-logo-red,
-.glitch-logo-cyan,
-.glitch-logo-tear {
-  z-index: 2;
-}
-
+/* Feedback echoes sit furthest back. Each one trails further behind, grows a little, and fades. */
 .glitch-logo.glitching .glitch-logo-echo {
-  z-index: 0;
-  mix-blend-mode: screen;
+  z-index: 1;
 }
 
 .glitch-logo.glitching .glitch-logo-echo-0 {
