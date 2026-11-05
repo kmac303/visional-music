@@ -1137,3 +1137,35 @@ li {
   clip-path: inset(var(--tear-top, 40%) 0 var(--tear-bottom, 50%) 0);
   transform: translateX(var(--tear-shift, 0px));
 }
+
+/* Feedback echoes: each one trails further behind, grows a little, and fades */
+.glitch-logo-base {
+  position: relative;
+  z-index: 1;
+}
+
+.glitch-logo-red,
+.glitch-logo-cyan,
+.glitch-logo-tear {
+  z-index: 2;
+}
+
+.glitch-logo.glitching .glitch-logo-echo {
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+.glitch-logo.glitching .glitch-logo-echo-0 {
+  opacity: calc(var(--feedback, 0) * 0.45);
+  transform: translate(var(--echo-0-x, 0px), var(--echo-0-y, 0px)) scale(calc(1 + var(--feedback, 0) * 0.05));
+}
+
+.glitch-logo.glitching .glitch-logo-echo-1 {
+  opacity: calc(var(--feedback, 0) * 0.28);
+  transform: translate(var(--echo-1-x, 0px), var(--echo-1-y, 0px)) scale(calc(1 + var(--feedback, 0) * 0.1));
+}
+
+.glitch-logo.glitching .glitch-logo-echo-2 {
+  opacity: calc(var(--feedback, 0) * 0.15);
+  transform: translate(var(--echo-2-x, 0px), var(--echo-2-y, 0px)) scale(calc(1 + var(--feedback, 0) * 0.15));
+}

@@ -5,6 +5,11 @@ import { audioLevels } from "./audioLevels";
 const RED_LAYER = "/assets/logo-glitch-red.png";
 const CYAN_LAYER = "/assets/logo-glitch-cyan.png";
 
+// Feedback echoes trailing behind the logo, alternating red and cyan
+const ECHOES = [RED_LAYER, CYAN_LAYER, RED_LAYER];
+// How many frames behind each echo follows
+const ECHO_DELAY = 5;
+
 function GlitchLogo({ src, alt, className }) {
     const wrapperRef = useRef(null);
     // The extra layers only load once music has started
@@ -18,12 +23,18 @@ function GlitchLogo({ src, alt, className }) {
         let glitching = false;
         let tear = 0;
         let tearDirection = 1;
+        let feedback = 0;
+        // Recent split positions, newest first, so echoes can trail behind
+        const history = [];
 
         function reset() {
             el.classList.remove("glitching");
             el.style.removeProperty("--split-x");
             el.style.removeProperty("--split-y");
             el.style.removeProperty("--tear");
+            el.style.removeProperty("--feedback");
+            history.length = 0;
+            feedback = 0;
         }
 
         function tick(now) {
@@ -50,6 +61,8 @@ function GlitchLogo({ src, alt, className }) {
             // Big kicks tear a random horizontal slice of the logo sideways
             if (audioLevels.kicks !== kicksSeen) {
                 kicksSeen = audioLevels.kicks;
+                // Every kick blooms the feedback; it fades over about half a second
+                feedback = Math.max(feedback, 0.35 + 0.35 * bass);
                 if (bass > 0.55) {
                     tear = 1;
                     tearDirection = Math.random() < 0.5 ? -1 : 1;
@@ -59,12 +72,27 @@ function GlitchLogo({ src, alt, className }) {
                 }
             }
             tear *= Math.exp(-dt / 0.1);
+            const trace = 0.12 * mid;
+            feedback = trace + (feedback - trace) * Math.exp(-dt / 0.45);
 
             // Red and cyan drift around each other with the mids and jump apart on kicks
             const split = 0.4 + 1.2 * mid + 4.5 * kick * kick;
             const angle = now / 700;
-            el.style.setProperty("--split-x", `${(Math.cos(angle) * split).toFixed(2)}px`);
-            el.style.setProperty("--split-y", `${(Math.sin(angle) * split * 0.35).toFixed(2)}px`);
+            const x = Math.cos(angle) * split;
+            const y = Math.sin(angle) * split * 0.35;
+            el.style.setProperty("--split-x", `${x.toFixed(2)}px`);
+            el.style.setProperty("--split-y", `${y.toFixed(2)}px`);
+
+            // Each echo uses where the split was a few frames ago, pushed further out
+            history.unshift([x, y]);
+            history.length = Math.min(history.length, ECHOES.length * ECHO_DELAY + 1);
+            ECHOES.forEach((_, i) => {
+                const [ex, ey] = history[Math.min(history.length - 1, (i + 1) * ECHO_DELAY)];
+                const spread = 1.5 + i;
+                el.style.setProperty(`--echo-${i}-x`, `${(ex * spread).toFixed(2)}px`);
+                el.style.setProperty(`--echo-${i}-y`, `${(ey * spread).toFixed(2)}px`);
+            });
+            el.style.setProperty("--feedback", feedback.toFixed(3));
             el.style.setProperty("--tear", tear > 0.05 ? "1" : "0");
             el.style.setProperty("--tear-shift", `${(tearDirection * tear * 16).toFixed(1)}px`);
         }
@@ -81,6 +109,15 @@ function GlitchLogo({ src, alt, className }) {
             <img src={src} alt={alt} className={`${className} glitch-logo-base`} />
             {layersLoaded && (
                 <>
+                    {ECHOES.map((layer, i) => (
+                        <img
+                            key={i}
+                            src={layer}
+                            alt=""
+                            aria-hidden="true"
+                            className={`glitch-logo-layer glitch-logo-echo glitch-logo-echo-${i}`}
+                        />
+                    ))}
                     <img src={RED_LAYER} alt="" aria-hidden="true" className="glitch-logo-layer glitch-logo-red" />
                     <img src={CYAN_LAYER} alt="" aria-hidden="true" className="glitch-logo-layer glitch-logo-cyan" />
                     <img src={src} alt="" aria-hidden="true" className="glitch-logo-layer glitch-logo-tear" />
