@@ -1751,7 +1751,9 @@ section.page-section {
 .events-banner {
   max-width: none;
   margin: -104px -28px 72px;
-  height: clamp(220px, 42vw, 560px);
+  /* Grows with the window so big monitors show as much of the stage as laptops do,
+     but never taller than most of the screen */
+  height: clamp(220px, 42vw, 75vh);
   overflow: hidden;
   background: #000;
 }
