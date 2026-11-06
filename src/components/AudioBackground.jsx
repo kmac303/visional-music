@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
-import { audioLevels } from "./audioLevels";
+import { audioLevels, moshControls } from "./audioLevels";
 
 // Lets the hero, the bottom bar, and anything else start and stop the sound
 const SoundContext = createContext(null);
@@ -346,6 +346,11 @@ function createAnalysis() {
             previous.set(data);
             level.kick *= 0.9;
         },
+        // A hit fired by hand from the readouts
+        hit() {
+            level.kick = 1;
+            level.kicks += 1;
+        },
         decay() {
             level.bass *= 0.95;
             level.presence *= 0.95;
@@ -515,6 +520,10 @@ function AudioBackground({ children }) {
         let motion = 0;
         let field = 0;
         let frameCount = 0;
+        // Hand-fired hits and clears from the readouts; punch is a hit's burst of motion
+        let hitsSeen = moshControls.hitRequests;
+        let clearsSeen = moshControls.clearRequests;
+        let punch = 0;
 
         // Bigger bass means bigger blocks; rows follow the screen shape so blocks stay wide
         function pickGrid(bass) {
@@ -544,6 +553,23 @@ function AudioBackground({ children }) {
             const { level } = analysis;
             const dt = Math.min(0.1, (now - lastFrame) / 1000);
             lastFrame = now;
+
+            // A hand-fired hit lands like a detected kick, with its own burst of motion,
+            // so the background reacts even with no sound on
+            punch *= Math.exp(-dt / 0.35);
+            if (punch < 0.01) punch = 0;
+            if (hitsSeen < moshControls.hitRequests) {
+                hitsSeen = moshControls.hitRequests;
+                analysis.hit();
+                punch = 1;
+            }
+            // Clear starts over from the clean image
+            if (clearsSeen < moshControls.clearRequests) {
+                clearsSeen = moshControls.clearRequests;
+                cleanFrame = true;
+            }
+            // Frozen: the readouts keep listening, but the background holds still
+            const moving = listening && !moshControls.freeze;
 
             // Each kick breaks a fresh set of blocks; they snap back within a fraction of a second
             if (kicksSeen < level.kicks) {
@@ -578,14 +604,15 @@ function AudioBackground({ children }) {
 
             // Block motion follows presence (the bass and mid blend above) and eases off
             // when it fades. On above 35% presence, off below 20%, so it can't flicker at the edge
-            if (!listening || level.presence < 0.2) flowOn = false;
+            if (!moving || level.presence < 0.2) flowOn = false;
             else if (level.presence > 0.35) flowOn = true;
             // With presence the blocks flow at full speed; when it drops out they ease down to a
             // very slow drift rather than stopping. Only pausing the sound freezes them.
-            const motionTarget = !listening ? 0 : flowOn ? 1.2 + 2.1 * level.presence + 1.5 * level.kick : SLOW_FLOW;
+            const motionTarget = (!moving ? 0 : flowOn ? 1.2 + 2.1 * level.presence + 1.5 * level.kick : SLOW_FLOW)
+                + 2.5 * punch;
             motion += (motionTarget - motion) * Math.min(1, dt * 12);
-            if (!listening) motion = 0;
-            audioLevels.flow = !listening ? "hold" : flowOn ? "active" : "drift";
+            if (!moving && !punch) motion = 0;
+            audioLevels.flow = !listening ? "hold" : moshControls.freeze ? "frozen" : flowOn ? "active" : "drift";
             // Heavy kicks send the blocks off in new directions, like a cut in a mosh edit
             if (level.kick > 0.85 && level.presence > 0.4) field += 0.37;
 
@@ -603,12 +630,12 @@ function AudioBackground({ children }) {
 
             // The first frame is the clean image; after that the background only changes
             // while sound is on or the cursor is dragging it, and otherwise holds still
-            if (!cleanFrame && !listening && !dragging && swirl === 0) return;
+            if (!cleanFrame && !moving && !punch && !dragging && swirl === 0) return;
 
             const time = (now - start) / 1000;
             lastTime = time;
             frameCount = (frameCount + 1) % 997;
-            if (listening) audioLevels.frame += 1;
+            if (moving) audioLevels.frame += 1;
 
             // Pass 1: draw the next moshed frame into the write target
             const write = 1 - readIndex;
@@ -628,7 +655,7 @@ function AudioBackground({ children }) {
             gl.uniform1f(u.u_motion, motion);
             // Fresh blocks of the glitch image only come in with the hits while the flow is on;
             // when it's off nothing refreshes, so the image holds completely
-            gl.uniform1f(u.u_refresh, cleanFrame ? 1 : flowOn ? 0.004 + 0.06 * level.kick : 0);
+            gl.uniform1f(u.u_refresh, cleanFrame ? 1 : (flowOn ? 0.004 + 0.06 * level.kick : 0) + 0.05 * punch);
             gl.uniform1f(u.u_frame, frameCount);
             gl.uniform1f(u.u_field, field);
             gl.uniform2f(u.u_pointer, pointer.x, pointer.y);

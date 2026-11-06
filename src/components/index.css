@@ -1193,6 +1193,38 @@ li {
   letter-spacing: 0.02em;
 }
 
+/* Small text buttons inside the readouts that control the background */
+.hud-action {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--red);
+  cursor: pointer;
+}
+
+.hud-action:hover {
+  border: 0;
+  color: #fff;
+  text-decoration: underline;
+}
+
+.hud-action:focus {
+  outline: none;
+}
+
+.hud-action:focus-visible {
+  outline: 1px solid var(--red);
+  outline-offset: 2px;
+}
+
+.hud-action[aria-pressed="true"] {
+  color: #fff;
+}
+
 .hero-center {
   grid-area: center;
   display: flex;

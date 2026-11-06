@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaPlay, FaMicrophone } from "react-icons/fa";
 import GlitchHeadshot from "./GlitchHeadshot";
-import { audioLevels } from "./audioLevels";
+import { audioLevels, moshControls } from "./audioLevels";
 import { useSound } from "./AudioBackground";
 
 const METER_SEGMENTS = 10;
@@ -49,6 +49,11 @@ function fitMarquee(text) {
     }
 }
 
+// Square brackets mark the readout controls; screen readers skip them
+function Bracket({ children }) {
+    return <><span aria-hidden="true">[</span>{children}<span aria-hidden="true">]</span></>;
+}
+
 const denverTime = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Denver",
     hour: "numeric",
@@ -61,6 +66,11 @@ function Hero() {
     const { mode, message, track, toggleTrack, toggleMic, getTrackPosition, seekTrack } = useSound();
     // True while the visitor is dragging the scrubber, so playback doesn't fight their hand
     const scrubbing = useRef(false);
+    const [frozen, setFrozen] = useState(moshControls.freeze);
+    const toggleFreeze = () => {
+        moshControls.freeze = !moshControls.freeze;
+        setFrozen(moshControls.freeze);
+    };
     const heroRef = useRef(null);
     const readouts = useRef({});
     const readout = (key) => (element) => {
@@ -211,9 +221,34 @@ function Hero() {
 
                 <dl className="hud hud-bottom-right hud-optional">
                     <div><dt>Flow</dt><dd><span ref={readout("flowBar")} className="hud-meter">{meter(0)}</span> <span ref={readout("flowValue")}>0%</span></dd></div>
-                    <div><dt>Mosh</dt><dd ref={readout("mosh")}>HOLD</dd></div>
-                    <div><dt>Hits</dt><dd ref={readout("hits")}>0000</dd></div>
-                    <div><dt>Frame</dt><dd ref={readout("frame")}>000000</dd></div>
+                    {/* Each readout here comes with a control for the background */}
+                    <div>
+                        <dt>Mosh</dt>
+                        <dd>
+                            <span ref={readout("mosh")}>HOLD</span>{" "}
+                            <button type="button" className="hud-action" onClick={toggleFreeze} aria-pressed={frozen} title="Hold the background still while the sound plays">
+                                <Bracket>{frozen ? "Resume" : "Freeze"}</Bracket>
+                            </button>
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>Hits</dt>
+                        <dd>
+                            <span ref={readout("hits")}>0000</span>{" "}
+                            <button type="button" className="hud-action" onClick={() => { moshControls.hitRequests += 1; }} title="Fire a hit into the background">
+                                <Bracket>Hit</Bracket>
+                            </button>
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>Frame</dt>
+                        <dd>
+                            <span ref={readout("frame")}>000000</span>{" "}
+                            <button type="button" className="hud-action" onClick={() => { moshControls.clearRequests += 1; }} title="Wipe the background back to a clean frame">
+                                <Bracket>Clear</Bracket>
+                            </button>
+                        </dd>
+                    </div>
                 </dl>
 
                 <div className="hud hud-timeline">
