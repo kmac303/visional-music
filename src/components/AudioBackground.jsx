@@ -299,14 +299,9 @@ function AudioBackground() {
     const audioRef = useRef({ context: null, analyser: null, element: null, stream: null, source: null });
     const [mode, setMode] = useState("off");
     const [message, setMessage] = useState("");
-    const [reducedMotion] = useState(() =>
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    );
-    // With reduced motion, keep the still image until the visitor turns on sound themselves
-    const animate = !reducedMotion || mode !== "off";
-
+    // The background is a still frame until sound is on, so it only ever moves
+    // after the visitor turns on the track or mic themselves (reduced motion included)
     useEffect(() => {
-        if (!animate) return;
         const canvas = canvasRef.current;
         const gl = canvas.getContext("webgl", { antialias: false, powerPreference: "low-power" });
         if (!gl) return;
@@ -357,24 +352,49 @@ function AudioBackground() {
         let targets = [];
         let readIndex = 0;
         let cleanFrame = true;
-        function deleteTargets() {
-            targets.forEach(({ texture: t, framebuffer }) => {
+        let lastTime = 0;
+        function resize() {
+            const width = Math.max(1, Math.round(window.innerWidth * scale));
+            const height = Math.max(1, Math.round(window.innerHeight * scale));
+            if (width === canvas.width && height === canvas.height && targets.length) return;
+            canvas.width = width;
+            canvas.height = height;
+            gl.viewport(0, 0, width, height);
+            const old = targets;
+            targets = [createTarget(gl, width, height), createTarget(gl, width, height)];
+            [mosh, present].forEach((pass) => {
+                usePass(pass);
+                gl.uniform2f(pass.uniforms.u_res, width, height);
+            });
+            if (old.length && !cleanFrame) {
+                // Carry the frozen frame over, stretched to the new size, with no motion or refresh
+                gl.bindFramebuffer(gl.FRAMEBUFFER, targets[0].framebuffer);
+                usePass(mosh);
+                gl.activeTexture(gl.TEXTURE1);
+                gl.bindTexture(gl.TEXTURE_2D, old[readIndex].texture);
+                gl.uniform1f(mosh.uniforms.u_motion, 0);
+                gl.uniform1f(mosh.uniforms.u_refresh, 0);
+                gl.drawArrays(gl.TRIANGLES, 0, 3);
+                readIndex = 0;
+                showFrame(0);
+            }
+            old.forEach(({ texture: t, framebuffer }) => {
                 gl.deleteTexture(t);
                 gl.deleteFramebuffer(framebuffer);
             });
         }
-        function resize() {
-            canvas.width = Math.max(1, Math.round(window.innerWidth * scale));
-            canvas.height = Math.max(1, Math.round(window.innerHeight * scale));
-            gl.viewport(0, 0, canvas.width, canvas.height);
-            deleteTargets();
-            targets = [createTarget(gl, canvas.width, canvas.height), createTarget(gl, canvas.width, canvas.height)];
-            cleanFrame = true;
-            [mosh, present].forEach((pass) => {
-                usePass(pass);
-                gl.uniform2f(pass.uniforms.u_res, canvas.width, canvas.height);
-            });
+
+        // Pass 2: show the current frame on screen
+        function showFrame(bass) {
+            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+            usePass(present);
+            gl.activeTexture(gl.TEXTURE1);
+            gl.bindTexture(gl.TEXTURE_2D, targets[readIndex].texture);
+            gl.uniform1f(present.uniforms.u_time, lastTime);
+            gl.uniform1f(present.uniforms.u_bass, bass);
+            gl.drawArrays(gl.TRIANGLES, 0, 3);
         }
+
         resize();
         window.addEventListener("resize", resize);
 
@@ -390,7 +410,6 @@ function AudioBackground() {
         let seed = 0;
         let nextRefresh = 0;
         let grid = [24, 14];
-        let moshing = 0;
         let flowSpeed = 0;
         let field = 0;
         let frameCount = 0;
@@ -432,11 +451,6 @@ function AudioBackground() {
                 grid = pickGrid(level.bass);
                 seed += 1;
                 nextRefresh = now + 70;
-            } else if (!listening && Math.random() < dt / 4) {
-                // With no sound, an occasional small burst keeps the background alive
-                amount = 0.35;
-                grid = pickGrid(Math.random());
-                seed += 1;
             }
             const baseline = 0.02 + 0.12 * level.bass + 0.08 * level.high;
             amount = baseline + (amount - baseline) * Math.exp(-dt / 0.18);
@@ -452,21 +466,19 @@ function AudioBackground() {
             audioLevels.high = level.high;
             audioLevels.kick = level.kick;
 
-            // How hard the image moshes: builds fast with the music, recovers slowly when it calms
-            // The flow follows how much bass is present: heavy low end moshes hard,
-            // and the image heals when the bass drops out
-            const moshTarget = listening ? level.presence : 0;
-            const settle = moshTarget > moshing ? 6 : listening ? 1.6 : 2.5;
-            moshing += (moshTarget - moshing) * Math.min(1, dt * settle);
-
-            // Block motion tracks the bass closely and cuts out when it's gone, so the
-            // moshed image freezes in place, then heals as the moshing above eases off
-            const flowTarget = moshTarget > 0.15 ? moshTarget : 0;
+            // Block motion follows how much bass is present and cuts out when it's gone,
+            // so the moshed image holds in place instead of drifting on
+            const flowTarget = listening && level.presence > 0.15 ? level.presence : 0;
             flowSpeed += (flowTarget - flowSpeed) * Math.min(1, dt * 20);
             // Heavy kicks send the blocks off in new directions, like a cut in a mosh edit
             if (level.kick > 0.85 && level.presence > 0.4) field += 0.37;
 
+            // The first frame is the clean image; after that the background only changes
+            // while sound is on, and freezes wherever it is when the sound stops
+            if (!cleanFrame && !listening) return;
+
             const time = (now - start) / 1000;
+            lastTime = time;
             frameCount = (frameCount + 1) % 997;
 
             // Pass 1: draw the next moshed frame into the write target
@@ -485,21 +497,15 @@ function AudioBackground() {
             gl.uniform1f(u.u_seed, seed % 97);
             gl.uniform1f(u.u_amount, amount);
             gl.uniform1f(u.u_motion, flowSpeed * (0.8 + 2.5 * flowSpeed) + 1.5 * level.kick * flowSpeed);
-            gl.uniform1f(u.u_refresh, cleanFrame ? 1 : 0.01 + 0.5 * (1 - moshing) * (1 - moshing));
+            // Fresh blocks of the glitch image only come in with the hits, so the music
+            // is the only thing that ever refreshes it
+            gl.uniform1f(u.u_refresh, cleanFrame ? 1 : 0.004 + 0.06 * level.kick);
             gl.uniform1f(u.u_frame, frameCount);
             gl.uniform1f(u.u_field, field);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
             cleanFrame = false;
-
-            // Pass 2: show it on screen
-            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-            usePass(present);
-            gl.activeTexture(gl.TEXTURE1);
-            gl.bindTexture(gl.TEXTURE_2D, targets[write].texture);
-            gl.uniform1f(present.uniforms.u_time, time);
-            gl.uniform1f(present.uniforms.u_bass, level.bass);
-            gl.drawArrays(gl.TRIANGLES, 0, 3);
             readIndex = write;
+            showFrame(level.bass);
         }
         frame = requestAnimationFrame(draw);
 
@@ -517,12 +523,15 @@ function AudioBackground() {
             canvas.classList.remove("ready");
             image.onload = null;
             gl.deleteTexture(texture);
-            deleteTargets();
+            targets.forEach(({ texture: t, framebuffer }) => {
+                gl.deleteTexture(t);
+                gl.deleteFramebuffer(framebuffer);
+            });
             gl.deleteBuffer(buffer);
             gl.deleteProgram(mosh.program);
             gl.deleteProgram(present.program);
         };
-    }, [animate]);
+    }, []);
 
     useEffect(() => {
         audioLevels.playing = mode !== "off";
