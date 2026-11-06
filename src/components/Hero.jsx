@@ -219,11 +219,11 @@ function Hero() {
                 <dl className="hud hud-bottom-left">
                     <div><dt>BPM</dt><dd ref={readout("bpm")}>---</dd></div>
                     <div><dt>Bass</dt><dd ref={readout("bass")} className="hud-meter">{meter(0)}</dd></div>
-                    <div className="hud-optional"><dt>Mid</dt><dd ref={readout("mid")} className="hud-meter">{meter(0)}</dd></div>
-                    <div className="hud-optional"><dt>High</dt><dd ref={readout("high")} className="hud-meter">{meter(0)}</dd></div>
+                    <div><dt>Mid</dt><dd ref={readout("mid")} className="hud-meter">{meter(0)}</dd></div>
+                    <div><dt>High</dt><dd ref={readout("high")} className="hud-meter">{meter(0)}</dd></div>
                 </dl>
 
-                <dl className="hud hud-bottom-right hud-optional">
+                <dl className="hud hud-bottom-right">
                     <div>
                         <dt>Flow</dt>
                         <dd className="hud-flow">

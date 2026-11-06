@@ -2056,10 +2056,26 @@ ul.hud-bar-links {
     grid-template-areas:
       "tl tr"
       "center center"
-      "bl bl"
+      "bl br"
       "timeline timeline";
-    gap: 14px 16px;
+    gap: 14px 12px;
     padding: 14px 14px 18px;
+  }
+
+  /* Both readout blocks fit side by side under the headshot with tighter labels */
+  .hud-bottom-left > div,
+  .hud-bottom-right > div {
+    gap: 8px;
+  }
+
+  .hud-bottom-left dt,
+  .hud-bottom-right dt {
+    min-width: 3.4em;
+  }
+
+  .hud-bottom-left,
+  .hud-bottom-right {
+    font-size: 0.66rem;
   }
 
   .hud-top-left,
