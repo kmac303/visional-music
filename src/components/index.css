@@ -1531,7 +1531,7 @@ ul.artist-cloud {
   text-align: left;
 }
 
-.artist-cloud li:nth-child(4n + 2) {
+.artist-cloud li:nth-child(4n + 1) {
   color: var(--red);
 }
 

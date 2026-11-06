@@ -3,10 +3,17 @@ import SectionHeader from "./SectionHeader";
 
 function Events() {
     // List of artists
+    // Roughly ordered by Instagram following, biggest first (estimates, not live counts)
     const artistList = [
-        "The Glitch Mob", "DJ Diesel (Shaq)", "Netsky", "Maddy O’Neal", "Getter", "Shipwrek", "Wuki", "Noizu", "Hol!", "Sidepiece",
-        "Jkyl & Hyde", "Wreckno", "Rusko", "Valentino Khan", "Space Laces", "WonkyWilla", "MC4D", "Ayybo", "Bear Grillz", "Sisto", "Lizzy Jane", "Desert Dwellers", "Tynan", "DJ Pressed", "Savej", "Midnight Tyrannosaurus", "Heyz", "David Starfire", "Kumarion", "Pretty Sweet", "Green Matter", "Hostage Situation", "Phutureprimitive", "PapaJay",
-        "Purple Disco Machine", "Coco & Breezy", "Swimming Paul", "Jon Casey", "Skepsis", "Hills", "Bolo", "OG Nixin", "Benda", "Random Rab", "Pauline Herr", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", "DMVU", "Swampz", "Covex", "Chozen", "Tsu Nami", "Twopercent", "Toadface", "Habitaat", "Omas", "Noetika", "Dela Moon", "MFinity", "Lil Fish", "Decker Rush", "Nyrus", "MZG", "Vinnie Maniscalco", "Bruer"
+        "DJ Diesel (Shaq)", "Purple Disco Machine", "Getter", "The Glitch Mob", "Netsky", "Valentino Khan", "Rusko",
+        "Wuki", "Bear Grillz", "Coco & Breezy", "Sidepiece", "The Gaslamp Killer", "Midnight Tyrannosaurus",
+        "Wreckno", "Space Laces", "Skepsis", "UZ", "Noizu", "Shipwrek", "Hol!", "Tynan", "Maddy O’Neal",
+        "Jkyl & Hyde", "MC4D", "Ayybo", "Sisto", "Figure", "Swimming Paul", "Phutureprimitive", "Pauline Herr",
+        "DMVU", "Kumarion", "Desert Dwellers", "David Starfire", "WonkyWilla", "Lizzy Jane", "Random Rab", "Savej",
+        "Heyz", "DJ Pressed", "Hostage Situation", "Green Matter", "Habitaat", "Toadface", "Covex", "Twopercent",
+        "Bolo", "OG Nixin", "Benda", "Hills", "Pretty Sweet", "The Sponges", "Jon Casey", "Swampz", "Chozen",
+        "Tsu Nami", "PapaJay", "Omas", "Noetika", "Dela Moon", "MFinity", "Lil Fish", "Decker Rush", "Nyrus", "MZG",
+        "Vinnie Maniscalco", "Bruer"
     ];
 
     // List of events (upcoming & past)
