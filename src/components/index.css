@@ -1754,13 +1754,19 @@ section.page-section {
   margin-bottom: 16px;
 }
 
+/* Three across (two on phones). Any leftover flyers in the last row sit centered,
+   so the row looks intentional with any number of events. */
 .event-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px 24px;
+  --columns: 3;
+  --column-gap: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px var(--column-gap);
 }
 
 .event-card {
+  width: calc((100% - (var(--columns) - 1) * var(--column-gap)) / var(--columns));
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -2119,8 +2125,9 @@ ul.hud-bar-links {
   }
 
   .event-cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px 14px;
+    --columns: 2;
+    --column-gap: 14px;
+    row-gap: 20px;
   }
 
   .bio p {
