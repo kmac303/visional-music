@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 
@@ -11,12 +12,14 @@ const bio = [
 // Stage photos shown beside the bio
 const stages = [
     {
+        venue: "Fiddler's Green Amphitheater",
         image: "/assets/Stage Mile High.jpg",
-        alt: "Visional's visuals on the LED walls of an amphitheater stage, with flame jets, green lights and lasers over the crowd",
+        alt: "Visional's visuals on the LED walls at Fiddler's Green Amphitheater, with flame jets, green lights and lasers over the crowd",
     },
     {
+        venue: "Legend Valley, OH",
         image: "/assets/Stage Arches.jpg",
-        alt: "Visional's visuals on round and arched LED screens, with lasers fanning out over a dark crowd",
+        alt: "Visional's visuals on round and arched LED screens at Legend Valley, with lasers fanning out over a dark crowd",
     },
 ];
 
@@ -54,6 +57,16 @@ const reveal = {
 };
 
 function About() {
+    // Which stage photo is open full screen, if any
+    const [openStage, setOpenStage] = useState(null);
+    const viewer = useRef(null);
+
+    useEffect(() => {
+        if (openStage !== null && !viewer.current.open) viewer.current.showModal();
+    }, [openStage]);
+
+    const stage = openStage !== null ? stages[openStage] : null;
+
     return (
         <section id="about" className="page-section about-section">
             <SectionHeader index="01" label="About" title="Who is Visional?" />
@@ -69,18 +82,35 @@ function About() {
                 <div className="bio-stages">
                     {stages.map((stage, index) => (
                         <motion.figure key={stage.image} className="bio-stage" {...reveal}>
-                            <img src={stage.image} alt={stage.alt} loading="lazy" />
+                            <button type="button" className="bio-stage-open" onClick={() => setOpenStage(index)} aria-label={`Enlarge photo: ${stage.venue}`}>
+                                <img src={stage.image} alt={stage.alt} loading="lazy" />
+                            </button>
                             <span className="target-corner target-corner-tl" aria-hidden="true" />
                             <span className="target-corner target-corner-tr" aria-hidden="true" />
                             <span className="target-corner target-corner-bl" aria-hidden="true" />
                             <span className="target-corner target-corner-br" aria-hidden="true" />
                             <figcaption className="hud-label" aria-hidden="true">
-                                Stage {String(index + 1).padStart(2, "0")} // Live
+                                [{String(index + 1).padStart(2, "0")}] // {stage.venue}
                             </figcaption>
                         </motion.figure>
                     ))}
                 </div>
             </div>
+
+            {/* Full-screen view of a stage photo; Escape, the Close button, or a click anywhere closes it */}
+            <dialog ref={viewer} className="stage-viewer" onClose={() => setOpenStage(null)} onClick={() => viewer.current.close()} aria-label={stage ? stage.venue : "Stage photo"}>
+                {stage && (
+                    <>
+                        <img src={stage.image} alt={stage.alt} />
+                        <div className="stage-viewer-bar">
+                            <span className="hud-label">[{String(openStage + 1).padStart(2, "0")}] // {stage.venue}</span>
+                            <button type="button" className="stage-viewer-close" onClick={() => viewer.current.close()}>
+                                Close ×
+                            </button>
+                        </div>
+                    </>
+                )}
+            </dialog>
 
             <SectionHeader index="01.1" label="Testimonials" title="What artists say" />
             <div className="transmissions">
