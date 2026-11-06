@@ -1844,6 +1844,8 @@ ul.hud-bar-links {
   text-transform: uppercase;
 }
 
+/* Inverts like the corner text: unchanged over the dark sections, and over the
+   white one its white parts turn black and the red and cyan swap */
 .top-bar-logo {
   position: fixed;
   top: 10px;
@@ -1851,6 +1853,7 @@ ul.hud-bar-links {
   z-index: 1000;
   display: flex;
   align-items: center;
+  mix-blend-mode: difference;
 }
 
 .top-bar .logo-icon {
