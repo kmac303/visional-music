@@ -7,6 +7,9 @@ const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Savej – Sol
 
 const GLITCH_IMAGE = "/Glitch_BG.jpg";
 
+// How fast the datamosh keeps drifting while the bass is out, in pixels per frame
+const SLOW_FLOW = 0.15;
+
 const vertexShader = `
     attribute vec2 a_position;
     void main() {
@@ -129,7 +132,11 @@ const moshShader = PRECISION + `
         motion *= 2.0 * (0.4 + hash(block + u_field));
 
         // Whole-pixel steps keep the smears crisp instead of blurring over time
-        vec2 from = gl_FragCoord.xy - floor(motion * u_motion + 0.5);
+        // Each block rounds its step up or down at random, weighted by its speed, so a
+        // block meant to move a quarter pixel per frame steps one pixel about every
+        // fourth frame. Slow speeds then flow evenly instead of only the fastest blocks
+        // moving in bands while their neighbours sit still.
+        vec2 from = gl_FragCoord.xy - floor(motion * u_motion + hash2(block + jump(u_frame) + 3.3));
         vec3 moshed = texture2D(u_prev, from / u_res).rgb;
 
         // A few blocks per frame refresh from the clean image
@@ -420,6 +427,7 @@ function AudioBackground() {
         let nextRefresh = 0;
         let grid = [24, 14];
         let flowOn = false;
+        let motion = 0;
         let field = 0;
         let frameCount = 0;
 
@@ -480,11 +488,11 @@ function AudioBackground() {
             // On above 35% presence, off below 20%, so it can't flicker at the edge
             if (!listening || level.presence < 0.2) flowOn = false;
             else if (level.presence > 0.35) flowOn = true;
-            // Below about a pixel per frame only the blocks with the strongest motion round up
-            // to a step, so they crawl in diagonal bands while the rest sit still. Keeping a
-            // minimum speed while on, and switching straight to zero when off, makes the
-            // blocks move or stop together.
-            const motion = flowOn ? 1.2 + 2.1 * level.presence + 1.5 * level.kick : 0;
+            // With bass the blocks flow at full speed; when it drops out they ease down to a
+            // very slow drift rather than stopping. Only pausing the sound freezes them.
+            const motionTarget = !listening ? 0 : flowOn ? 1.2 + 2.1 * level.presence + 1.5 * level.kick : SLOW_FLOW;
+            motion += (motionTarget - motion) * Math.min(1, dt * 12);
+            if (!listening) motion = 0;
             // Heavy kicks send the blocks off in new directions, like a cut in a mosh edit
             if (level.kick > 0.85 && level.presence > 0.4) field += 0.37;
 
