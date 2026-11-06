@@ -13,6 +13,7 @@ const testimonials = [
         name: "Heyz",
         link: "https://www.heyzmusic.com",
         image: "/assets/Heyz Headshot.jpg",
+        showFullPhoto: true,
         quote: "With a rare musical intuition, Kevin knows exactly when to push the energy visually and when to pull back. His timing is always spot-on.",
     },
     {
