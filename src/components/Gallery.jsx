@@ -71,8 +71,6 @@ function VideoEmbed({ id, title }) {
 function Gallery() {
     const liveSets = [
         "-LXMkHBRMYU",
-        "29xlEq0ZG-g",
-        "NXbvClcYD2o",
         "HoThrF1lgVA",
         "koF3Oj2KLPE",
         "8WJu0ZSTP-0?si",
@@ -81,7 +79,6 @@ function Gallery() {
         "bDPzBRwPQHM",
         "oRSKuSKv_oc",
         "ZtlzUolyLk0",
-        "ZPwsvjX0EWc",
         "JkARTwNcIBI?",
         "el1WqlZqmkc",
         "oB0On43-wU8",

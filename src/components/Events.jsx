@@ -19,6 +19,20 @@ function Events() {
     // List of events (upcoming & past)
     const events = [
         { 
+            title: "Pretty Sweet - Mission Ballroom", 
+            imgSrc: "/assets/PrettySweet.png", 
+            alt: "prettysweet", 
+            link: "https://www.axs.com/events/1392934/smoakland-tickets", 
+            category: "upcoming" 
+        },
+        { 
+            title: "Phyphr - Cervantes Masterpiece Ballroom", 
+            imgSrc: "/assets/Phyphr.jpeg", 
+            alt: "phyphr", 
+            link: "https://cervantesmasterpiece.com/event/phyphr-w-miilk-blossm-xenolinguist-samso/cervantes-masterpiece-ballroom/denver-colorado/", 
+            category: "upcoming" 
+        },
+        { 
             title: "Decadence 2026", 
             imgSrc: "/assets/Decadence CO 2026.jpg", 
             alt: "decadence2026", 
