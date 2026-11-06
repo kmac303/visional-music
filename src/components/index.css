@@ -1210,3 +1210,46 @@ li {
   outline: 2px solid #54d8f2;
   outline-offset: 2px;
 }
+
+/* Title and channel across the top of a gallery thumbnail, like YouTube's player */
+.video-thumb-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px 28px;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  text-align: left;
+  color: #ffffff;
+}
+
+.video-thumb-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.video-thumb-channel {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+  .video-thumb-info {
+    padding: 8px 10px 18px;
+  }
+
+  .video-thumb-title {
+    font-size: 0.9rem;
+  }
+
+  .video-thumb-channel {
+    font-size: 0.75rem;
+  }
+}
