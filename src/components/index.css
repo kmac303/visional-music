@@ -1282,9 +1282,13 @@ li {
 /* Left column sits against the headshot's left side, right column against its right */
 .hud-top-left { grid-area: tl; justify-self: end; text-align: right; }
 
-/* Its lines are flex rows, so line them up on the right too */
+/* Its lines are flex rows, so line them up on the right too, and let them
+   wrap onto a second line when the window gets narrow */
 .hud-top-left > div {
+  flex-wrap: wrap;
   justify-content: flex-end;
+  column-gap: 0.8em;
+  row-gap: 0;
 }
 .hud-top-right { grid-area: tr; justify-self: start; }
 .hud-bottom-left { grid-area: bl; justify-self: end; align-self: end; }
@@ -1301,6 +1305,9 @@ li {
   font-size: 0.8rem;
   font-weight: 700;
   color: #ffffff;
+}
+
+.hud-nowrap {
   white-space: nowrap;
 }
 
@@ -1864,6 +1871,38 @@ ul.hud-bar-links {
 .hud-bar-book:hover {
   background-color: var(--red);
   color: #ffffff;
+}
+
+/* ---------- Tablets and narrow windows ---------- */
+/* Too narrow for readouts beside the headshot, so stack them above and below */
+@media (max-width: 960px) {
+  .hero-panel {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "tl tr"
+      "center center"
+      "bl br"
+      "timeline timeline";
+  }
+
+  .hud-top-left,
+  .hud-bottom-left {
+    justify-self: start;
+  }
+
+  .hud-top-left {
+    text-align: left;
+  }
+
+  .hud-top-left > div {
+    justify-content: flex-start;
+  }
+
+  .hud-top-right,
+  .hud-bottom-right {
+    justify-self: end;
+  }
 }
 
 /* ---------- Phones ---------- */

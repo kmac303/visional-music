@@ -123,12 +123,16 @@ function Hero() {
         <section id="top" className="hero" ref={heroRef}>
             <div className="hero-panel">
                 <div className="hud hud-top-left">
+                    {/* Each group stays together, so narrow windows wrap between them */}
                     <h1 className="hud-title">
-                        Visional <span className="hud-dim">//</span> VJ <span className="hud-dim hud-optional">//</span>{" "}
-                        <span className="hud-optional">Audio-reactive artist</span>
+                        <span className="hud-nowrap">Visional <span className="hud-dim">//</span> VJ</span>{" "}
+                        <span className="hud-optional">
+                            <span className="hud-dim">//</span> <span className="hud-nowrap">Audio-reactive</span> artist
+                        </span>
                     </h1>
                     <div>
-                        Denver, CO <span className="hud-dim hud-optional">39.7392°N 104.9903°W</span>
+                        <span className="hud-nowrap">Denver, CO</span>
+                        <span className="hud-nowrap hud-dim hud-optional">39.7392°N 104.9903°W</span>
                     </div>
                     <div className="hud-optional" ref={readout("clock")} />
                 </div>
