@@ -712,7 +712,9 @@ function AudioBackground({ children }) {
     function getContext() {
         const audio = audioRef.current;
         if (!audio.context) {
-            audio.context = new AudioContext();
+            // "playback" uses bigger audio buffers than the default, so a busy phone
+            // doesn't run out mid-buffer and pop. The extra delay doesn't matter for music.
+            audio.context = new AudioContext({ latencyHint: "playback" });
             audio.analyser = audio.context.createAnalyser();
             audio.analyser.fftSize = 1024;
             // Faster response keeps kicks sharp
