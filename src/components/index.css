@@ -1756,12 +1756,17 @@ section.page-section {
   background: #000;
 }
 
+.events-banner picture {
+  display: block;
+  height: 100%;
+}
+
 .events-banner img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 90%;
+  object-position: center 56%;
 }
 
 .events-section .hud-label {
