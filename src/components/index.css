@@ -2209,6 +2209,12 @@ ul.hud-bar-links {
     margin: -72px -16px 56px;
   }
 
+  /* The phone crop: keep the bottom row of name screens in view on wider phones,
+     trimming smoke off the top instead */
+  .events-banner img {
+    object-position: center bottom;
+  }
+
   .transmissions {
     grid-template-columns: 1fr;
   }
