@@ -17,9 +17,9 @@ const stages = [
         alt: "Visional's visuals on the LED walls at Fiddler's Green Amphitheatre, with flame jets, green lights and lasers over the crowd",
     },
     {
-        venue: "Legend Valley, OH",
-        image: "/assets/Stage Arches.jpg",
-        alt: "Visional's visuals on round and arched LED screens at Legend Valley, with lasers fanning out over a dark crowd",
+        venue: "Lost Lands",
+        image: "/assets/Stage Lost Lands.jpg",
+        alt: "Visional's visuals across the giant LED walls of the Lost Lands main stage in daylight, with dinosaur sculptures and a crowd in front",
     },
 ];
 
