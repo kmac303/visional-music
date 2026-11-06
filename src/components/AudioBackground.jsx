@@ -16,8 +16,8 @@ const GLITCH_IMAGE = "/Glitch_BG.jpg";
 
 // How much bass and mids each drive the datamosh flow (each pair adds up to 1).
 // Phone and laptop mics barely pick up bass but hear mids clearly, so the mic leans
-// on mids; the track blends both so it stays lively and the drop still hits.
-const TRACK_FLOW_MIX = { bass: 0.5, mid: 0.5 };
+// on mids; the track follows the bass alone, so the drop is what hits hardest.
+const TRACK_FLOW_MIX = { bass: 1, mid: 0 };
 const MIC_FLOW_MIX = { bass: 0.3, mid: 0.7 };
 
 // How fast the datamosh keeps drifting while the flow is out, in pixels per frame
