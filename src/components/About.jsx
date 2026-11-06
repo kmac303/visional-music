@@ -19,7 +19,7 @@ const stages = [
     {
         venue: "Lost Lands",
         image: "/assets/Stage Lost Lands.jpg",
-        alt: "Visional's visuals across the giant LED walls of the Lost Lands main stage in daylight, with dinosaur sculptures and a crowd in front",
+        alt: "Visional's visuals for WonkyWilla across the giant LED walls of the Lost Lands main stage in daylight, with a crowd in front",
     },
 ];
 
