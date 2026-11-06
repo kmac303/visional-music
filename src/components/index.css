@@ -2127,6 +2127,26 @@ ul.hud-bar-links {
     grid-template-columns: 2.5em 1fr;
   }
 
+  /* Weave the stage photos into the bio: two paragraphs, a photo, two more, a photo.
+     The bio and photo wrappers step aside so all six pieces share one column. */
+  .about-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .about-intro .bio,
+  .about-intro .bio-stages {
+    display: contents;
+  }
+
+  .bio p:nth-child(1) { order: 1; }
+  .bio p:nth-child(2) { order: 2; }
+  .bio-stage:nth-child(1) { order: 3; }
+  .bio p:nth-child(3) { order: 4; }
+  .bio p:nth-child(4) { order: 5; }
+  .bio-stage:nth-child(2) { order: 6; }
+
   ul.hud-bar-links,
   .hud-bar-clock {
     display: none;
