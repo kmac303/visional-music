@@ -19,12 +19,15 @@ const testimonials = [
         name: "DJ Pressed",
         link: "https://www.instagram.com/djpressed/",
         image: "/assets/DJ Pressed Headshot.jpg",
+        // Square photo: show all of it instead of cropping the sides to fill the card
+        showFullPhoto: true,
         quote: "Kevin has been instrumental in preparing and executing complex, time-coded sets. He's prepared for every variable, including translating the ramblings of a delusional artist with outrageous expectations.",
     },
     {
         name: "Savej",
         link: "https://www.savejmusic.com",
         image: "/assets/Savej Headshot.webp",
+        showFullPhoto: true,
         quote: "Every VJ I’ve shared my custom Resolume composition with has been blown away — Kevin’s work on creating this is next-level and deeply appreciated.",
     },
 ];
@@ -54,8 +57,17 @@ function About() {
             <div className="transmissions">
                 {testimonials.map((testimonial, index) => (
                     <motion.figure key={testimonial.name} className="transmission" {...reveal}>
-                        {/* The artist's photo fills the card; a dark fade at the bottom keeps the quote readable */}
-                        <img className="transmission-photo" src={testimonial.image} alt={testimonial.name} loading="lazy" />
+                        {/* The artist's photo fills the card; a dark fade at the bottom keeps the quote readable.
+                            A full photo sits at the top over a blurred copy that fills the rest of the card. */}
+                        {testimonial.showFullPhoto && (
+                            <img className="transmission-photo transmission-photo-blur" src={testimonial.image} alt="" aria-hidden="true" loading="lazy" />
+                        )}
+                        <img
+                            className={`transmission-photo${testimonial.showFullPhoto ? " transmission-photo-full" : ""}`}
+                            src={testimonial.image}
+                            alt={testimonial.name}
+                            loading="lazy"
+                        />
                         <div className="hud-label">
                             Transmission {String(index + 1).padStart(2, "0")} // {testimonial.name}
                         </div>
