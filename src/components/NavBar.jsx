@@ -34,8 +34,14 @@ function NavBar() {
 
     return (
         <header className="top-bar">
-            <Link to="/" className="top-bar-logo" aria-label="Visional home" onClick={closeMenu}>
+            {/* The logo is drawn twice in the same spot, each cropped to one part: the
+                black-and-white eye stays as it is, and only the VISIONAL lettering
+                inverts so it stays readable over light sections */}
+            <Link to="/" className="top-bar-logo top-bar-logo-icon" aria-label="Visional home" onClick={closeMenu}>
                 <GlitchLogo src="/assets/VISIONAL Logo.png" alt="Visional Music Logo" className="logo-icon" />
+            </Link>
+            <Link to="/" className="top-bar-logo top-bar-logo-text" aria-hidden="true" tabIndex={-1} onClick={closeMenu}>
+                <GlitchLogo src="/assets/VISIONAL Logo.png" alt="" className="logo-icon" />
             </Link>
 
             <nav className="top-bar-socials" aria-label="Social media">

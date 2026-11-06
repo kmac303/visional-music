@@ -1844,8 +1844,6 @@ ul.hud-bar-links {
   text-transform: uppercase;
 }
 
-/* Inverts like the corner text: unchanged over the dark sections, and over the
-   white one its white parts turn black and the red and cyan swap */
 .top-bar-logo {
   position: fixed;
   top: 10px;
@@ -1853,6 +1851,18 @@ ul.hud-bar-links {
   z-index: 1000;
   display: flex;
   align-items: center;
+}
+
+/* The eye sits above row 422 of the 574-pixel-tall logo image and the
+   lettering below row 466, so each copy is cropped at about 77% */
+.top-bar-logo-icon {
+  clip-path: inset(0 0 22.6% 0);
+}
+
+/* Only the lettering inverts like the corner text: white over dark sections,
+   black over the white one */
+.top-bar-logo-text {
+  clip-path: inset(77.4% 0 0 0);
   mix-blend-mode: difference;
 }
 
