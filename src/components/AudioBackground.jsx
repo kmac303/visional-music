@@ -21,7 +21,7 @@ const SLOW_FLOW = 0.15;
 const MAX_DRAG = 24;
 
 // The cursor's swirl: top speed in pixels per frame, and how long it takes to wind down
-const MAX_SWIRL = 1.0;
+const MAX_SWIRL = 1.3;
 const SWIRL_SETTLE_SECONDS = 1.5;
 
 const vertexShader = `
@@ -167,7 +167,7 @@ const moshShader = PRECISION + `
         // like water circling a drain; the very center stays calm.
         vec2 around = vec2(-toPointer.y, toPointer.x) / max(pointerDistance, 1.0);
         float swirlReach = exp(-pointerDistance * pointerDistance / 6400.0) * smoothstep(0.0, 16.0, pointerDistance);
-        pull += (around - 0.3 * toPointer / max(pointerDistance, 1.0)) * u_swirl * swirlReach;
+        pull += (around - 0.35 * toPointer / max(pointerDistance, 1.0)) * u_swirl * swirlReach;
         vec2 from = gl_FragCoord.xy - floor(motion * u_motion + drag + pull + hash2(block + jump(u_frame) + 3.3));
         vec3 moshed = texture2D(u_prev, from / u_res).rgb;
 
