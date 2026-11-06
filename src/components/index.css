@@ -1318,12 +1318,47 @@ li {
   gap: 18px;
 }
 
+/* The headshot floats in the background instead of sitting in a black box:
+   screen blending drops its black, and a soft round fade hides the square edges */
+.hero-target {
+  position: relative;
+  padding: 22px;
+}
+
 #imageContainer.hero-headshot {
-  width: min(46vh, 70vw);
+  width: min(38vh, 64vw);
   min-width: 0;
   max-width: none;
   border-radius: 0;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 72%, transparent 100%);
 }
+
+.target-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: rgba(255, 255, 255, 0.7);
+  border-style: solid;
+  border-width: 0;
+  pointer-events: none;
+}
+
+.target-corner-tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+.target-corner-tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+.target-corner-bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+.target-corner-br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+
+.target-label {
+  position: absolute;
+  left: 26px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.target-label-top { top: 4px; }
+.target-label-bottom { bottom: 4px; }
 
 .hero-start {
   display: flex;
@@ -1792,7 +1827,7 @@ ul.hud-bar-links {
   }
 
   #imageContainer.hero-headshot {
-    width: min(72vw, 42vh);
+    width: min(68vw, 38vh);
   }
 
   section.page-section {

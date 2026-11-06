@@ -105,7 +105,15 @@ function Hero() {
             </dl>
 
             <div className="hero-center">
-                <GlitchHeadshot className="hero-headshot" />
+                <div className="hero-target">
+                    <GlitchHeadshot className="hero-headshot" />
+                    <span className="target-corner target-corner-tl" aria-hidden="true" />
+                    <span className="target-corner target-corner-tr" aria-hidden="true" />
+                    <span className="target-corner target-corner-bl" aria-hidden="true" />
+                    <span className="target-corner target-corner-br" aria-hidden="true" />
+                    <span className="hud-label target-label target-label-top" aria-hidden="true">Subject // Visional</span>
+                    <span className="hud-label target-label target-label-bottom" aria-hidden="true">Kevin McIntosh // Ref 0001</span>
+                </div>
                 {mode === "off" && (
                     <div className="hero-start">
                         {track && (
