@@ -1,3 +1,31 @@
+import { useState } from "react";
+import { FaPlay } from "react-icons/fa";
+
+// Shows the video's thumbnail and only loads the real YouTube player when clicked,
+// so the page doesn't start dozens of players (and their scripts) at once
+function VideoEmbed({ id, title }) {
+    const [playing, setPlaying] = useState(false);
+    const videoId = id.split("?")[0];
+
+    if (playing) {
+        return (
+            <iframe
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                title={title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+            ></iframe>
+        );
+    }
+
+    return (
+        <button type="button" className="video-thumb" onClick={() => setPlaying(true)} aria-label={`Play ${title}`}>
+            <img src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} alt="" loading="lazy" />
+            <span className="video-thumb-play" aria-hidden="true"><FaPlay /></span>
+        </button>
+    );
+}
 
 function Gallery() {
     const liveSets = [
@@ -39,13 +67,7 @@ function Gallery() {
             <div className="video-gallery">
                 {liveSets.map((id, index) => (
                     <div className="video-container" key={index}>
-                        <iframe
-                            src={`https://www.youtube.com/embed/${id}`}
-                            title={`YouTube video ${index + 1}`}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
+                        <VideoEmbed id={id} title={`YouTube video ${index + 1}`} />
                     </div>
                 ))}
             </div>
@@ -54,13 +76,7 @@ function Gallery() {
             <div className="video-gallery">
                 {projects.map((id, index) => (
                     <div className="video-container" key={index}>
-                        <iframe
-                            src={`https://www.youtube.com/embed/${id}`}
-                            title={`YouTube video ${index + 1}`}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
+                        <VideoEmbed id={id} title={`YouTube video ${index + 1}`} />
                     </div>
                 ))}
             </div>

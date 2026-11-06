@@ -20,6 +20,10 @@ function About() {
         let targetMousePosition = { x: 0.5, y: 0.5 };
         let prevPosition = { x: 0.5, y: 0.5 };
         let aberrationIntensity = 0.0;
+        let frameId;
+        let resizeHandler;
+        // Only redraw when something changed, instead of a full WebGL frame 60 times a second
+        let dirty = true;
 
         const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
@@ -69,6 +73,8 @@ function About() {
                 renderer.setSize(width, height);
                 camera.aspect = width / height;
                 camera.updateProjectionMatrix();
+                // Resizing clears the canvas, so draw again
+                dirty = true;
             }
         
             camera = new THREE.PerspectiveCamera(
@@ -107,10 +113,13 @@ function About() {
             updateRendererSize();
         
             // Resize listener
-            window.addEventListener("resize", updateRendererSize);
+            resizeHandler = updateRendererSize;
+            window.addEventListener("resize", resizeHandler);
         }
 
-        const texture = new THREE.TextureLoader().load(imageElement.src);
+        const texture = new THREE.TextureLoader().load(imageElement.src, () => {
+            dirty = true;
+        });
         initializeScene(texture);
         requestAnimationFrame(() => {
         if (renderer && camera) {
@@ -119,13 +128,21 @@ function About() {
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
+            dirty = true;
         }
         });
         animateScene();
 
         function animateScene() {
-            requestAnimationFrame(animateScene);
-            
+            frameId = requestAnimationFrame(animateScene);
+
+            // Skip the draw while the image is at rest: no glitch fading and the mouse settled
+            const settled = aberrationIntensity === 0
+                && Math.abs(targetMousePosition.x - mousePosition.x) < 0.0005
+                && Math.abs(targetMousePosition.y - mousePosition.y) < 0.0005;
+            if (settled && !dirty) return;
+            dirty = false;
+
             mousePosition.x += (targetMousePosition.x - mousePosition.x) * easeFactor;
             mousePosition.y += (targetMousePosition.y - mousePosition.y) * easeFactor;
 
@@ -201,12 +218,17 @@ function About() {
             renderer.setSize(width, height, false);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
+            dirty = true;
             }
         });
 
   resizeObserver.observe(imageContainer);
 
         return () => {
+            // Stop the loop, or it keeps drawing after leaving the page and a new one
+            // stacks up on every visit
+            cancelAnimationFrame(frameId);
+            window.removeEventListener("resize", resizeHandler);
             resizeObserver.disconnect();
             if (isMobile) {
                 imageContainer.removeEventListener("touchstart", handleTouchStart);
