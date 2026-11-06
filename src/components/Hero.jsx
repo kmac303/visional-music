@@ -17,6 +17,17 @@ function timecode(seconds) {
     return `${String(Math.floor(whole / 60)).padStart(2, "0")}:${String(whole % 60).padStart(2, "0")}`;
 }
 
+// Long track names scroll back and forth; short ones sit still
+function fitMarquee(text) {
+    const overflow = text.scrollWidth - text.parentElement.clientWidth;
+    text.classList.toggle("is-scrolling", overflow > 0);
+    if (overflow > 0) {
+        text.style.setProperty("--marquee-distance", `${-overflow}px`);
+        // About 30 pixels a second, plus time to pause at each end
+        text.style.setProperty("--marquee-duration", `${(overflow / 30 + 3) * 2}s`);
+    }
+}
+
 const denverTime = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Denver",
     hour: "numeric",
@@ -55,7 +66,11 @@ function Hero() {
             write("clock", `${denverTime.format(new Date())} MT`);
             write("signal", on ? "● LIVE" : "STANDBY");
             write("input", on ? a.source.toUpperCase() : "NONE");
-            write("source", a.source === "track" ? track.title : a.source === "mic" ? "ROOM AUDIO" : "—");
+            const source = a.source === "track" ? track.title : a.source === "mic" ? "ROOM AUDIO" : "—";
+            if (r.source && r.source.textContent !== source) {
+                r.source.textContent = source;
+                fitMarquee(r.source);
+            }
             // A known track tempo beats an estimate from detected hits
             const bpm = a.source === "track" && track?.bpm ? track.bpm : a.bpm;
             write("bpm", on && bpm ? String(bpm).padStart(3, "0") : "---");
@@ -81,9 +96,17 @@ function Hero() {
         observer.observe(heroRef.current);
         frame = requestAnimationFrame(tick);
 
+        // The scroll distance depends on the box width and the loaded font
+        const refitSource = () => {
+            if (readouts.current.source) fitMarquee(readouts.current.source);
+        };
+        window.addEventListener("resize", refitSource);
+        document.fonts?.ready.then(refitSource);
+
         return () => {
             cancelAnimationFrame(frame);
             observer.disconnect();
+            window.removeEventListener("resize", refitSource);
         };
     }, [track]);
 
@@ -104,7 +127,10 @@ function Hero() {
                 <dl className="hud hud-top-right">
                     <div><dt>Signal</dt><dd ref={readout("signal")} className="hud-signal">STANDBY</dd></div>
                     <div className="hud-optional"><dt>Input</dt><dd ref={readout("input")}>NONE</dd></div>
-                    <div className="hud-optional"><dt>Src</dt><dd ref={readout("source")} className="hud-source">—</dd></div>
+                    <div className="hud-optional">
+                        <dt>Src</dt>
+                        <dd className="hud-source"><span ref={readout("source")} className="hud-marquee">—</span></dd>
+                    </div>
                 </dl>
 
                 <div className="hero-center">

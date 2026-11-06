@@ -1311,8 +1311,22 @@ li {
 .hud-source {
   max-width: 24ch;
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.hud-marquee {
+  display: inline-block;
+}
+
+/* Slides to the end of the title, pauses, slides back, pauses */
+.hud-marquee.is-scrolling {
+  animation: hud-marquee var(--marquee-duration, 12s) ease-in-out infinite;
+}
+
+@keyframes hud-marquee {
+  0%, 15% { transform: translateX(0); }
+  50%, 65% { transform: translateX(var(--marquee-distance, 0px)); }
+  100% { transform: translateX(0); }
 }
 
 .hud-signal.is-live {
@@ -1923,6 +1937,15 @@ ul.hud-bar-links {
 
 @media (prefers-reduced-motion: reduce) {
   .hud-signal.is-live {
+    animation: none;
+  }
+
+  /* Wrap long track names onto a second line instead of scrolling them */
+  .hud-source {
+    white-space: normal;
+  }
+
+  .hud-marquee.is-scrolling {
     animation: none;
   }
 }
