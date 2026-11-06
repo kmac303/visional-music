@@ -504,8 +504,6 @@ function AudioBackground({ children }) {
         const analysis = createAnalysis();
         let data = null;
         let frame;
-        let lastDraw = 0;
-        const frameInterval = isMobile ? 1000 / 30 : 0;
         const start = performance.now();
         let lastFrame = start;
         let kicksSeen = 0;
@@ -534,8 +532,7 @@ function AudioBackground({ children }) {
 
         function draw(now) {
             frame = requestAnimationFrame(draw);
-            if (!textureReady || now - lastDraw < frameInterval) return;
-            lastDraw = now;
+            if (!textureReady) return;
 
             // The analyser outlives a pause, so also check that sound is actually on
             const { analyser } = audioRef.current;
@@ -653,7 +650,9 @@ function AudioBackground({ children }) {
             gl.uniform2f(u.u_grid, grid[0], grid[1]);
             gl.uniform1f(u.u_seed, seed % 97);
             gl.uniform1f(u.u_amount, amount);
-            gl.uniform1f(u.u_motion, motion);
+            // Motion is in canvas pixels, which are bigger on phones; scale it so the flow
+            // crosses the screen at the same speed as on desktop
+            gl.uniform1f(u.u_motion, motion * (scale / 0.5));
             // Fresh blocks of the glitch image only come in with the hits while the flow is on;
             // when it's off nothing refreshes, so the image holds completely
             gl.uniform1f(u.u_refresh, cleanFrame ? 1 : (flowOn ? 0.004 + 0.06 * level.kick : 0) + 0.05 * punch);
