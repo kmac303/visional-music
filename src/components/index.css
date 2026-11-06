@@ -1280,7 +1280,12 @@ li {
 }
 
 /* Left column sits against the headshot's left side, right column against its right */
-.hud-top-left { grid-area: tl; justify-self: end; }
+.hud-top-left { grid-area: tl; justify-self: end; text-align: right; }
+
+/* Its lines are flex rows, so line them up on the right too */
+.hud-top-left > div {
+  justify-content: flex-end;
+}
 .hud-top-right { grid-area: tr; justify-self: start; }
 .hud-bottom-left { grid-area: bl; justify-self: end; align-self: end; }
 .hud-bottom-right { grid-area: br; justify-self: start; align-self: end; }
@@ -1291,7 +1296,7 @@ li {
   width: auto;
   border: none;
   border-radius: 0;
-  text-align: left;
+  text-align: inherit;
   font: inherit;
   font-size: 0.8rem;
   font-weight: 700;
@@ -1850,6 +1855,14 @@ ul.hud-bar-links {
   .hud-top-left,
   .hud-bottom-left {
     justify-self: start;
+  }
+
+  .hud-top-left {
+    text-align: left;
+  }
+
+  .hud-top-left > div {
+    justify-content: flex-start;
   }
 
   .hud-top-right {
