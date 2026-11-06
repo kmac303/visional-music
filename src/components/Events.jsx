@@ -1,5 +1,5 @@
-
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import SectionHeader from "./SectionHeader";
 
 function Events() {
     // List of artists
@@ -113,42 +113,49 @@ function Events() {
         }
     ];
 
-    return (
-        <section>
-            <h1>UPCOMING EVENTS</h1>
-            <div className="event-grid">
-                {events
-                    .filter(event => event.category === "upcoming")
-                    .map((event, index) => (
-                        <Link key={index} to={event.link} target="_blank" rel="noopener noreferrer"
-                        className={`${event.title.includes("Big") ? "centered-event" : ""}`}>
-                            <img src={event.imgSrc} alt={event.alt} className={event.className} />
-                            <h4>{event.title}</h4><br />
-                        </Link>
-                    ))
-                }
-            </div>
-            <h1>PAST EVENTS</h1>
-            <div className="event-grid">
-                {events
-                    .filter(event => event.category === "past")
-                    .map((event, index) => (
-                        <Link key={index} to={event.link} target="_blank" rel="noopener noreferrer">
-                            <img src={event.imgSrc} alt={event.alt} className={event.className} />
-                            <h4>{event.title}</h4><br />
-                        </Link>
-                    ))
-                }
-            </div>
+    const upcoming = events.filter((event) => event.category === "upcoming");
+    const past = events.filter((event) => event.category === "past");
 
-            <h1>Artists Visional Has Worked With</h1>
-            <ul className="artist-list">
+    const card = (event, index) => (
+        <motion.a
+            key={event.title}
+            href={event.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="event-card"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10% 0px" }}
+            transition={{ duration: 0.5, delay: (index % 2) * 0.08 }}
+        >
+            <img src={event.imgSrc} alt={event.alt} loading="lazy" />
+            <span className="event-card-caption">
+                <span className="hud-label">{String(index + 1).padStart(4, "0")}</span>
+                <span className="event-card-title">{event.title}</span>
+            </span>
+        </motion.a>
+    );
+
+    return (
+        <section id="events" className="page-section events-section">
+            <SectionHeader index="02" label="Events" title="Where the visuals have been" />
+            {upcoming.length > 0 && (
+                <>
+                    <div className="hud-label events-group-label">Upcoming // {upcoming.length}</div>
+                    <div className="event-cards">{upcoming.map(card)}</div>
+                </>
+            )}
+            <div className="hud-label events-group-label">Past // {past.length}</div>
+            <div className="event-cards">{past.map(card)}</div>
+
+            <div className="hud-label events-group-label">Artists Visional has worked with // {artistList.length}</div>
+            <ul className="artist-cloud">
                 {artistList.map((artist, index) => (
                     <li key={index}>{artist}</li>
                 ))}
             </ul>
         </section>
     );
-};
+}
 
 export default Events;

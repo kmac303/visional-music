@@ -46,6 +46,7 @@ function NavBar() {
 
             {/* Mobile Dropdown Menu */}
             <ul className={`link-container ${menuOpen ? "open" : ""}`}>
+                <li><Link to="/about" onClick={closeMenu}>About</Link></li>
                 <li><Link to="/events" onClick={closeMenu}>Events</Link></li>
                 <li><Link to="/gallery" onClick={closeMenu}>Gallery</Link></li>
                 <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>

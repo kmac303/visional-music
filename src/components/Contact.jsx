@@ -1,33 +1,32 @@
+import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import SectionHeader from "./SectionHeader";
+
 function Contact() {
     return (
-        <section>
-            <h1>CONTACT</h1>
-            <div className="contact-text-container">
-                <p>
-                    <strong>
-                        Want to book a VJ set?
-                        <br />
-                        Email{" "}
-                        <a href="mailto:contact@visionalmusic.com">
-                            contact@visionalmusic.com
-                        </a>
-                    </strong>
-                </p>
-                <br /><br />
-                <p>
-                    <strong>
-                        Instagram:
-                        <br />
-                        <a
-                            href="https://www.instagram.com/visionalmusic"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            @visionalmusic
-                        </a>
-                    </strong>
-                </p>
-            </div>
+        <section id="contact" className="page-section contact-section">
+            <SectionHeader index="04" label="Contact" title="Book a set" />
+            <p className="contact-lead">Want Visional on the screens at your show? Get in touch.</p>
+            <a className="contact-email" href="mailto:contact@visionalmusic.com">
+                contact@visionalmusic.com
+            </a>
+            <ul className="contact-socials">
+                <li>
+                    <a href="https://www.instagram.com/visionalmusic" target="_blank" rel="noopener noreferrer">
+                        <FaInstagram aria-hidden="true" /> @visionalmusic
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/@visionalmusic" target="_blank" rel="noopener noreferrer">
+                        <FaYoutube aria-hidden="true" /> YouTube
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.tiktok.com/@visionalmusic" target="_blank" rel="noopener noreferrer">
+                        <FaTiktok aria-hidden="true" /> TikTok
+                    </a>
+                </li>
+            </ul>
+            <div className="hud-label contact-signoff">End of transmission // Visional {new Date().getFullYear()}</div>
         </section>
     );
 }

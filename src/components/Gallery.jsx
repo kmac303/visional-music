@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
+import SectionHeader from "./SectionHeader";
+
+// How many live sets show before "Show all"
+const FEATURED_COUNT = 6;
 
 // Video titles and channel names from YouTube, kept for the visit so they load once
 const videoInfo = new Map();
@@ -92,29 +96,35 @@ function Gallery() {
         "51PZq4GQQrw",
         "Y0QWp5UW7z4"
     ];
+    const [showAll, setShowAll] = useState(false);
+    const shownSets = showAll ? liveSets : liveSets.slice(0, FEATURED_COUNT);
+
     return (
-        <section>
-            {/* <h1>GALLERY</h1> */}
-            <h1>Visional's Live VJ Sets</h1>
-            {/* <h3>Concerts Featuring Visional's Visuals</h3> */}
+        <section id="gallery" className="page-section gallery-section">
+            <SectionHeader index="03" label="Gallery" title="Live VJ sets" />
             <div className="video-gallery">
-                {liveSets.map((id, index) => (
-                    <div className="video-container" key={index}>
-                        <VideoEmbed id={id} title={`YouTube video ${index + 1}`} />
+                {shownSets.map((id, index) => (
+                    <div className="video-container" key={id}>
+                        <VideoEmbed id={id} title={`Live set ${index + 1}`} />
                     </div>
                 ))}
             </div>
-            <h1>Art Collaborations</h1>
-            {/* <h3>Artist Collaborations</h3> */}
+            {liveSets.length > FEATURED_COUNT && (
+                <button type="button" className="hud-button gallery-toggle" onClick={() => setShowAll(!showAll)} aria-expanded={showAll}>
+                    {showAll ? "Show fewer −" : `Show all ${liveSets.length} sets +`}
+                </button>
+            )}
+
+            <SectionHeader index="03.1" label="Collaborations" title="Art collaborations" />
             <div className="video-gallery">
                 {projects.map((id, index) => (
-                    <div className="video-container" key={index}>
-                        <VideoEmbed id={id} title={`YouTube video ${index + 1}`} />
+                    <div className="video-container" key={id}>
+                        <VideoEmbed id={id} title={`Art collaboration ${index + 1}`} />
                     </div>
                 ))}
             </div>
         </section>
     );
-};
+}
 
 export default Gallery;

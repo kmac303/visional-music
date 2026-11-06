@@ -9,4 +9,15 @@ export const audioLevels = {
     high: 0,
     kick: 0,
     kicks: 0,
+    // How much bass is present (0-1); this drives the datamosh flow
+    presence: 0,
+    // Tempo estimated from the gaps between hits; 0 until it locks on
+    bpm: 0,
+    // What the background is doing: "active", "drift", or "hold"
+    flow: "hold",
+    // Frames drawn while sound is on, like timecode on VJ software
+    frame: 0,
+    // Track position and length in seconds (0 for the mic)
+    time: 0,
+    duration: 0,
 };

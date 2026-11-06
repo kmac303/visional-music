@@ -1,6 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import { FaPlay, FaPause, FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { audioLevels } from "./audioLevels";
+
+// Lets the hero, the bottom bar, and anything else start and stop the sound
+const SoundContext = createContext(null);
+
+export function useSound() {
+    return useContext(SoundContext);
+}
 
 // Set to null to hide the play button.
 const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Savej – Solstice (Visional Remix)" };
@@ -310,7 +316,24 @@ function createAnalysis() {
     };
 }
 
-function AudioBackground() {
+// Tempo from the median gap between recent hits, folded into a normal dance-music
+// range so a half- or double-time read still lands near the real tempo
+function estimateBpm(hitTimes, now) {
+    if (hitTimes.length < 6 || now - hitTimes[hitTimes.length - 1] > 4000) return 0;
+    const gaps = [];
+    for (let i = 1; i < hitTimes.length; i++) {
+        const gap = hitTimes[i] - hitTimes[i - 1];
+        if (gap > 250 && gap < 2000) gaps.push(gap);
+    }
+    if (gaps.length < 4) return 0;
+    gaps.sort((a, b) => a - b);
+    let bpm = 60000 / gaps[Math.floor(gaps.length / 2)];
+    while (bpm < 80) bpm *= 2;
+    while (bpm >= 170) bpm /= 2;
+    return Math.round(bpm);
+}
+
+function AudioBackground({ children }) {
     const canvasRef = useRef(null);
     const audioRef = useRef({ context: null, analyser: null, element: null, stream: null, source: null });
     const [mode, setMode] = useState("off");
@@ -427,6 +450,8 @@ function AudioBackground() {
         let nextRefresh = 0;
         let grid = [24, 14];
         let flowOn = false;
+        // Recent hit times, for estimating the tempo
+        const hitTimes = [];
         let motion = 0;
         let field = 0;
         let frameCount = 0;
@@ -464,6 +489,8 @@ function AudioBackground() {
             if (kicksSeen < level.kicks) {
                 audioLevels.kicks += level.kicks - kicksSeen;
                 kicksSeen = level.kicks;
+                hitTimes.push(now);
+                if (hitTimes.length > 24) hitTimes.shift();
                 amount = Math.max(amount, 0.5 + 0.5 * level.bass);
                 grid = pickGrid(level.bass);
                 seed += 1;
@@ -482,6 +509,12 @@ function AudioBackground() {
             audioLevels.mid = level.mid;
             audioLevels.high = level.high;
             audioLevels.kick = level.kick;
+            audioLevels.presence = level.presence;
+            audioLevels.bpm = listening ? estimateBpm(hitTimes, now) : 0;
+            const { element } = audioRef.current;
+            const onTrack = listening && audioLevels.source === "track" && element;
+            audioLevels.time = onTrack ? element.currentTime : 0;
+            audioLevels.duration = onTrack && Number.isFinite(element.duration) ? element.duration : 0;
 
             // Block motion follows how much bass is present and cuts out when it's gone,
             // so the moshed image holds in place instead of drifting on
@@ -493,6 +526,7 @@ function AudioBackground() {
             const motionTarget = !listening ? 0 : flowOn ? 1.2 + 2.1 * level.presence + 1.5 * level.kick : SLOW_FLOW;
             motion += (motionTarget - motion) * Math.min(1, dt * 12);
             if (!listening) motion = 0;
+            audioLevels.flow = !listening ? "hold" : flowOn ? "active" : "drift";
             // Heavy kicks send the blocks off in new directions, like a cut in a mosh edit
             if (level.kick > 0.85 && level.presence > 0.4) field += 0.37;
 
@@ -503,6 +537,7 @@ function AudioBackground() {
             const time = (now - start) / 1000;
             lastTime = time;
             frameCount = (frameCount + 1) % 997;
+            if (listening) audioLevels.frame += 1;
 
             // Pass 1: draw the next moshed frame into the write target
             const write = 1 - readIndex;
@@ -644,36 +679,13 @@ function AudioBackground() {
         );
     }
 
+    const sound = { mode, message, track: TRACK, toggleTrack, toggleMic };
+
     return (
-        <>
+        <SoundContext.Provider value={sound}>
             <canvas ref={canvasRef} className="audio-background" aria-hidden="true" />
-            <div className="audio-controls">
-                {message && <span className="audio-message">{message}</span>}
-                {mode === "mic" && <span className="audio-message">Your audio stays on your device.</span>}
-                {TRACK && (
-                    <button
-                        type="button"
-                        onClick={toggleTrack}
-                        aria-pressed={mode === "track"}
-                        title={TRACK.title}
-                        aria-label={mode === "track" ? "Pause track" : `Play ${TRACK.title}`}
-                    >
-                        {mode === "track" ? <FaPause /> : <FaPlay />}
-                        <span>{mode === "track" ? "Pause" : TRACK.title}</span>
-                    </button>
-                )}
-                <button
-                    type="button"
-                    onClick={toggleMic}
-                    aria-pressed={mode === "mic"}
-                    title="Make the background react to sound around you"
-                    aria-label={mode === "mic" ? "Stop microphone" : "Make the background react to your microphone"}
-                >
-                    {mode === "mic" ? <FaMicrophoneSlash /> : <FaMicrophone />}
-                    <span>{mode === "mic" ? "Stop mic" : "React to mic"}</span>
-                </button>
-            </div>
-        </>
+            {children}
+        </SoundContext.Provider>
     );
 }
 
