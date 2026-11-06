@@ -1,3 +1,5 @@
+import EmailLink from "./EmailLink";
+
 function Lessons() {
     return (
         <section>
@@ -17,11 +19,7 @@ function Lessons() {
                 <br />
                 <strong>Unlock your visual creativity!</strong>
                 <br />
-                Email{" "}
-                <a href="mailto:contact@visionalmusic.com">
-                    contact@visionalmusic.com
-                </a>
-                {" "}to book a lesson.
+                <EmailLink label="Email Visional" />{" "}to book a lesson.
                 <br /><br />
                 Transform your live performances with expert VJ lessons designed for all skill levels.<br /><br />
                 Learn the art of creating captivating shows using tools like Resolume, Synesthesia Live, and ShowKontrol.<br /><br />

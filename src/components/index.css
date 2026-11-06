@@ -1916,6 +1916,58 @@ section.contact-section {
   color: #ffffff;
 }
 
+/* The email reveal button looks like the link it turns into */
+.email-reveal {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.email-reveal:hover {
+  border: 0;
+}
+
+.email-reveal.contact-email {
+  font-family: var(--display-font);
+  font-size: clamp(2rem, 7.5vw, 6.5rem);
+  line-height: 1;
+  color: var(--ink);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.email-reveal.contact-email:hover {
+  color: #ffffff;
+}
+
+.email-revealed {
+  display: inline;
+}
+
+.email-revealed .contact-email {
+  display: inline;
+}
+
+.email-copy {
+  margin-left: 0.75em;
+  padding: 4px 10px;
+  border: 1px solid currentColor;
+  border-radius: 0;
+  background: none;
+  font-family: var(--hud-font);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: inherit;
+  vertical-align: middle;
+}
+
 ul.contact-socials {
   display: flex;
   flex-wrap: wrap;

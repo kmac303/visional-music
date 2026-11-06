@@ -99,7 +99,8 @@ function HudBar() {
             </div>
 
             <span className="hud-bar-clock" ref={clockRef} />
-            <a className="hud-bar-book" href="mailto:contact@visionalmusic.com">Book a set +</a>
+            {/* Goes to the Contact section, where the email is revealed on click */}
+            <Link className="hud-bar-book" to="/contact">Book a set +</Link>
         </nav>
     );
 }

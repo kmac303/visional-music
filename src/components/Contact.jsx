@@ -1,14 +1,13 @@
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 import SectionHeader from "./SectionHeader";
+import EmailLink from "./EmailLink";
 
 function Contact() {
     return (
         <section id="contact" className="page-section contact-section">
             <SectionHeader index="04" label="Contact" title="Book a set" />
             <p className="contact-lead">Want Visional on the screens at your show? Get in touch.</p>
-            <a className="contact-email" href="mailto:contact@visionalmusic.com">
-                contact@visionalmusic.com
-            </a>
+            <EmailLink className="contact-email" />
             <ul className="contact-socials">
                 <li>
                     <a href="https://www.instagram.com/visionalmusic" target="_blank" rel="noopener noreferrer">
