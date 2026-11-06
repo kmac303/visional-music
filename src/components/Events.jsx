@@ -143,6 +143,14 @@ function Events() {
 
     return (
         <section id="events" className="page-section events-section">
+            {/* A wide stage photo runs edge to edge across the top of the section */}
+            <div className="events-banner">
+                <img
+                    src="/assets/Events Banner.jpg"
+                    alt="Visional's visuals on the LED walls at Excision's Mile High show, with light beams, smoke and flame jets"
+                    loading="lazy"
+                />
+            </div>
             <SectionHeader index="02" label="Events" title="Where the visuals go" />
             {upcoming.length > 0 && (
                 <>
