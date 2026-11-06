@@ -168,14 +168,14 @@ function Events() {
             <SectionHeader index="02" label="Events" title="Where the visuals go" />
             {upcoming.length > 0 && (
                 <>
-                    <div className="hud-label events-group-label">Upcoming // {upcoming.length}</div>
+                    <div className="hud-label events-group-label">Upcoming</div>
                     <div className="event-cards">{upcoming.map(card)}</div>
                 </>
             )}
-            <div className="hud-label events-group-label">Past // {past.length}</div>
+            <div className="hud-label events-group-label">Past</div>
             <div className="event-cards">{past.map(card)}</div>
 
-            <div className="hud-label events-group-label artist-cloud-label">Artists Visional has worked with // {artistList.length}</div>
+            <div className="hud-label events-group-label artist-cloud-label">Selected artists Visional has worked with</div>
             <ul className="artist-cloud">
                 {artistList.map((artist, index) => (
                     <li key={index}>{artist}</li>
