@@ -12,9 +12,9 @@ const bio = [
 // Stage photos shown beside the bio
 const stages = [
     {
-        venue: "Fiddler's Green Amphitheater",
+        venue: "Fiddler's Green Amphitheatre",
         image: "/assets/Stage Mile High.jpg",
-        alt: "Visional's visuals on the LED walls at Fiddler's Green Amphitheater, with flame jets, green lights and lasers over the crowd",
+        alt: "Visional's visuals on the LED walls at Fiddler's Green Amphitheatre, with flame jets, green lights and lasers over the crowd",
     },
     {
         venue: "Legend Valley, OH",
