@@ -1489,8 +1489,10 @@ section.page-section {
 
 /* Full photo at the top, across the card's width, uncropped */
 .transmission-photo-full {
+  /* Every photo gets the same square slot; wider ones are cropped at the sides to fill it */
   height: auto;
-  object-fit: contain;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 /* Blurred, darkened copy behind it fills the rest of the card */

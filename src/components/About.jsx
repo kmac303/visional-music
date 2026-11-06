@@ -27,7 +27,7 @@ const testimonials = [
     {
         name: "Savej",
         link: "https://www.savejmusic.com",
-        image: "/assets/Savej Headshot.webp",
+        image: "/assets/Savej Live.jpg",
         showFullPhoto: true,
         quote: "Every VJ I’ve shared my custom Resolume composition with has been blown away. Kevin’s work on creating this is next-level and deeply appreciated.",
     },
