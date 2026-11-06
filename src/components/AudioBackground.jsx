@@ -50,6 +50,14 @@ const moshShader = PRECISION + `
         return vec2(hash(p), hash(p + 17.31));
     }
 
+    // Turns a counter into an offset for hash(). Adding the same number to x and y
+    // only slides one fixed pattern diagonally, which shows up as marching angled
+    // lines, so each step jumps by an uneven amount in each direction instead.
+    // Kept small so hash() keeps its precision.
+    vec2 jump(float n) {
+        return fract(vec2(n * 0.1731, n * 0.5773)) * 53.0;
+    }
+
     float noise(vec2 p) {
         vec2 i = floor(p);
         vec2 f = fract(p);
@@ -71,23 +79,24 @@ const moshShader = PRECISION + `
     // The clean glitch image, with block corruption on kicks and red/cyan fringes
     vec3 fresh(vec2 screen) {
         vec2 uv = cover(screen);
+        vec2 seed = jump(u_seed);
 
         vec2 cell = floor(screen * u_grid);
         vec2 sub = floor(screen * u_grid * vec2(4.0, 3.0));
-        float roll = hash(cell + u_seed);
-        float subRoll = hash(sub + u_seed * 1.37);
+        float roll = hash(cell + seed);
+        float subRoll = hash(sub + seed * 1.37);
         vec2 shift = vec2(0.0);
         float lift = 0.0;
 
         if (roll < u_amount * 0.45) {
-            shift = (hash2(cell + u_seed + 3.1) - 0.5) * vec2(0.4, 0.1);
+            shift = (hash2(cell + seed + 3.1) - 0.5) * vec2(0.4, 0.1);
             lift = 0.25;
         } else if (subRoll < u_amount * 0.2) {
-            shift = (hash2(sub + u_seed + 5.7) - 0.5) * vec2(0.15, 0.03);
+            shift = (hash2(sub + seed + 5.7) - 0.5) * vec2(0.15, 0.03);
         }
 
         // Some blocks smear their left edge across the whole block
-        if (hash(cell + u_seed + 9.1) < u_amount * 0.15) {
+        if (hash(cell + seed + 9.1) < u_amount * 0.15) {
             uv.x = cover(vec2(cell.x / u_grid.x, screen.y)).x;
             lift = 0.15;
         }
@@ -102,8 +111,8 @@ const moshShader = PRECISION + `
 
         vec2 split = vec2(0.002 + 0.003 * u_mid, 0.0);
         vec2 channel = vec2(0.0);
-        if (hash(cell + u_seed + 2.2) < u_amount * 0.3) {
-            channel.x = (hash(cell + u_seed + 4.4) - 0.5) * 0.06;
+        if (hash(cell + seed + 2.2) < u_amount * 0.3) {
+            channel.x = (hash(cell + seed + 4.4) - 0.5) * 0.06;
         }
         vec3 core = glitch(uv);
         vec3 fringe = vec3(glitch(uv + split + channel).r, glitch(uv - split - channel).gb);
@@ -124,7 +133,7 @@ const moshShader = PRECISION + `
         vec3 moshed = texture2D(u_prev, from / u_res).rgb;
 
         // A few blocks per frame refresh from the clean image
-        float refresh = step(hash(block + u_frame), u_refresh);
+        float refresh = step(hash(block + jump(u_frame)), u_refresh);
         gl_FragColor = vec4(mix(moshed, fresh(screen), refresh), 1.0);
     }
 `;
@@ -503,9 +512,9 @@ function AudioBackground() {
             gl.uniform1f(u.u_seed, seed % 97);
             gl.uniform1f(u.u_amount, amount);
             gl.uniform1f(u.u_motion, motion);
-            // Fresh blocks of the glitch image only come in with the hits, so the music
-            // is the only thing that ever refreshes it
-            gl.uniform1f(u.u_refresh, cleanFrame ? 1 : 0.004 + 0.06 * level.kick);
+            // Fresh blocks of the glitch image only come in with the hits while the bass is
+            // flowing; when the bass is out nothing refreshes, so the image holds completely
+            gl.uniform1f(u.u_refresh, cleanFrame ? 1 : flowOn ? 0.004 + 0.06 * level.kick : 0);
             gl.uniform1f(u.u_frame, frameCount);
             gl.uniform1f(u.u_field, field);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
