@@ -410,7 +410,7 @@ function AudioBackground() {
         let seed = 0;
         let nextRefresh = 0;
         let grid = [24, 14];
-        let flowSpeed = 0;
+        let flowOn = false;
         let field = 0;
         let frameCount = 0;
 
@@ -468,8 +468,14 @@ function AudioBackground() {
 
             // Block motion follows how much bass is present and cuts out when it's gone,
             // so the moshed image holds in place instead of drifting on
-            const flowTarget = listening && level.presence > 0.15 ? level.presence : 0;
-            flowSpeed += (flowTarget - flowSpeed) * Math.min(1, dt * 20);
+            // On above 35% presence, off below 20%, so it can't flicker at the edge
+            if (!listening || level.presence < 0.2) flowOn = false;
+            else if (level.presence > 0.35) flowOn = true;
+            // Below about a pixel per frame only the blocks with the strongest motion round up
+            // to a step, so they crawl in diagonal bands while the rest sit still. Keeping a
+            // minimum speed while on, and switching straight to zero when off, makes the
+            // blocks move or stop together.
+            const motion = flowOn ? 1.2 + 2.1 * level.presence + 1.5 * level.kick : 0;
             // Heavy kicks send the blocks off in new directions, like a cut in a mosh edit
             if (level.kick > 0.85 && level.presence > 0.4) field += 0.37;
 
@@ -496,7 +502,7 @@ function AudioBackground() {
             gl.uniform2f(u.u_grid, grid[0], grid[1]);
             gl.uniform1f(u.u_seed, seed % 97);
             gl.uniform1f(u.u_amount, amount);
-            gl.uniform1f(u.u_motion, flowSpeed * (0.8 + 2.5 * flowSpeed) + 1.5 * level.kick * flowSpeed);
+            gl.uniform1f(u.u_motion, motion);
             // Fresh blocks of the glitch image only come in with the hits, so the music
             // is the only thing that ever refreshes it
             gl.uniform1f(u.u_refresh, cleanFrame ? 1 : 0.004 + 0.06 * level.kick);
