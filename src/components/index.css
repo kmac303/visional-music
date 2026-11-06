@@ -1193,6 +1193,21 @@ li {
   letter-spacing: 0.02em;
 }
 
+/* The bottom-left block mirrors the bottom-right one: labels sit against the
+   headshot and the meters fill outward to the left */
+.hud-bottom-left > div {
+  flex-direction: row-reverse;
+}
+
+.hud-bottom-left dt {
+  text-align: right;
+}
+
+.hud-bottom-left .hud-meter {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
 .hero-center {
   grid-area: center;
   display: flex;
@@ -1825,6 +1840,19 @@ ul.hud-bar-links {
   .hud-top-right,
   .hud-bottom-right {
     justify-self: end;
+  }
+
+  /* Back at the outer edge, so the bottom-left meters read left to right again */
+  .hud-bottom-left > div {
+    flex-direction: row;
+  }
+
+  .hud-bottom-left dt {
+    text-align: left;
+  }
+
+  .hud-bottom-left .hud-meter {
+    transform: none;
   }
 }
 
