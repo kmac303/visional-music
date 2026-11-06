@@ -227,19 +227,24 @@ function Hero() {
                     <div>
                         <dt>Flow</dt>
                         <dd className="hud-flow">
-                            <input
-                                type="range"
-                                className="hud-scrubber hud-flow-slider"
-                                min="1"
-                                max="100"
-                                step="1"
-                                value={flow}
-                                onChange={changeFlow}
-                                style={{ "--progress": `${flow}%` }}
-                                aria-label="Flow amount"
-                                aria-valuetext={`${flow}%`}
-                                title="How strongly the sound moves the background"
-                            />{" "}
+                            {/* Looks like the other meters, but an invisible slider sits on top so it
+                                can be dragged (or set with the arrow keys) from 100 down to 1 */}
+                            <span className="hud-flow-control">
+                                <span className="hud-meter" aria-hidden="true">
+                                    {"█".repeat(Math.ceil(flow / 10)) + "░".repeat(METER_SEGMENTS - Math.ceil(flow / 10))}
+                                </span>
+                                <input
+                                    type="range"
+                                    min="1"
+                                    max="100"
+                                    step="1"
+                                    value={flow}
+                                    onChange={changeFlow}
+                                    aria-label="Flow amount"
+                                    aria-valuetext={`${flow}%`}
+                                    title="Drag to set how strongly the sound moves the background"
+                                />
+                            </span>{" "}
                             <span>{flow}%</span>
                         </dd>
                     </div>
