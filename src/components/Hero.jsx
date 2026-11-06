@@ -20,7 +20,7 @@ function timecode(seconds) {
 // How fast long track names scroll, in pixels per second
 const MARQUEE_SPEED = 20;
 // How long the title holds still at the start of each pass, in seconds
-const MARQUEE_PAUSE = 1.5;
+const MARQUEE_PAUSE = 2.5;
 
 // Long track names scroll in a loop like an old MP3 player: hold at the start,
 // scroll one full pass, then hold again. Short ones sit still. The text appears
