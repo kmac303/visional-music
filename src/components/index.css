@@ -1217,27 +1217,40 @@ li {
 }
 
 /* ---------- Hero ---------- */
+/* The readouts gather around the headshot in one panel, like a control surface,
+   instead of spreading to the far corners of wide screens */
 .hero {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  grid-template-rows: auto 1fr auto auto;
-  grid-template-areas:
-    "tl . tr"
-    "center center center"
-    "bl . br"
-    "timeline timeline timeline";
-  gap: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: calc(100svh - 140px);
-  padding: 20px 28px 24px;
+  padding: 24px 28px;
   box-sizing: border-box;
-  text-align: left;
 }
 
-.hero::before {
+.hero-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-rows: 1fr 1fr auto;
+  grid-template-areas:
+    "tl center tr"
+    "bl center br"
+    "timeline timeline timeline";
+  gap: 16px 40px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 24px 28px;
+  box-sizing: border-box;
+  text-align: left;
+  /* A faint tint keeps the small readouts legible over a busy mosh */
+  background-color: rgba(5, 5, 8, 0.45);
+}
+
+.hero-panel::before {
   content: "";
   position: absolute;
-  inset: 8px;
+  inset: 0;
   border: 1px solid rgba(255, 255, 255, 0.08);
   pointer-events: none;
 }
@@ -1266,10 +1279,11 @@ li {
   margin: 0;
 }
 
-.hud-top-left { grid-area: tl; }
-.hud-top-right { grid-area: tr; justify-self: end; }
-.hud-bottom-left { grid-area: bl; align-self: end; }
-.hud-bottom-right { grid-area: br; justify-self: end; align-self: end; }
+/* Left column sits against the headshot's left side, right column against its right */
+.hud-top-left { grid-area: tl; justify-self: end; }
+.hud-top-right { grid-area: tr; justify-self: start; }
+.hud-bottom-left { grid-area: bl; justify-self: end; align-self: end; }
+.hud-bottom-right { grid-area: br; justify-self: start; align-self: end; }
 
 .hud-title {
   margin: 0;
@@ -1282,6 +1296,7 @@ li {
   font-size: 0.8rem;
   font-weight: 700;
   color: #ffffff;
+  white-space: nowrap;
 }
 
 .hud-dim {
@@ -1817,13 +1832,28 @@ ul.hud-bar-links {
   }
 
   .hero {
+    padding: 12px;
+  }
+
+  .hero-panel {
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
     grid-template-areas:
       "tl tr"
       "center center"
       "bl bl"
       "timeline timeline";
-    padding: 14px 16px 18px;
+    gap: 14px 16px;
+    padding: 14px 14px 18px;
+  }
+
+  .hud-top-left,
+  .hud-bottom-left {
+    justify-self: start;
+  }
+
+  .hud-top-right {
+    justify-self: end;
   }
 
   #imageContainer.hero-headshot {
