@@ -11,6 +11,8 @@ export function useSound() {
 // Set to null to hide the play button. bpm is the track's known tempo, shown in the
 // readouts instead of an estimate (the mic still uses the estimate).
 // startAt skips the intro (in seconds) so visitors get into the music right away.
+// The track file's sample rate (checked with ffprobe); keep in step if the file changes
+const TRACK_SAMPLE_RATE = 44100;
 const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Solstice (Visional Remix) - Savej", bpm: 90, startAt: 21 };
 
 const GLITCH_IMAGE = "/Glitch_BG.jpg";
@@ -714,7 +716,9 @@ function AudioBackground({ children }) {
         if (!audio.context) {
             // "playback" uses bigger audio buffers than the default, so a busy phone
             // doesn't run out mid-buffer and pop. The extra delay doesn't matter for music.
-            audio.context = new AudioContext({ latencyHint: "playback" });
+            // Running at the track's own sample rate means Safari on iPhone doesn't have to
+            // convert the track on the fly, which made it slip up in pitch partway through.
+            audio.context = new AudioContext({ latencyHint: "playback", sampleRate: TRACK_SAMPLE_RATE });
             audio.analyser = audio.context.createAnalyser();
             audio.analyser.fftSize = 1024;
             // Faster response keeps kicks sharp
