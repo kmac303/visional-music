@@ -17,6 +17,9 @@ const GLITCH_IMAGE = "/Glitch_BG.jpg";
 // How fast the datamosh keeps drifting while the bass is out, in pixels per frame
 const SLOW_FLOW = 0.15;
 
+// The furthest the cursor can drag the background in one frame, in canvas pixels
+const MAX_DRAG = 24;
+
 const vertexShader = `
     attribute vec2 a_position;
     void main() {
@@ -49,6 +52,8 @@ const moshShader = PRECISION + `
     uniform float u_refresh;
     uniform float u_frame;
     uniform float u_field;
+    uniform vec2 u_pointer;
+    uniform vec2 u_pointerMove;
 
     float hash(vec2 p) {
         p = fract(p * vec2(123.34, 456.21));
@@ -143,7 +148,11 @@ const moshShader = PRECISION + `
         // block meant to move a quarter pixel per frame steps one pixel about every
         // fourth frame. Slow speeds then flow evenly instead of only the fastest blocks
         // moving in bands while their neighbours sit still.
-        vec2 from = gl_FragCoord.xy - floor(motion * u_motion + hash2(block + jump(u_frame) + 3.3));
+        // The cursor drags whole blocks along with it, strongest right under it and
+        // fading out over about 90 canvas pixels (roughly 180 on screen)
+        vec2 toPointer = (block + 0.5) * 8.0 - u_pointer;
+        vec2 drag = u_pointerMove * exp(-dot(toPointer, toPointer) / 8100.0);
+        vec2 from = gl_FragCoord.xy - floor(motion * u_motion + drag + hash2(block + jump(u_frame) + 3.3));
         vec3 moshed = texture2D(u_prev, from / u_res).rgb;
 
         // A few blocks per frame refresh from the clean image
@@ -438,6 +447,25 @@ function AudioBackground({ children }) {
         resize();
         window.addEventListener("resize", resize);
 
+        // Track the cursor (or a finger) in canvas pixels; the canvas's y axis points up
+        const pointer = { x: -10000, y: -10000, moveX: 0, moveY: 0 };
+        function handlePointerMove(event) {
+            const x = event.clientX * scale;
+            const y = (window.innerHeight - event.clientY) * scale;
+            if (pointer.x > -10000) {
+                pointer.moveX += x - pointer.x;
+                pointer.moveY += y - pointer.y;
+            }
+            pointer.x = x;
+            pointer.y = y;
+        }
+        function handlePointerLeave() {
+            pointer.x = -10000;
+            pointer.y = -10000;
+        }
+        window.addEventListener("pointermove", handlePointerMove, { passive: true });
+        document.documentElement.addEventListener("pointerleave", handlePointerLeave);
+
         const analysis = createAnalysis();
         let data = null;
         let frame;
@@ -531,9 +559,17 @@ function AudioBackground({ children }) {
             // Heavy kicks send the blocks off in new directions, like a cut in a mosh edit
             if (level.kick > 0.85 && level.presence > 0.4) field += 0.37;
 
+            // How far the cursor moved since the last frame drives the drag
+            // capped so a fast flick smears instead of tearing the whole screen
+            const pointerMoveX = Math.max(-MAX_DRAG, Math.min(MAX_DRAG, pointer.moveX));
+            const pointerMoveY = Math.max(-MAX_DRAG, Math.min(MAX_DRAG, pointer.moveY));
+            pointer.moveX = 0;
+            pointer.moveY = 0;
+            const dragging = Math.abs(pointerMoveX) + Math.abs(pointerMoveY) > 0.25;
+
             // The first frame is the clean image; after that the background only changes
-            // while sound is on, and freezes wherever it is when the sound stops
-            if (!cleanFrame && !listening) return;
+            // while sound is on or the cursor is dragging it, and otherwise holds still
+            if (!cleanFrame && !listening && !dragging) return;
 
             const time = (now - start) / 1000;
             lastTime = time;
@@ -561,6 +597,8 @@ function AudioBackground({ children }) {
             gl.uniform1f(u.u_refresh, cleanFrame ? 1 : flowOn ? 0.004 + 0.06 * level.kick : 0);
             gl.uniform1f(u.u_frame, frameCount);
             gl.uniform1f(u.u_field, field);
+            gl.uniform2f(u.u_pointer, pointer.x, pointer.y);
+            gl.uniform2f(u.u_pointerMove, pointerMoveX, pointerMoveY);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
             cleanFrame = false;
             readIndex = write;
@@ -578,6 +616,8 @@ function AudioBackground({ children }) {
         return () => {
             cancelAnimationFrame(frame);
             window.removeEventListener("resize", resize);
+            window.removeEventListener("pointermove", handlePointerMove);
+            document.documentElement.removeEventListener("pointerleave", handlePointerLeave);
             canvas.removeEventListener("webglcontextlost", handleContextLost);
             canvas.classList.remove("ready");
             image.onload = null;
