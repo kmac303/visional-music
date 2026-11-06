@@ -13,7 +13,7 @@ export function useSound() {
 // startAt skips the intro (in seconds) so visitors get into the music right away.
 // The track file's sample rate (checked with ffprobe); keep in step if the file changes
 const TRACK_SAMPLE_RATE = 44100;
-const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Solstice (Visional Remix) - Savej", bpm: 90, startAt: 21 };
+const TRACK = { src: "/audio/solstice-visional-remix.m4a", title: "Solstice (Visional Remix) - Savej", bpm: 90, startAt: 21 };
 
 const GLITCH_IMAGE = "/Glitch_BG.jpg";
 
