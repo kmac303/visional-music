@@ -14,12 +14,13 @@ export function useSound() {
 //   live estimate from detected hits instead.
 // - startAt: skips the intro (in seconds), right where the bass comes in, so visitors
 //   get into the music right away.
+// - spokenTitle: what screen readers say, when the shown title is stylized.
 // Every file must be 44.1 kHz (check with ffprobe): the audio runs at the tracks' own
 // sample rate so Safari on iPhone doesn't convert them on the fly and slip in pitch.
 const TRACK_SAMPLE_RATE = 44100;
 const TRACKS = [
     { src: "/audio/solstice-visional-remix.m4a", title: "Solstice (Visional Remix) - Savej", bpm: 90, startAt: 21 },
-    { src: "/audio/dat-ass.m4a", title: "Dat Ass - Visional", bpm: 128, startAt: 15 },
+    { src: "/audio/dat-ass.m4a", title: "Dat A$$ - Visional", spokenTitle: "Dat Ass - Visional", bpm: 128, startAt: 15 },
     { src: "/audio/til-the-morning.m4a", title: "Til The Morning - Ganeesha & Visional", bpm: 100, startAt: 19 },
 ];
 

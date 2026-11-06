@@ -109,6 +109,9 @@ function Hero() {
             if (r.source && r.source.textContent !== source) {
                 r.source.textContent = source;
                 fitMarquee(r.source);
+                // Screen readers get the plain title (the scrolling one is hidden from them)
+                const spoken = a.source === "track" ? track.spokenTitle || track.title : source;
+                if (r.sourceSpoken) r.sourceSpoken.textContent = spoken;
             }
             // A known track tempo beats an estimate from detected hits
             const bpm = a.source === "track" && track?.bpm ? track.bpm : a.bpm;
@@ -182,7 +185,8 @@ function Hero() {
                     <div className="hud-optional">
                         <dt>Src</dt>
                         <dd className="hud-source">
-                            <span className="hud-marquee">
+                            <span ref={readout("sourceSpoken")} className="sr-only">None</span>
+                            <span className="hud-marquee" aria-hidden="true">
                                 <span ref={readout("source")} className="hud-marquee-text">---</span>
                                 <span className="hud-marquee-text hud-marquee-copy" aria-hidden="true" />
                             </span>
@@ -203,7 +207,7 @@ function Hero() {
                     {mode === "off" && (
                         <div className="hero-start">
                             {track && (
-                                <button type="button" className="hero-button hero-play" onClick={toggleTrack} aria-label={`Play ${track.title}`}>
+                                <button type="button" className="hero-button hero-play" onClick={toggleTrack} aria-label={`Play ${track.spokenTitle || track.title}`}>
                                     <FaPlay aria-hidden="true" /> Play music
                                 </button>
                             )}

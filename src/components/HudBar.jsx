@@ -80,7 +80,7 @@ function HudBar() {
                         type="button"
                         onClick={toggleTrack}
                         aria-pressed={mode === "track"}
-                        aria-label={mode === "track" ? "Pause track" : `Play ${track.title}`}
+                        aria-label={mode === "track" ? "Pause track" : `Play ${track.spokenTitle || track.title}`}
                         title={track.title}
                     >
                         {mode === "track" ? <FaPause aria-hidden="true" /> : <FaPlay aria-hidden="true" />}
