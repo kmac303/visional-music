@@ -11,6 +11,12 @@ function Events() {
         "Covex", "Chozen", "Twopercent", "Toadface", "Habitaat", "Omas", "Tsu Nami", "Noetika", "PapaJay", "Lil Fish", "MZG", "Vinnie Maniscalco", "Bruer"
     ];
 
+    // Artists shown in red in the list above; spell them exactly as they appear there
+    const highlightedArtists = new Set([
+        "Valentino Khan", "Netsky", "Space Laces", "WonkyWilla", "Hills", "Bear Grillz",
+        "Savej", "UZ", "Kumarion", "Swampz", "Habitaat", "Lil Fish",
+    ]);
+
     // List of events (upcoming & past)
     const events = [
         { 
@@ -151,7 +157,9 @@ function Events() {
             <div className="hud-label events-group-label">Artists Visional has worked with // {artistList.length}</div>
             <ul className="artist-cloud">
                 {artistList.map((artist, index) => (
-                    <li key={index}>{artist}</li>
+                    <li key={index} className={highlightedArtists.has(artist) ? "is-highlighted" : undefined}>
+                        {artist}
+                    </li>
                 ))}
             </ul>
         </section>
