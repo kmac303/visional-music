@@ -10,7 +10,8 @@ export function useSound() {
 
 // Set to null to hide the play button. bpm is the track's known tempo, shown in the
 // readouts instead of an estimate (the mic still uses the estimate).
-const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Savej – Solstice (Visional Remix)", bpm: 90 };
+// startAt skips the intro (in seconds) so visitors get into the music right away.
+const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Savej – Solstice (Visional Remix)", bpm: 90, startAt: 20 };
 
 const GLITCH_IMAGE = "/Glitch_BG.jpg";
 
@@ -742,8 +743,14 @@ function AudioBackground({ children }) {
         stopMic();
         const audio = getContext();
         if (!audio.element) {
-            audio.element = new Audio(TRACK.src);
-            audio.element.addEventListener("ended", () => setMode("off"));
+            // The #t= fragment starts the first play at startAt; after the track ends,
+            // the next play starts there again. Pausing and resuming carries on as usual.
+            const startAt = TRACK.startAt || 0;
+            audio.element = new Audio(startAt ? `${TRACK.src}#t=${startAt}` : TRACK.src);
+            audio.element.addEventListener("ended", () => {
+                audio.element.currentTime = startAt;
+                setMode("off");
+            });
             const source = audio.context.createMediaElementSource(audio.element);
             source.connect(audio.analyser);
             source.connect(audio.context.destination);
