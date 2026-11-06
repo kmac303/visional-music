@@ -19,8 +19,8 @@ export function useSound() {
 const TRACK_SAMPLE_RATE = 44100;
 const TRACKS = [
     { src: "/audio/solstice-visional-remix.m4a", title: "Solstice (Visional Remix) - Savej", bpm: 90, startAt: 21 },
-    { src: "/audio/til-the-morning.m4a", title: "Til The Morning - Visional", startAt: 19 },
-    { src: "/audio/dat-ass.m4a", title: "Dat Ass - Visional", startAt: 15 },
+    { src: "/audio/til-the-morning.m4a", title: "Til The Morning - Ganeesha & Visional", bpm: 100, startAt: 19 },
+    { src: "/audio/dat-ass.m4a", title: "Dat Ass - Visional", bpm: 128, startAt: 15 },
 ];
 
 // The address that starts a track at its startAt
