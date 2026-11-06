@@ -1,95 +1,91 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
-import { FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 import GlitchLogo from './GlitchLogo';
 
+const SOCIALS = [
+    { label: "IG", name: "Instagram", href: "https://www.instagram.com/visionalmusic" },
+    { label: "YT", name: "YouTube", href: "https://www.youtube.com/@visionalmusic" },
+    { label: "TT", name: "TikTok", href: "https://www.tiktok.com/@visionalmusic" },
+];
+
+const SECTIONS = [
+    { label: "About", to: "/about" },
+    { label: "Events", to: "/events" },
+    { label: "Gallery", to: "/gallery" },
+    { label: "Contact", to: "/contact" },
+];
+
+// Thin strip floating over the page: logo on the left, socials on the right.
+// Section links live in the bottom bar; on phones they open from the Menu button.
 function NavBar() {
-    const [isScrollingUp, setIsScrollingUp] = useState(true);
+    const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
-    let lastScrollY = useRef(0);
 
-    // Scroll handling logic
-    const handleScroll = () => {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY < 10) {
-            setIsScrollingUp(true);
-        } else if (currentScrollY > lastScrollY.current) {
-            setIsScrollingUp(false); // User is scrolling down
-        } else {
-            setIsScrollingUp(true); // User is scrolling up
-        }
-        lastScrollY.current = currentScrollY;
-    };
-
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
-
-    const closeMenu = () => {
-        setMenuOpen(false);
-    }
-
-    // Attach the scroll listener with passive option
+    // Frost the strip once the page scrolls, so it stays readable over content
     useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 10);
+        handleScroll();
         window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        if (!menuOpen) return;
+        const handleKey = (event) => {
+            if (event.key === 'Escape') setMenuOpen(false);
+        };
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
+    }, [menuOpen]);
+
+    const closeMenu = () => setMenuOpen(false);
+
     return (
-        <nav className={`navbar ${isScrollingUp ? 'show' : 'hide'}`}>
-            {/* Mobile Menu Toggle */}
-            <button className="menu-toggle" onClick={toggleMenu}>
-                ☰
+        <header className={`top-bar${scrolled ? ' is-scrolled' : ''}`}>
+            <Link to="/" className="top-bar-logo" aria-label="Visional home" onClick={closeMenu}>
+                <GlitchLogo src="/assets/VISIONAL Logo.png" alt="Visional Music Logo" className="logo-icon" />
+            </Link>
+
+            <nav className="top-bar-socials" aria-label="Social media">
+                {SOCIALS.map((social) => (
+                    <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.name}>
+                        {social.label} <span aria-hidden="true">↗</span>
+                    </a>
+                ))}
+            </nav>
+
+            <button
+                type="button"
+                className="top-bar-menu"
+                onClick={() => setMenuOpen(!menuOpen)}
+                aria-expanded={menuOpen}
+                aria-controls="site-menu"
+            >
+                {menuOpen ? 'Close ×' : 'Menu +'}
             </button>
 
-            {/* Mobile Dropdown Menu */}
-            <ul className={`link-container ${menuOpen ? "open" : ""}`}>
-                <li><Link to="/about" onClick={closeMenu}>About</Link></li>
-                <li><Link to="/events" onClick={closeMenu}>Events</Link></li>
-                <li><Link to="/gallery" onClick={closeMenu}>Gallery</Link></li>
-                <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
-                {/* <li><Link to="/lessons" onClick={closeMenu}>Lessons</Link></li> */}
-
-                {/* Mobile Social Media Icons */}
-                <div className="social-media-container social-media-mobile">
-                    <a href="https://www.instagram.com/visionalmusic" target="_blank" rel="noopener noreferrer">
-                        <FaInstagram className="social-icon" />
-                    </a>
-                    <a href="https://www.youtube.com/@visionalmusic" target="_blank" rel="noopener noreferrer">
-                        <FaYoutube className="social-icon" />
-                    </a>
-                    <a href="https://www.tiktok.com/@visionalmusic" target="_blank" rel="noopener noreferrer">
-                        <FaTiktok className="social-icon" />
-                    </a>
-                </div>
-            </ul>
-
-            {/* Logo */}
-            <header>
-                <div className="logo-container">
-                    <Link to="/">
-                        <div className="logo-wrapper">
-                        <GlitchLogo src="/assets/VISIONAL Logo.png" alt="Visional Music Logo" className="logo-icon" />
-                        </div>
-                    </Link>
-                </div>
-            </header>
-
-            {/* Desktop Social Media Icons */}
-            <div className="social-media-container social-media-desktop">
-                <a href="https://www.instagram.com/visionalmusic" target="_blank" rel="noopener noreferrer">
-                    <FaInstagram className="social-icon" />
-                </a>
-                <a href="https://www.youtube.com/@visionalmusic" target="_blank" rel="noopener noreferrer">
-                    <FaYoutube className="social-icon" />
-                </a>
-                <a href="https://www.tiktok.com/@visionalmusic" target="_blank" rel="noopener noreferrer">
-                    <FaTiktok className="social-icon" />
-                </a>
-            </div>
-        </nav>
+            {menuOpen && (
+                <nav id="site-menu" className="site-menu" aria-label="Sections">
+                    <ul>
+                        {SECTIONS.map((section, index) => (
+                            <li key={section.to}>
+                                <Link to={section.to} onClick={closeMenu}>
+                                    <span className="hud-label">{String(index + 1).padStart(2, '0')}</span>
+                                    {section.label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                    <div className="site-menu-socials">
+                        {SOCIALS.map((social) => (
+                            <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer">
+                                {social.name} ↗
+                            </a>
+                        ))}
+                    </div>
+                </nav>
+            )}
+        </header>
     );
 }
 
