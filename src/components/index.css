@@ -278,21 +278,6 @@ li {
   text-align: center;
 }
 
-input {
-  outline: 3px solid hsl(203, 30%, 26%);
-}
-
-input:not(:placeholder-shown):valid {
-  outline-color: var(--clr-success);
-}
-
-input:not(:placeholder-shown):invalid {
-  outline-color: var(--clr-error);
-}
-
-input:focus:invalid {
-  outline-color: var(--clr-warning)
-}
 
 
 @layer general-styling {
@@ -1337,20 +1322,72 @@ li {
   gap: 16px;
 }
 
-.hud-progress {
-  position: relative;
+/* The track's progress bar doubles as a scrubber: a thin cyan line you can click or
+   drag (or use with the arrow keys), with a small handle on hover and while dragging */
+.hud-scrubber {
+  --progress: 0%;
   flex: 1;
-  height: 2px;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.15);
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, var(--cyan) var(--progress), rgba(255, 255, 255, 0.15) var(--progress))
+    center / 100% 2px no-repeat;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.hud-progress span {
-  position: absolute;
-  inset: 0;
+.hud-scrubber:disabled {
+  cursor: default;
+}
+
+.hud-scrubber::-webkit-slider-runnable-track {
+  height: 16px;
+  background: transparent;
+}
+
+.hud-scrubber::-moz-range-track {
+  height: 16px;
+  background: transparent;
+}
+
+.hud-scrubber::-webkit-slider-thumb {
+  width: 10px;
+  height: 10px;
+  margin-top: 3px;
+  border: none;
   background-color: var(--cyan);
-  transform: scaleX(0);
-  transform-origin: left;
+  opacity: 0;
+  transition: opacity 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.hud-scrubber::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: none;
+  border-radius: 0;
+  background-color: var(--cyan);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.hud-scrubber:not(:disabled):hover::-webkit-slider-thumb,
+.hud-scrubber:not(:disabled):focus-visible::-webkit-slider-thumb,
+.hud-scrubber:not(:disabled):active::-webkit-slider-thumb {
+  opacity: 1;
+}
+
+.hud-scrubber:not(:disabled):hover::-moz-range-thumb,
+.hud-scrubber:not(:disabled):focus-visible::-moz-range-thumb,
+.hud-scrubber:not(:disabled):active::-moz-range-thumb {
+  opacity: 1;
+}
+
+.hud-scrubber:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 4px;
 }
 
 .hud-scroll {

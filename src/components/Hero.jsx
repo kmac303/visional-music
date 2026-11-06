@@ -46,7 +46,9 @@ const denverTime = new Intl.DateTimeFormat("en-US", {
 
 // Opening screen: the headshot surrounded by readouts that report the live audio
 function Hero() {
-    const { mode, message, track, toggleTrack, toggleMic } = useSound();
+    const { mode, message, track, toggleTrack, toggleMic, getTrackPosition, seekTrack } = useSound();
+    // True while the visitor is dragging the scrubber, so playback doesn't fight their hand
+    const scrubbing = useRef(false);
     const heroRef = useRef(null);
     const readouts = useRef({});
     const readout = (key) => (element) => {
@@ -91,9 +93,19 @@ function Hero() {
             write("mosh", a.flow.toUpperCase());
             write("hits", String(a.kicks).padStart(4, "0"));
             write("frame", String(a.frame).padStart(6, "0"));
-            write("time", a.duration ? `${timecode(a.time)} / ${timecode(a.duration)}` : on ? "LIVE INPUT" : "00:00 / --:--");
-            if (r.progress) {
-                r.progress.style.transform = `scaleX(${a.duration ? a.time / a.duration : 0})`;
+            // Track position shows (and can be scrubbed) once the track has started, even while paused
+            const position = a.source === "mic" ? null : getTrackPosition();
+            write("time", position ? `${timecode(position.time)} / ${timecode(position.duration)}` : on ? "LIVE INPUT" : "00:00 / --:--");
+            if (r.scrubber) {
+                const scrubber = r.scrubber;
+                scrubber.disabled = !position;
+                if (position) {
+                    scrubber.max = String(Math.floor(position.duration));
+                    if (!scrubbing.current) scrubber.value = String(position.time);
+                    scrubber.setAttribute("aria-valuetext", `${timecode(position.time)} of ${timecode(position.duration)}`);
+                }
+                const progress = position ? (Number(scrubber.value) / position.duration) * 100 : 0;
+                scrubber.style.setProperty("--progress", `${progress}%`);
             }
             if (r.signal) r.signal.classList.toggle("is-live", on);
         }
@@ -117,7 +129,7 @@ function Hero() {
             observer.disconnect();
             window.removeEventListener("resize", refitSource);
         };
-    }, [track]);
+    }, [track, getTrackPosition]);
 
     return (
         <section id="top" className="hero" ref={heroRef}>
@@ -194,7 +206,21 @@ function Hero() {
 
                 <div className="hud hud-timeline">
                     <span ref={readout("time")}>00:00 / --:--</span>
-                    <span className="hud-progress" aria-hidden="true"><span ref={readout("progress")} /></span>
+                    <input
+                        ref={readout("scrubber")}
+                        type="range"
+                        className="hud-scrubber"
+                        min="0"
+                        max="0"
+                        step="1"
+                        defaultValue="0"
+                        disabled
+                        aria-label="Track position"
+                        onPointerDown={() => { scrubbing.current = true; }}
+                        onPointerUp={() => { scrubbing.current = false; }}
+                        onPointerCancel={() => { scrubbing.current = false; }}
+                        onInput={(event) => seekTrack(Number(event.currentTarget.value))}
+                    />
                     <Link to="/about" className="hud-scroll">▼ Scroll</Link>
                 </div>
             </div>

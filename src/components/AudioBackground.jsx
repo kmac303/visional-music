@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { audioLevels } from "./audioLevels";
 
 // Lets the hero, the bottom bar, and anything else start and stop the sound
@@ -761,7 +761,20 @@ function AudioBackground({ children }) {
         );
     }
 
-    const sound = { mode, message, track: TRACK, toggleTrack, toggleMic };
+    // Where the track is, even while paused; null until it has been started
+    const getTrackPosition = useCallback(() => {
+        const { element } = audioRef.current;
+        if (!element || !Number.isFinite(element.duration)) return null;
+        return { time: element.currentTime, duration: element.duration };
+    }, []);
+
+    const seekTrack = useCallback((seconds) => {
+        const { element } = audioRef.current;
+        if (!element || !Number.isFinite(element.duration)) return;
+        element.currentTime = Math.min(Math.max(0, seconds), element.duration - 0.1);
+    }, []);
+
+    const sound = { mode, message, track: TRACK, toggleTrack, toggleMic, getTrackPosition, seekTrack };
 
     return (
         <SoundContext.Provider value={sound}>
