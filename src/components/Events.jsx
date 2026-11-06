@@ -4,11 +4,9 @@ import SectionHeader from "./SectionHeader";
 function Events() {
     // List of artists
     const artistList = [
-        "DJ Diesel (Shaq)", "Valentino Khan", "Noizu", "Shipwrek", "Sidepiece", "Hol!", "Netsky", "Wuki", "The Glitch Mob", "Getter", "Maddy O’Neal", 
-        "Space Laces", "Jkyl & Hyde", "Wreckno", "Rusko", "Skepsis", "WonkyWilla", "Jon Casey", "Ayybo", "Desert Dwellers", "Tynan", "Hills", "Midnight Tyrannosaurus", "Bolo", "OG Nixin", "Benda",
-         "Bear Grillz", "Sisto", "Lizzy Jane", "DJ Pressed", "Random Rab", "Savej", "Heyz", "David Starfire", 
-        "Pauline Herr", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", "DMVU", "Toadface", "Kumarion", "Pretty Sweet", "Green Matter", "Hostage Situation", "Phutureprimitive", "Swampz", 
-        "Covex", "Chozen", "Twopercent", "Toadface", "Habitaat", "Omas", "Tsu Nami", "Noetika", "PapaJay", "Lil Fish", "MZG", "Vinnie Maniscalco", "Bruer"
+        "The Glitch Mob", "DJ Diesel (Shaq)", "Netsky", "Maddy O’Neal", "Getter", "Shipwrek", "Wuki", "Noizu", "Hol!", "Sidepiece",
+        "Jkyl & Hyde", "Wreckno", "Rusko", "Valentino Khan", "Space Laces", "WonkyWilla", "MC4D", "Ayybo", "Bear Grillz", "Sisto", "Lizzy Jane", "Desert Dwellers", "Tynan", "DJ Pressed", "Savej", "Midnight Tyrannosaurus", "Heyz", "David Starfire", "Kumarion", "Pretty Sweet", "Green Matter", "Hostage Situation", "Phutureprimitive", "PapaJay",
+        "Purple Disco Machine", "Coco & Breezy", "Swimming Paul", "Jon Casey", "Skepsis", "Hills", "Bolo", "OG Nixin", "Benda", "Random Rab", "Pauline Herr", "The Sponges", "UZ", "The Gaslamp Killer", "Figure", "DMVU", "Swampz", "Covex", "Chozen", "Tsu Nami", "Twopercent", "Toadface", "Habitaat", "Omas", "Noetika", "Dela Moon", "MFinity", "Lil Fish", "Decker Rush", "Nyrus", "MZG", "Vinnie Maniscalco", "Bruer"
     ];
 
     // List of events (upcoming & past)
