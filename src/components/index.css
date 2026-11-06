@@ -1345,6 +1345,16 @@ li {
   padding: 22px;
 }
 
+/* A heavy dark shadow behind the headshot, so the face reads as solid
+   instead of letting the background show through it */
+.hero-target::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.95) 50%, rgba(0, 0, 0, 0.7) 72%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+}
+
 #imageContainer.hero-headshot {
   width: min(38vh, 64vw);
   min-width: 0;
