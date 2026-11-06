@@ -5,7 +5,7 @@ function Events() {
     // List of artists
     // Roughly ordered by Instagram following, biggest first (estimates, not live counts)
     const artistList = [
-        "DJ Diesel (Shaq)", "Purple Disco Machine", "Getter", "The Glitch Mob", "Netsky", "Valentino Khan", "Rusko",
+        "DJ Diesel (Shaq)", "Purple Disco Machine", "Getter", "Netsky", "Valentino Khan", "The Glitch Mob", "Rusko",
         "Wuki", "Bear Grillz", "Coco & Breezy", "Sidepiece", "The Gaslamp Killer", "Midnight Tyrannosaurus",
         "Wreckno", "Space Laces", "Skepsis", "UZ", "Noizu", "Shipwrek", "Hol!", "Tynan", "Maddy O’Neal",
         "Jkyl & Hyde", "MC4D", "Ayybo", "Sisto", "Figure", "Swimming Paul", "Phutureprimitive", "Pauline Herr",
@@ -153,7 +153,7 @@ function Events() {
             <div className="hud-label events-group-label">Past // {past.length}</div>
             <div className="event-cards">{past.map(card)}</div>
 
-            <div className="hud-label events-group-label">Artists Visional has worked with // {artistList.length}</div>
+            <div className="hud-label events-group-label artist-cloud-label">Artists Visional has worked with // {artistList.length}</div>
             <ul className="artist-cloud">
                 {artistList.map((artist, index) => (
                     <li key={index}>{artist}</li>
