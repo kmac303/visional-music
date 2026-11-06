@@ -1834,36 +1834,21 @@ ul.hud-bar-links {
   }
 }
 
-/* ---------- Top strip ---------- */
+/* ---------- Top corners ---------- */
+/* No bar: each corner piece floats over the page on its own. They're separate
+   fixed elements so the corner text can blend with the page underneath. */
 .top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  height: 64px;
-  padding: 0 20px;
-  box-sizing: border-box;
-  border-bottom: 1px solid transparent;
   font-family: var(--hud-font);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-/* Frosted once the page scrolls under it */
-.top-bar.is-scrolled {
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-  background-color: rgba(10, 10, 14, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .top-bar-logo {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  z-index: 1000;
   display: flex;
   align-items: center;
 }
@@ -1873,41 +1858,57 @@ ul.hud-bar-links {
   height: auto;
 }
 
+/* The corner text inverts against whatever is underneath, so it reads as white
+   over dark sections and black over the white and red ones */
 .top-bar-socials {
+  position: fixed;
+  top: 24px;
+  right: 20px;
+  z-index: 1000;
   display: flex;
   gap: 20px;
-  margin-left: auto;
+  mix-blend-mode: difference;
 }
 
 .top-bar-socials a {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.top-bar-socials a:hover {
   color: #ffffff;
 }
 
+.top-bar-socials a:hover {
+  color: var(--cyan);
+}
+
 .top-bar-menu {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 1001;
   display: none;
   padding: 6px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid #ffffff;
   border-radius: 0;
   background: none;
   color: #ffffff;
   font: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
+  mix-blend-mode: difference;
 }
 
-.top-bar-menu:hover,
-.top-bar-menu[aria-expanded="true"] {
+.top-bar-menu:hover {
   border-color: var(--cyan);
   color: var(--cyan);
+}
+
+/* Over the open menu the button stays plain white */
+.top-bar-menu[aria-expanded="true"] {
+  mix-blend-mode: normal;
 }
 
 /* Full-screen section menu for phones */
 .site-menu {
   position: fixed;
+  z-index: 1000;
   top: 64px;
   left: 0;
   right: 0;
@@ -1967,9 +1968,9 @@ ul.hud-bar-links {
 }
 
 @media (max-width: 768px) {
-  .top-bar {
-    height: 56px;
-    padding: 0 12px;
+  .top-bar-logo {
+    top: 8px;
+    left: 12px;
   }
 
   .top-bar .logo-icon {
@@ -1982,7 +1983,6 @@ ul.hud-bar-links {
 
   .top-bar-menu {
     display: inline-block;
-    margin-left: auto;
   }
 
   .site-menu {

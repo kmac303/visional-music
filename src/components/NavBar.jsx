@@ -15,19 +15,11 @@ const SECTIONS = [
     { label: "Contact", to: "/contact" },
 ];
 
-// Thin strip floating over the page: logo on the left, socials on the right.
-// Section links live in the bottom bar; on phones they open from the Menu button.
+// No bar: the logo sits in the top-left corner and the socials (or the Menu button
+// on phones) in the top-right, floating over the page. Section links live in the
+// bottom bar; on phones they open from the Menu button.
 function NavBar() {
-    const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
-
-    // Frost the strip once the page scrolls, so it stays readable over content
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 10);
-        handleScroll();
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
 
     useEffect(() => {
         if (!menuOpen) return;
@@ -41,7 +33,7 @@ function NavBar() {
     const closeMenu = () => setMenuOpen(false);
 
     return (
-        <header className={`top-bar${scrolled ? ' is-scrolled' : ''}`}>
+        <header className="top-bar">
             <Link to="/" className="top-bar-logo" aria-label="Visional home" onClick={closeMenu}>
                 <GlitchLogo src="/assets/VISIONAL Logo.png" alt="Visional Music Logo" className="logo-icon" />
             </Link>
