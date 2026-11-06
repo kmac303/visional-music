@@ -158,8 +158,8 @@ function Hero() {
                         <span className="target-corner target-corner-tr" aria-hidden="true" />
                         <span className="target-corner target-corner-bl" aria-hidden="true" />
                         <span className="target-corner target-corner-br" aria-hidden="true" />
-                        <span className="hud-label target-label target-label-top" aria-hidden="true">Subject // Visional</span>
-                        <span className="hud-label target-label target-label-bottom" aria-hidden="true">Kevin McIntosh // Ref 0001</span>
+                        <span className="hud-label target-label target-label-top" aria-hidden="true">Subject // Kevin McIntosh</span>
+                        <span className="hud-label target-label target-label-bottom" aria-hidden="true">Ref 0001 // Denver, CO</span>
                     </div>
                     {mode === "off" && (
                         <div className="hero-start">
