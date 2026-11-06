@@ -13,7 +13,7 @@ function emailAddress() {
 // A button that reveals the booking email and opens the visitor's mail app.
 // The address stays on screen afterwards, with a Copy button, for anyone whose
 // browser doesn't open a mail app.
-function EmailLink({ className, label = "Email Visional +" }) {
+function EmailLink({ className, label = "Email Visional" }) {
     const [address, setAddress] = useState(null);
     const [copied, setCopied] = useState(false);
 
