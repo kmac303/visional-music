@@ -391,6 +391,7 @@ function AudioBackground() {
         let nextRefresh = 0;
         let grid = [24, 14];
         let moshing = 0;
+        let flowSpeed = 0;
         let field = 0;
         let frameCount = 0;
 
@@ -457,6 +458,11 @@ function AudioBackground() {
             const moshTarget = listening ? level.presence : 0;
             const settle = moshTarget > moshing ? 6 : listening ? 1.6 : 2.5;
             moshing += (moshTarget - moshing) * Math.min(1, dt * settle);
+
+            // Block motion tracks the bass closely and cuts out when it's gone, so the
+            // moshed image freezes in place, then heals as the moshing above eases off
+            const flowTarget = moshTarget > 0.15 ? moshTarget : 0;
+            flowSpeed += (flowTarget - flowSpeed) * Math.min(1, dt * 20);
             // Heavy kicks send the blocks off in new directions, like a cut in a mosh edit
             if (level.kick > 0.85 && level.presence > 0.4) field += 0.37;
 
@@ -478,7 +484,7 @@ function AudioBackground() {
             gl.uniform2f(u.u_grid, grid[0], grid[1]);
             gl.uniform1f(u.u_seed, seed % 97);
             gl.uniform1f(u.u_amount, amount);
-            gl.uniform1f(u.u_motion, moshing * (0.8 + 2.5 * level.presence) + 1.5 * level.kick * moshing);
+            gl.uniform1f(u.u_motion, flowSpeed * (0.8 + 2.5 * flowSpeed) + 1.5 * level.kick * flowSpeed);
             gl.uniform1f(u.u_refresh, cleanFrame ? 1 : 0.01 + 0.5 * (1 - moshing) * (1 - moshing));
             gl.uniform1f(u.u_frame, frameCount);
             gl.uniform1f(u.u_field, field);
