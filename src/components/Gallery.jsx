@@ -19,7 +19,11 @@ function useVideoInfo(videoId) {
             .then((response) => (response.ok ? response.json() : null))
             .then((data) => {
                 if (!data) return;
-                const details = { title: data.title, channel: data.author_name };
+                // The site doesn't use em dashes, so swap any in YouTube's titles for a hyphen
+                const details = {
+                    title: data.title.replace(/\s*\u2014\s*/g, " - "),
+                    channel: data.author_name,
+                };
                 videoInfo.set(videoId, details);
                 setInfo(details);
             })

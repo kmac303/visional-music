@@ -77,7 +77,7 @@ function Hero() {
             write("clock", `${denverTime.format(new Date())} MT`);
             write("signal", on ? "● LIVE" : "STANDBY");
             write("input", on ? a.source.toUpperCase() : "NONE");
-            const source = a.source === "track" ? track.title : a.source === "mic" ? "ROOM AUDIO" : "—";
+            const source = a.source === "track" ? track.title : a.source === "mic" ? "ROOM AUDIO" : "---";
             if (r.source && r.source.textContent !== source) {
                 r.source.textContent = source;
                 fitMarquee(r.source);
@@ -157,7 +157,7 @@ function Hero() {
                         <dt>Src</dt>
                         <dd className="hud-source">
                             <span className="hud-marquee">
-                                <span ref={readout("source")} className="hud-marquee-text">—</span>
+                                <span ref={readout("source")} className="hud-marquee-text">---</span>
                                 <span className="hud-marquee-text hud-marquee-copy" aria-hidden="true" />
                             </span>
                         </dd>
