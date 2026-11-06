@@ -165,12 +165,12 @@ function Hero() {
                     {mode === "off" && (
                         <div className="hero-start">
                             {track && (
-                                <button type="button" className="hero-play" onClick={toggleTrack} aria-label={`Play ${track.title}`}>
-                                    <FaPlay aria-hidden="true" /> Play
+                                <button type="button" className="hero-button hero-play" onClick={toggleTrack} aria-label={`Play ${track.title}`}>
+                                    <FaPlay aria-hidden="true" /> Play music
                                 </button>
                             )}
-                            <button type="button" className="hero-mic" onClick={toggleMic}>
-                                <FaMicrophone aria-hidden="true" /> or react to your mic
+                            <button type="button" className="hero-button hero-mic" onClick={toggleMic}>
+                                <FaMicrophone aria-hidden="true" /> React to mic
                             </button>
                         </div>
                     )}

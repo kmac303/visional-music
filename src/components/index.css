@@ -1280,54 +1280,44 @@ li {
 .target-label-top { top: 4px; }
 .target-label-bottom { bottom: 4px; }
 
+/* Two equal buttons side by side: music filled, mic outlined */
 .hero-start {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
-.hero-play {
+.hero-button {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 36px;
-  border: none;
+  justify-content: center;
+  gap: 10px;
+  white-space: nowrap;
+  padding: 10px 18px;
+  border: 1px solid #ffffff;
   border-radius: 0;
-  background-color: #ffffff;
-  color: var(--ink);
   font-family: var(--hud-font);
-  font-size: 1rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
-.hero-play:hover,
-.hero-play:focus-visible {
-  border-color: transparent;
-  background-color: var(--red);
-  color: #ffffff;
+.hero-play {
+  background-color: #ffffff;
+  color: var(--ink);
 }
 
 .hero-mic {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 8px;
-  border: none;
-  background: none;
-  color: var(--hud-dim);
-  font-family: var(--hud-font);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  background-color: rgba(10, 10, 14, 0.4);
+  color: #ffffff;
 }
 
-.hero-mic:hover,
-.hero-mic:focus-visible {
-  border-color: transparent;
+.hero-button:hover,
+.hero-button:focus-visible {
+  border-color: var(--red);
+  background-color: var(--red);
   color: #ffffff;
 }
 
@@ -1850,6 +1840,13 @@ ul.hud-bar-links {
 
   #imageContainer.hero-headshot {
     width: min(68vw, 38vh);
+  }
+
+  .hero-button {
+    gap: 8px;
+    padding: 10px 12px;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
   }
 
   section.page-section {
