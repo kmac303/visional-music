@@ -19,21 +19,33 @@ function timecode(seconds) {
 
 // How fast long track names scroll, in pixels per second
 const MARQUEE_SPEED = 20;
+// How long the title holds still at the start of each pass, in seconds
+const MARQUEE_PAUSE = 1.5;
 
-// Long track names scroll in a loop like an old MP3 player; short ones sit still.
-// The text appears twice in a row so the loop can wrap around seamlessly.
+// Long track names scroll in a loop like an old MP3 player: hold at the start,
+// scroll one full pass, then hold again. Short ones sit still. The text appears
+// twice in a row so each pass ends exactly where the next one starts.
 function fitMarquee(text) {
     const marquee = text.parentElement;
     const copy = marquee.querySelector(".hud-marquee-copy");
     copy.textContent = text.textContent;
+    marquee.getAnimations().forEach((animation) => animation.cancel());
     marquee.classList.remove("is-scrolling");
     const overflow = text.scrollWidth > marquee.parentElement.clientWidth;
     marquee.classList.toggle("is-scrolling", overflow);
     if (overflow) {
-        // One full title plus its gap, at about 20 pixels a second
+        // One full title plus its gap
         const distance = text.getBoundingClientRect().width;
-        marquee.style.setProperty("--marquee-distance", `${-distance}px`);
-        marquee.style.setProperty("--marquee-duration", `${distance / MARQUEE_SPEED}s`);
+        const scroll = distance / MARQUEE_SPEED;
+        const total = MARQUEE_PAUSE + scroll;
+        marquee.animate(
+            [
+                { transform: "translateX(0)" },
+                { transform: "translateX(0)", offset: MARQUEE_PAUSE / total },
+                { transform: `translateX(${-distance}px)` },
+            ],
+            { duration: total * 1000, iterations: Infinity },
+        );
     }
 }
 

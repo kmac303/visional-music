@@ -1170,22 +1170,13 @@ li {
   display: none;
 }
 
-/* Scrolls left in a continuous loop, with a gap before the title repeats */
-.hud-marquee.is-scrolling {
-  animation: hud-marquee var(--marquee-duration, 10s) linear infinite;
-}
-
+/* Hero.jsx animates the scroll; a gap separates the title from its repeat */
 .hud-marquee.is-scrolling .hud-marquee-text {
   padding-right: 4em;
 }
 
 .hud-marquee.is-scrolling .hud-marquee-copy {
   display: inline;
-}
-
-@keyframes hud-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(var(--marquee-distance, 0px)); }
 }
 
 .hud-signal.is-live {
