@@ -17,6 +17,9 @@ function timecode(seconds) {
     return `${String(Math.floor(whole / 60)).padStart(2, "0")}:${String(whole % 60).padStart(2, "0")}`;
 }
 
+// How fast long track names scroll, in pixels per second
+const MARQUEE_SPEED = 20;
+
 // Long track names scroll in a loop like an old MP3 player; short ones sit still.
 // The text appears twice in a row so the loop can wrap around seamlessly.
 function fitMarquee(text) {
@@ -27,10 +30,10 @@ function fitMarquee(text) {
     const overflow = text.scrollWidth > marquee.parentElement.clientWidth;
     marquee.classList.toggle("is-scrolling", overflow);
     if (overflow) {
-        // One full title plus its gap, at about 30 pixels a second
+        // One full title plus its gap, at about 20 pixels a second
         const distance = text.getBoundingClientRect().width;
         marquee.style.setProperty("--marquee-distance", `${-distance}px`);
-        marquee.style.setProperty("--marquee-duration", `${distance / 30}s`);
+        marquee.style.setProperty("--marquee-duration", `${distance / MARQUEE_SPEED}s`);
     }
 }
 
