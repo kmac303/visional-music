@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaPlay, FaMicrophone } from "react-icons/fa";
+import { FaPlay, FaMicrophone, FaStepBackward, FaStepForward } from "react-icons/fa";
 import GlitchHeadshot from "./GlitchHeadshot";
 import { audioLevels, moshControls } from "./audioLevels";
 import { useSound } from "./AudioBackground";
@@ -63,7 +63,7 @@ const denverTime = new Intl.DateTimeFormat("en-US", {
 
 // Opening screen: the headshot surrounded by readouts that report the live audio
 function Hero() {
-    const { mode, message, track, toggleTrack, toggleMic, getTrackPosition, seekTrack } = useSound();
+    const { mode, message, track, trackIndex, trackCount, toggleTrack, nextTrack, previousTrack, toggleMic, getTrackPosition, seekTrack } = useSound();
     // True while the visitor is dragging the scrubber, so playback doesn't fight their hand
     const scrubbing = useRef(false);
     const [frozen, setFrozen] = useState(moshControls.freeze);
@@ -279,6 +279,19 @@ function Hero() {
                 </dl>
 
                 <div className="hud hud-timeline">
+                    {trackCount > 1 && (
+                        <span className="hud-skip">
+                            <button type="button" className="hud-action" onClick={previousTrack} aria-label="Previous track" title="Previous track">
+                                <FaStepBackward aria-hidden="true" />
+                            </button>
+                            <span className="hud-track-number" title={track?.title}>
+                                {String(trackIndex + 1).padStart(2, "0")}/{String(trackCount).padStart(2, "0")}
+                            </span>
+                            <button type="button" className="hud-action" onClick={nextTrack} aria-label="Next track" title="Next track">
+                                <FaStepForward aria-hidden="true" />
+                            </button>
+                        </span>
+                    )}
                     <span ref={readout("time")}>00:00 / --:--</span>
                     <input
                         ref={readout("scrubber")}

@@ -8,12 +8,25 @@ export function useSound() {
     return useContext(SoundContext);
 }
 
-// Set to null to hide the play button. bpm is the track's known tempo, shown in the
-// readouts instead of an estimate (the mic still uses the estimate).
-// startAt skips the intro (in seconds) so visitors get into the music right away.
-// The track file's sample rate (checked with ffprobe); keep in step if the file changes
+// The playlist, played in order and looping back to the start. Leave it empty to hide
+// the play buttons.
+// - bpm: the track's known tempo, shown in the readouts. Leave it out to show the
+//   live estimate from detected hits instead.
+// - startAt: skips the intro (in seconds), right where the bass comes in, so visitors
+//   get into the music right away.
+// Every file must be 44.1 kHz (check with ffprobe): the audio runs at the tracks' own
+// sample rate so Safari on iPhone doesn't convert them on the fly and slip in pitch.
 const TRACK_SAMPLE_RATE = 44100;
-const TRACK = { src: "/audio/solstice-visional-remix.m4a", title: "Solstice (Visional Remix) - Savej", bpm: 90, startAt: 21 };
+const TRACKS = [
+    { src: "/audio/solstice-visional-remix.m4a", title: "Solstice (Visional Remix) - Savej", bpm: 90, startAt: 21 },
+    { src: "/audio/til-the-morning.m4a", title: "Til The Morning - Visional", startAt: 19 },
+    { src: "/audio/dat-ass.m4a", title: "Dat Ass - Visional", startAt: 15 },
+];
+
+// The address that starts a track at its startAt
+function trackUrl(track) {
+    return track.startAt ? `${track.src}#t=${track.startAt}` : track.src;
+}
 
 const GLITCH_IMAGE = "/Glitch_BG.jpg";
 
@@ -385,6 +398,9 @@ function AudioBackground({ children }) {
     const audioRef = useRef({ context: null, analyser: null, element: null, stream: null, source: null });
     const [mode, setMode] = useState("off");
     const [message, setMessage] = useState("");
+    // Which playlist track is loaded; the ref lets the "ended" listener see the latest one
+    const [trackIndex, setTrackIndex] = useState(0);
+    const trackIndexRef = useRef(0);
     // The background is a still frame until sound is on, so it only ever moves
     // after the visitor turns on the track or mic themselves (reduced motion included)
     useEffect(() => {
@@ -766,6 +782,42 @@ function AudioBackground({ children }) {
         }
     }
 
+    // One audio element plays every track; switching tracks swaps its file
+    function getElement() {
+        const audio = getContext();
+        if (!audio.element) {
+            // The #t= fragment starts each track at its startAt. Pausing and resuming
+            // carries on from where it was.
+            audio.element = new Audio(trackUrl(TRACKS[trackIndexRef.current]));
+            // When a track ends, the next one starts, looping back to the first
+            audio.element.addEventListener("ended", () => {
+                playTrack((trackIndexRef.current + 1) % TRACKS.length);
+            });
+            const source = audio.context.createMediaElementSource(audio.element);
+            source.connect(audio.analyser);
+            source.connect(audio.context.destination);
+        }
+        return audio.element;
+    }
+
+    function startPlayback(element) {
+        element.play().then(
+            () => setMode("track"),
+            () => setMessage("The track couldn't be played.")
+        );
+    }
+
+    // Loads a playlist track and plays it from its startAt
+    function playTrack(index) {
+        setMessage("");
+        stopMic();
+        const element = getElement();
+        trackIndexRef.current = index;
+        setTrackIndex(index);
+        element.src = trackUrl(TRACKS[index]);
+        startPlayback(element);
+    }
+
     function toggleTrack() {
         if (mode === "track") {
             audioRef.current.element.pause();
@@ -774,24 +826,22 @@ function AudioBackground({ children }) {
         }
         setMessage("");
         stopMic();
-        const audio = getContext();
-        if (!audio.element) {
-            // The #t= fragment starts the first play at startAt; after the track ends,
-            // the next play starts there again. Pausing and resuming carries on as usual.
-            const startAt = TRACK.startAt || 0;
-            audio.element = new Audio(startAt ? `${TRACK.src}#t=${startAt}` : TRACK.src);
-            audio.element.addEventListener("ended", () => {
-                audio.element.currentTime = startAt;
-                setMode("off");
-            });
-            const source = audio.context.createMediaElementSource(audio.element);
-            source.connect(audio.analyser);
-            source.connect(audio.context.destination);
+        startPlayback(getElement());
+    }
+
+    function nextTrack() {
+        playTrack((trackIndexRef.current + 1) % TRACKS.length);
+    }
+
+    // Like a music player: a few seconds in, it restarts the track; otherwise it goes back one
+    function previousTrack() {
+        const { element } = audioRef.current;
+        const track = TRACKS[trackIndexRef.current];
+        if (element && element.currentTime > (track.startAt || 0) + 3) {
+            playTrack(trackIndexRef.current);
+        } else {
+            playTrack((trackIndexRef.current - 1 + TRACKS.length) % TRACKS.length);
         }
-        audio.element.play().then(
-            () => setMode("track"),
-            () => setMessage("The track couldn't be played.")
-        );
     }
 
     // Where the track is, even while paused; null until it has been started
@@ -807,7 +857,19 @@ function AudioBackground({ children }) {
         element.currentTime = Math.min(Math.max(0, seconds), element.duration - 0.1);
     }, []);
 
-    const sound = { mode, message, track: TRACK, toggleTrack, toggleMic, getTrackPosition, seekTrack };
+    const sound = {
+        mode,
+        message,
+        track: TRACKS[trackIndex] || null,
+        trackIndex,
+        trackCount: TRACKS.length,
+        toggleTrack,
+        nextTrack,
+        previousTrack,
+        toggleMic,
+        getTrackPosition,
+        seekTrack,
+    };
 
     return (
         <SoundContext.Provider value={sound}>

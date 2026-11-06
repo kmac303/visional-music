@@ -1345,11 +1345,30 @@ li {
   gap: 16px;
 }
 
+/* Previous / track number / next, like the skip buttons on an MP3 player */
+.hud-skip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-skip .hud-action {
+  display: inline-flex;
+  padding: 4px;
+  margin: -4px;
+  font-size: 0.85em;
+}
+
+.hud-track-number {
+  color: var(--hud-dim);
+}
+
 /* The track's progress bar doubles as a scrubber: a thin cyan line you can click or
    drag (or use with the arrow keys), with a small handle on hover and while dragging */
 .hud-scrubber {
   --progress: 0%;
   flex: 1;
+  min-width: 0;
   height: 16px;
   margin: 0;
   padding: 0;
@@ -2066,6 +2085,19 @@ ul.hud-bar-links {
       "timeline timeline";
     gap: 14px 12px;
     padding: 14px 14px 18px;
+  }
+
+  /* Skip buttons, time and scrubber share one tight line; swiping replaces the Scroll link */
+  .hud-timeline {
+    gap: 10px;
+  }
+
+  .hud-timeline > span {
+    white-space: nowrap;
+  }
+
+  .hud-scroll {
+    display: none;
   }
 
   /* Both readout blocks fit side by side under the headshot with tighter labels */
