@@ -17,14 +17,20 @@ function timecode(seconds) {
     return `${String(Math.floor(whole / 60)).padStart(2, "0")}:${String(whole % 60).padStart(2, "0")}`;
 }
 
-// Long track names scroll back and forth; short ones sit still
+// Long track names scroll in a loop like an old MP3 player; short ones sit still.
+// The text appears twice in a row so the loop can wrap around seamlessly.
 function fitMarquee(text) {
-    const overflow = text.scrollWidth - text.parentElement.clientWidth;
-    text.classList.toggle("is-scrolling", overflow > 0);
-    if (overflow > 0) {
-        text.style.setProperty("--marquee-distance", `${-overflow}px`);
-        // About 30 pixels a second, plus time to pause at each end
-        text.style.setProperty("--marquee-duration", `${(overflow / 30 + 3) * 2}s`);
+    const marquee = text.parentElement;
+    const copy = marquee.querySelector(".hud-marquee-copy");
+    copy.textContent = text.textContent;
+    marquee.classList.remove("is-scrolling");
+    const overflow = text.scrollWidth > marquee.parentElement.clientWidth;
+    marquee.classList.toggle("is-scrolling", overflow);
+    if (overflow) {
+        // One full title plus its gap, at about 30 pixels a second
+        const distance = text.getBoundingClientRect().width;
+        marquee.style.setProperty("--marquee-distance", `${-distance}px`);
+        marquee.style.setProperty("--marquee-duration", `${distance / 30}s`);
     }
 }
 
@@ -129,7 +135,12 @@ function Hero() {
                     <div className="hud-optional"><dt>Input</dt><dd ref={readout("input")}>NONE</dd></div>
                     <div className="hud-optional">
                         <dt>Src</dt>
-                        <dd className="hud-source"><span ref={readout("source")} className="hud-marquee">—</span></dd>
+                        <dd className="hud-source">
+                            <span className="hud-marquee">
+                                <span ref={readout("source")} className="hud-marquee-text">—</span>
+                                <span className="hud-marquee-text hud-marquee-copy" aria-hidden="true" />
+                            </span>
+                        </dd>
                     </div>
                 </dl>
 
