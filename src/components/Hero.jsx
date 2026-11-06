@@ -181,8 +181,8 @@ function Hero() {
 
                 <dl className="hud hud-top-right">
                     <div><dt>Signal</dt><dd ref={readout("signal")} className="hud-signal">STANDBY</dd></div>
-                    <div className="hud-optional"><dt>Input</dt><dd ref={readout("input")}>NONE</dd></div>
-                    <div className="hud-optional">
+                    <div><dt>Input</dt><dd ref={readout("input")}>NONE</dd></div>
+                    <div>
                         <dt>Src</dt>
                         <dd className="hud-source">
                             <span ref={readout("sourceSpoken")} className="sr-only">None</span>

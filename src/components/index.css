@@ -2135,7 +2135,7 @@ ul.hud-bar-links {
   }
 
   .hero-panel {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: auto auto auto auto;
     grid-template-areas:
       "tl tr"
@@ -2157,6 +2157,28 @@ ul.hud-bar-links {
 
   .hud-scroll {
     display: none;
+  }
+
+  /* The top-right readouts take the full right half, and the track name scrolls
+     within whatever room is left beside its label */
+  .hud-top-right {
+    justify-self: stretch;
+    min-width: 0;
+    font-size: 0.66rem;
+  }
+
+  .hud-top-right > div {
+    gap: 8px;
+  }
+
+  .hud-top-right dt {
+    min-width: 3.4em;
+  }
+
+  .hud-top-right .hud-source {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
   }
 
   /* Both readout blocks fit side by side under the headshot with tighter labels */
@@ -2188,9 +2210,6 @@ ul.hud-bar-links {
     justify-content: flex-start;
   }
 
-  .hud-top-right {
-    justify-self: end;
-  }
 
   #imageContainer.hero-headshot {
     width: min(68vw, 38vh);
