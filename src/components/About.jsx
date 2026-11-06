@@ -8,6 +8,18 @@ const bio = [
     "Since bringing his work to the live concert space, he's delivered live visuals at iconic venues like Red Rocks, Legend Valley, and Burning Man, translating sound into unforgettable visual journeys, one set at a time. 👁️‍🗨️",
 ];
 
+// Stage photos shown beside the bio
+const stages = [
+    {
+        image: "/assets/Stage Mile High.jpg",
+        alt: "Visional's visuals on the LED walls of an amphitheater stage, with flame jets, green lights and lasers over the crowd",
+    },
+    {
+        image: "/assets/Stage Arches.jpg",
+        alt: "Visional's visuals on round and arched LED screens, with lasers fanning out over a dark crowd",
+    },
+];
+
 const testimonials = [
     {
         name: "Heyz",
@@ -45,13 +57,29 @@ function About() {
     return (
         <section id="about" className="page-section about-section">
             <SectionHeader index="01" label="About" title="Who is Visional?" />
-            <div className="bio">
-                {bio.map((paragraph, index) => (
-                    <motion.p key={index} {...reveal}>
-                        <span className="bio-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                        {paragraph}
-                    </motion.p>
-                ))}
+            <div className="about-intro">
+                <div className="bio">
+                    {bio.map((paragraph, index) => (
+                        <motion.p key={index} {...reveal}>
+                            <span className="bio-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                            {paragraph}
+                        </motion.p>
+                    ))}
+                </div>
+                <div className="bio-stages">
+                    {stages.map((stage, index) => (
+                        <motion.figure key={stage.image} className="bio-stage" {...reveal}>
+                            <img src={stage.image} alt={stage.alt} loading="lazy" />
+                            <span className="target-corner target-corner-tl" aria-hidden="true" />
+                            <span className="target-corner target-corner-tr" aria-hidden="true" />
+                            <span className="target-corner target-corner-bl" aria-hidden="true" />
+                            <span className="target-corner target-corner-br" aria-hidden="true" />
+                            <figcaption className="hud-label" aria-hidden="true">
+                                Stage {String(index + 1).padStart(2, "0")} // Live
+                            </figcaption>
+                        </motion.figure>
+                    ))}
+                </div>
             </div>
 
             <SectionHeader index="01.1" label="Testimonials" title="What artists say" />

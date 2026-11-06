@@ -1478,10 +1478,59 @@ section.page-section {
   background-color: rgba(10, 10, 14, 0.85);
 }
 
+/* The bio on the left, stage photos stacked on the right */
+.about-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+  margin-bottom: 104px;
+}
+
 .bio {
   display: grid;
   gap: 28px;
-  margin-bottom: 104px;
+}
+
+.bio-stages {
+  display: grid;
+  gap: 28px;
+}
+
+/* Each photo sits in the same corner brackets as the headshot */
+.bio-stage {
+  position: relative;
+  margin: 0;
+  padding: 10px 10px 30px;
+}
+
+.bio-stage img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.bio-stage figcaption {
+  position: absolute;
+  left: 10px;
+  bottom: 6px;
+}
+
+@media (max-width: 960px) {
+  .about-intro {
+    grid-template-columns: 1fr;
+  }
+
+  .bio-stages {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .bio-stages {
+    grid-template-columns: 1fr;
+  }
 }
 
 .bio p {
