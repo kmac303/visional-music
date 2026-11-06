@@ -14,7 +14,13 @@ const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Savej – Sol
 
 const GLITCH_IMAGE = "/Glitch_BG.jpg";
 
-// How fast the datamosh keeps drifting while the bass is out, in pixels per frame
+// How much bass and mids each drive the datamosh flow (each pair adds up to 1).
+// Phone and laptop mics barely pick up bass but hear mids clearly, so the mic leans
+// on mids; the track blends both so it stays lively and the drop still hits.
+const TRACK_FLOW_MIX = { bass: 0.5, mid: 0.5 };
+const MIC_FLOW_MIX = { bass: 0.3, mid: 0.7 };
+
+// How fast the datamosh keeps drifting while the flow is out, in pixels per frame
 const SLOW_FLOW = 0.15;
 
 // The furthest the cursor can drag the background in one frame, in canvas pixels
@@ -254,6 +260,7 @@ function createTarget(gl, width, height) {
 function createAnalysis() {
     const level = { bass: 0, mid: 0, high: 0, kick: 0, kicks: 0, presence: 0 };
     let bassPeak = 0;
+    let midPeak = 0;
     const peak = { bass: 0.2, mid: 0.2, high: 0.2 };
     const floor = { bass: 0, mid: 0, high: 0 };
     let previous = null;
@@ -297,18 +304,24 @@ function createAnalysis() {
             const bass = bandAverage(data, binHz, 30, 150);
             smooth("bass", bass);
 
-            // Bass presence: how strong the low end is. For a mastered track, a fixed
-            // scale (no presence at -36 dB, full at -28 dB) keeps a light intro calm.
-            // A mic's level depends on the room, so it's judged against its own loudest
-            // over the last half-minute or so instead: full near that peak, zero ~24 dB below.
+            // Presence: how strong the bass and the mids are, blended to drive the flow.
+            // For a mastered track, fixed scales keep a light intro calm (bass: none at
+            // -36 dB, full at -28; mids: none at -60, full at -46, measured on the track).
+            // A mic's level depends on the room, so each band is judged against its own
+            // loudest over the last half-minute or so: full near that peak, zero ~24 dB below.
+            const mid = bandAverage(data, binHz, 250, 2000);
             bassPeak = Math.max(bass, bassPeak - (bassPeak - bass) * 0.0006);
+            midPeak = Math.max(mid, midPeak - (midPeak - mid) * 0.0006);
             // Back to decibels; matches the analyser's -90 to -5 dB range set in getContext()
             const bassDb = bass * 85 - 90;
-            const presence = fixedScale
-                ? Math.min(1, Math.max(0, (bassDb + 36) / 8))
-                : Math.min(1, Math.max(0, (bass - (bassPeak - 0.28)) / 0.21));
+            const midDb = mid * 85 - 90;
+            const clamp = (value) => Math.min(1, Math.max(0, value));
+            const bassPresence = fixedScale ? clamp((bassDb + 36) / 8) : clamp((bass - (bassPeak - 0.28)) / 0.21);
+            const midPresence = fixedScale ? clamp((midDb + 60) / 14) : clamp((mid - (midPeak - 0.28)) / 0.21);
+            const mix = fixedScale ? TRACK_FLOW_MIX : MIC_FLOW_MIX;
+            const presence = mix.bass * bassPresence + mix.mid * midPresence;
             level.presence += (presence - level.presence) * (presence > level.presence ? 0.25 : 0.08);
-            smooth("mid", bandAverage(data, binHz, 250, 2000));
+            smooth("mid", mid);
             smooth("high", bandAverage(data, binHz, 4000, 12000));
 
             // A hit is a sudden rise in energy across the spectrum, weighted toward the low end,
@@ -562,12 +575,11 @@ function AudioBackground({ children }) {
             audioLevels.time = onTrack ? element.currentTime : 0;
             audioLevels.duration = onTrack && Number.isFinite(element.duration) ? element.duration : 0;
 
-            // Block motion follows how much bass is present and cuts out when it's gone,
-            // so the moshed image holds in place instead of drifting on
-            // On above 35% presence, off below 20%, so it can't flicker at the edge
+            // Block motion follows presence (the bass and mid blend above) and eases off
+            // when it fades. On above 35% presence, off below 20%, so it can't flicker at the edge
             if (!listening || level.presence < 0.2) flowOn = false;
             else if (level.presence > 0.35) flowOn = true;
-            // With bass the blocks flow at full speed; when it drops out they ease down to a
+            // With presence the blocks flow at full speed; when it drops out they ease down to a
             // very slow drift rather than stopping. Only pausing the sound freezes them.
             const motionTarget = !listening ? 0 : flowOn ? 1.2 + 2.1 * level.presence + 1.5 * level.kick : SLOW_FLOW;
             motion += (motionTarget - motion) * Math.min(1, dt * 12);
@@ -613,8 +625,8 @@ function AudioBackground({ children }) {
             gl.uniform1f(u.u_seed, seed % 97);
             gl.uniform1f(u.u_amount, amount);
             gl.uniform1f(u.u_motion, motion);
-            // Fresh blocks of the glitch image only come in with the hits while the bass is
-            // flowing; when the bass is out nothing refreshes, so the image holds completely
+            // Fresh blocks of the glitch image only come in with the hits while the flow is on;
+            // when it's off nothing refreshes, so the image holds completely
             gl.uniform1f(u.u_refresh, cleanFrame ? 1 : flowOn ? 0.004 + 0.06 * level.kick : 0);
             gl.uniform1f(u.u_frame, frameCount);
             gl.uniform1f(u.u_field, field);
