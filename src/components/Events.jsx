@@ -14,20 +14,6 @@ function Events() {
     // List of events (upcoming & past)
     const events = [
         { 
-            title: "MC4D - Denver", 
-            imgSrc: "/assets/MC4D Haunted Mansion Denver.jpeg", 
-            alt: "mc4ddenver", 
-            link: "https://www.ticketmaster.com/haunted-mansion-feat-loud-luxury-bryce-denver-colorado-10-30-2026/event/1E006514B88DDC53", 
-            category: "upcoming" 
-        },
-        { 
-            title: "Drive Theory - Denver", 
-            imgSrc: "/assets/Drive Theory OH 2026.jpeg", 
-            alt: "drivetheorydenver", 
-            link: "https://larimerlounge.com/event/open-house-feat-drive-theory-mirz-speedy-jd-luke-west/larimer-lounge/denver-colorado/", 
-            category: "upcoming" 
-        },
-        { 
             title: "Decadence 2026", 
             imgSrc: "/assets/Decadence CO 2026.jpg", 
             alt: "decadence2026", 
