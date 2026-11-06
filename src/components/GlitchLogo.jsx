@@ -61,8 +61,8 @@ function GlitchLogo({ src, alt, className }) {
             // Big kicks tear a random horizontal slice of the logo sideways
             if (audioLevels.kicks !== kicksSeen) {
                 kicksSeen = audioLevels.kicks;
-                // Every kick blooms the feedback; it fades over about half a second
-                feedback = Math.max(feedback, 0.35 + 0.35 * bass);
+                // Every kick blooms the feedback; it fades over a bit more than half a second
+                feedback = Math.max(feedback, 0.5 + 0.4 * bass);
                 if (bass > 0.55) {
                     tear = 1;
                     tearDirection = Math.random() < 0.5 ? -1 : 1;
@@ -72,8 +72,8 @@ function GlitchLogo({ src, alt, className }) {
                 }
             }
             tear *= Math.exp(-dt / 0.1);
-            const trace = 0.12 * mid;
-            feedback = trace + (feedback - trace) * Math.exp(-dt / 0.45);
+            const trace = 0.2 * mid;
+            feedback = trace + (feedback - trace) * Math.exp(-dt / 0.6);
 
             // Red and cyan drift around each other with the mids and jump apart on kicks
             const split = 0.4 + 1.2 * mid + 4.5 * kick * kick;

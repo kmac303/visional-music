@@ -913,18 +913,18 @@ li {
 }
 
 .glitch-logo.glitching .glitch-logo-echo-0 {
-  opacity: calc(var(--feedback, 0) * 0.45);
-  transform: translate(var(--echo-0-x, 0px), var(--echo-0-y, 0px)) scale(calc(1 + var(--feedback, 0) * 0.05));
+  opacity: calc(var(--feedback, 0) * 0.55);
+  transform: translate(var(--echo-0-x, 0px), var(--echo-0-y, 0px)) scale(calc(1 + var(--feedback, 0) * 0.07));
 }
 
 .glitch-logo.glitching .glitch-logo-echo-1 {
-  opacity: calc(var(--feedback, 0) * 0.28);
-  transform: translate(var(--echo-1-x, 0px), var(--echo-1-y, 0px)) scale(calc(1 + var(--feedback, 0) * 0.1));
+  opacity: calc(var(--feedback, 0) * 0.38);
+  transform: translate(var(--echo-1-x, 0px), var(--echo-1-y, 0px)) scale(calc(1 + var(--feedback, 0) * 0.14));
 }
 
 .glitch-logo.glitching .glitch-logo-echo-2 {
-  opacity: calc(var(--feedback, 0) * 0.15);
-  transform: translate(var(--echo-2-x, 0px), var(--echo-2-y, 0px)) scale(calc(1 + var(--feedback, 0) * 0.15));
+  opacity: calc(var(--feedback, 0) * 0.24);
+  transform: translate(var(--echo-2-x, 0px), var(--echo-2-y, 0px)) scale(calc(1 + var(--feedback, 0) * 0.21));
 }
 
 /* Gallery videos show a thumbnail until clicked */
@@ -1949,14 +1949,15 @@ ul.hud-bar-links {
 
 /* The eye sits above row 422 of the 574-pixel-tall logo image and the
    lettering below row 466, so each copy is cropped at about 77% */
+/* The outer edges get room so the glitch's feedback echoes can spread past the logo */
 .top-bar-logo-icon {
-  clip-path: inset(0 0 22.6% 0);
+  clip-path: inset(-24px -24px 22.6% -24px);
 }
 
 /* Only the lettering inverts like the corner text: white over dark sections,
    black over the white one */
 .top-bar-logo-text {
-  clip-path: inset(77.4% 0 0 0);
+  clip-path: inset(77.4% -24px -24px -24px);
   mix-blend-mode: difference;
 }
 
