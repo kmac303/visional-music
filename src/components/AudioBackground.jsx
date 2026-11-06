@@ -8,8 +8,9 @@ export function useSound() {
     return useContext(SoundContext);
 }
 
-// Set to null to hide the play button.
-const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Savej – Solstice (Visional Remix)" };
+// Set to null to hide the play button. bpm is the track's known tempo, shown in the
+// readouts instead of an estimate (the mic still uses the estimate).
+const TRACK = { src: "/audio/solstice-visional-remix.mp3", title: "Savej – Solstice (Visional Remix)", bpm: 90 };
 
 const GLITCH_IMAGE = "/Glitch_BG.jpg";
 

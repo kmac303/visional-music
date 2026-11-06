@@ -56,7 +56,9 @@ function Hero() {
             write("signal", on ? "● LIVE" : "STANDBY");
             write("input", on ? a.source.toUpperCase() : "NONE");
             write("source", a.source === "track" ? track.title : a.source === "mic" ? "ROOM AUDIO" : "—");
-            write("bpm", on && a.bpm ? String(a.bpm).padStart(3, "0") : "---");
+            // A known track tempo beats an estimate from detected hits
+            const bpm = a.source === "track" && track?.bpm ? track.bpm : a.bpm;
+            write("bpm", on && bpm ? String(bpm).padStart(3, "0") : "---");
             write("bass", meter(on ? a.bass : 0));
             write("mid", meter(on ? a.mid : 0));
             write("high", meter(on ? a.high : 0));
