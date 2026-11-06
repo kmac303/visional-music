@@ -20,6 +20,10 @@ const SLOW_FLOW = 0.15;
 // The furthest the cursor can drag the background in one frame, in canvas pixels
 const MAX_DRAG = 24;
 
+// The cursor's swirl: top speed in pixels per frame, and how long it takes to wind down
+const MAX_SWIRL = 1.0;
+const SWIRL_SETTLE_SECONDS = 1.5;
+
 const vertexShader = `
     attribute vec2 a_position;
     void main() {
@@ -54,6 +58,7 @@ const moshShader = PRECISION + `
     uniform float u_field;
     uniform vec2 u_pointer;
     uniform vec2 u_pointerMove;
+    uniform float u_swirl;
 
     float hash(vec2 p) {
         p = fract(p * vec2(123.34, 456.21));
@@ -149,14 +154,20 @@ const moshShader = PRECISION + `
         // fourth frame. Slow speeds then flow evenly instead of only the fastest blocks
         // moving in bands while their neighbours sit still.
         // The cursor acts like a small gravity well. Blocks right around it are dragged
-        // along with it (about 30 canvas pixels, roughly 60 on screen), and while it
-        // moves, the image around it is sucked in toward the point (about twice as far)
+        // along with it (about 45 canvas pixels, roughly 90 on screen), and while it
+        // moves, the image around it is sucked in toward the point (a bit further out)
         vec2 toPointer = (block + 0.5) * 8.0 - u_pointer;
         float pointerDistance = length(toPointer);
-        vec2 drag = u_pointerMove * exp(-pointerDistance * pointerDistance / 900.0);
-        float pullStrength = min(length(u_pointerMove) * 0.5, 5.0) * exp(-pointerDistance * pointerDistance / 3600.0);
+        vec2 drag = u_pointerMove * exp(-pointerDistance * pointerDistance / 2025.0);
+        float pullStrength = min(length(u_pointerMove) * 0.5, 5.0) * exp(-pointerDistance * pointerDistance / 6400.0);
         // Reading from further out makes the image flow inward
         vec2 pull = -toPointer / max(pointerDistance, 1.0) * pullStrength;
+        // A slow spin around the point that winds up as the cursor moves and winds
+        // down after it stops. A little inward pull rides along, so it spirals in
+        // like water circling a drain; the very center stays calm.
+        vec2 around = vec2(-toPointer.y, toPointer.x) / max(pointerDistance, 1.0);
+        float swirlReach = exp(-pointerDistance * pointerDistance / 6400.0) * smoothstep(0.0, 16.0, pointerDistance);
+        pull += (around - 0.3 * toPointer / max(pointerDistance, 1.0)) * u_swirl * swirlReach;
         vec2 from = gl_FragCoord.xy - floor(motion * u_motion + drag + pull + hash2(block + jump(u_frame) + 3.3));
         vec3 moshed = texture2D(u_prev, from / u_res).rgb;
 
@@ -484,6 +495,7 @@ function AudioBackground({ children }) {
         let nextRefresh = 0;
         let grid = [24, 14];
         let flowOn = false;
+        let swirl = 0;
         // Recent hit times, for estimating the tempo
         const hitTimes = [];
         let motion = 0;
@@ -571,10 +583,14 @@ function AudioBackground({ children }) {
             pointer.moveX = 0;
             pointer.moveY = 0;
             const dragging = Math.abs(pointerMoveX) + Math.abs(pointerMoveY) > 0.25;
+            // Movement winds the swirl up; once the cursor stops it winds down slowly
+            swirl = Math.min(MAX_SWIRL, swirl + Math.hypot(pointerMoveX, pointerMoveY) * 0.02);
+            swirl *= Math.exp(-dt / SWIRL_SETTLE_SECONDS);
+            if (swirl < 0.02) swirl = 0;
 
             // The first frame is the clean image; after that the background only changes
             // while sound is on or the cursor is dragging it, and otherwise holds still
-            if (!cleanFrame && !listening && !dragging) return;
+            if (!cleanFrame && !listening && !dragging && swirl === 0) return;
 
             const time = (now - start) / 1000;
             lastTime = time;
@@ -604,6 +620,7 @@ function AudioBackground({ children }) {
             gl.uniform1f(u.u_field, field);
             gl.uniform2f(u.u_pointer, pointer.x, pointer.y);
             gl.uniform2f(u.u_pointerMove, pointerMoveX, pointerMoveY);
+            gl.uniform1f(u.u_swirl, swirl);
             gl.drawArrays(gl.TRIANGLES, 0, 3);
             cleanFrame = false;
             readIndex = write;
