@@ -2,6 +2,8 @@
 // anything else on the page that reacts to the music (like the logo).
 export const audioLevels = {
     playing: false,
+    // "track", "mic", or "off"
+    source: "off",
     bass: 0,
     mid: 0,
     high: 0,

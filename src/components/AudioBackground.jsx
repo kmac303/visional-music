@@ -204,7 +204,8 @@ function createTarget(gl, width, height) {
 // Turns raw FFT data into smoothed bass/mid/high levels plus a beat pulse.
 // "kick" means any strong hit (kick, snare, clap), found by onset detection.
 function createAnalysis() {
-    const level = { bass: 0, mid: 0, high: 0, kick: 0, kicks: 0 };
+    const level = { bass: 0, mid: 0, high: 0, kick: 0, kicks: 0, presence: 0 };
+    let bassPeak = 0;
     const peak = { bass: 0.2, mid: 0.2, high: 0.2 };
     const floor = { bass: 0, mid: 0, high: 0 };
     let previous = null;
@@ -242,9 +243,23 @@ function createAnalysis() {
 
     return {
         level,
-        update(data, binHz, now) {
+        // fixedScale: judge bass presence on a fixed scale for mastered tracks,
+        // instead of relative to what this source has sounded like so far
+        update(data, binHz, now, fixedScale) {
             const bass = bandAverage(data, binHz, 30, 150);
             smooth("bass", bass);
+
+            // Bass presence: how strong the low end is. For a mastered track, a fixed
+            // scale (no presence at -36 dB, full at -28 dB) keeps a light intro calm.
+            // A mic's level depends on the room, so it's judged against its own loudest
+            // over the last half-minute or so instead: full near that peak, zero ~24 dB below.
+            bassPeak = Math.max(bass, bassPeak - (bassPeak - bass) * 0.0006);
+            // Back to decibels; matches the analyser's -90 to -5 dB range set in getContext()
+            const bassDb = bass * 85 - 90;
+            const presence = fixedScale
+                ? Math.min(1, Math.max(0, (bassDb + 36) / 8))
+                : Math.min(1, Math.max(0, (bass - (bassPeak - 0.28)) / 0.21));
+            level.presence += (presence - level.presence) * (presence > level.presence ? 0.25 : 0.08);
             smooth("mid", bandAverage(data, binHz, 250, 2000));
             smooth("high", bandAverage(data, binHz, 4000, 12000));
 
@@ -271,6 +286,7 @@ function createAnalysis() {
         },
         decay() {
             level.bass *= 0.95;
+            level.presence *= 0.95;
             level.mid *= 0.95;
             level.high *= 0.95;
             level.kick *= 0.9;
@@ -398,7 +414,7 @@ function AudioBackground() {
                     data = new Uint8Array(analyser.frequencyBinCount);
                 }
                 analyser.getByteFrequencyData(data);
-                analysis.update(data, analyser.context.sampleRate / analyser.fftSize, now);
+                analysis.update(data, analyser.context.sampleRate / analyser.fftSize, now, audioLevels.source === "track");
             } else {
                 analysis.decay();
             }
@@ -436,11 +452,13 @@ function AudioBackground() {
             audioLevels.kick = level.kick;
 
             // How hard the image moshes: builds fast with the music, recovers slowly when it calms
-            const moshTarget = listening ? Math.min(1, 0.2 + 0.9 * level.bass + 0.3 * level.mid) : 0;
-            const settle = moshTarget > moshing ? 6 : listening ? 0.8 : 2.5;
+            // The flow follows how much bass is present: heavy low end moshes hard,
+            // and the image heals when the bass drops out
+            const moshTarget = listening ? level.presence : 0;
+            const settle = moshTarget > moshing ? 6 : listening ? 1.6 : 2.5;
             moshing += (moshTarget - moshing) * Math.min(1, dt * settle);
             // Heavy kicks send the blocks off in new directions, like a cut in a mosh edit
-            if (level.kick > 0.85 && level.bass > 0.4) field += 0.37;
+            if (level.kick > 0.85 && level.presence > 0.4) field += 0.37;
 
             const time = (now - start) / 1000;
             frameCount = (frameCount + 1) % 997;
@@ -460,7 +478,7 @@ function AudioBackground() {
             gl.uniform2f(u.u_grid, grid[0], grid[1]);
             gl.uniform1f(u.u_seed, seed % 97);
             gl.uniform1f(u.u_amount, amount);
-            gl.uniform1f(u.u_motion, moshing * (0.6 + 2.5 * level.bass) + 5 * level.kick * moshing);
+            gl.uniform1f(u.u_motion, moshing * (0.8 + 2.5 * level.presence) + 1.5 * level.kick * moshing);
             gl.uniform1f(u.u_refresh, cleanFrame ? 1 : 0.01 + 0.5 * (1 - moshing) * (1 - moshing));
             gl.uniform1f(u.u_frame, frameCount);
             gl.uniform1f(u.u_field, field);
@@ -502,6 +520,7 @@ function AudioBackground() {
 
     useEffect(() => {
         audioLevels.playing = mode !== "off";
+        audioLevels.source = mode;
     }, [mode]);
 
     // Release the mic and audio context when the component goes away
