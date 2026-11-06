@@ -148,11 +148,16 @@ const moshShader = PRECISION + `
         // block meant to move a quarter pixel per frame steps one pixel about every
         // fourth frame. Slow speeds then flow evenly instead of only the fastest blocks
         // moving in bands while their neighbours sit still.
-        // The cursor drags whole blocks along with it, strongest right under it and
-        // fading out over about 90 canvas pixels (roughly 180 on screen)
+        // The cursor acts like a small gravity well. Blocks right around it are dragged
+        // along with it (about 30 canvas pixels, roughly 60 on screen), and while it
+        // moves, the image around it is sucked in toward the point (about twice as far)
         vec2 toPointer = (block + 0.5) * 8.0 - u_pointer;
-        vec2 drag = u_pointerMove * exp(-dot(toPointer, toPointer) / 8100.0);
-        vec2 from = gl_FragCoord.xy - floor(motion * u_motion + drag + hash2(block + jump(u_frame) + 3.3));
+        float pointerDistance = length(toPointer);
+        vec2 drag = u_pointerMove * exp(-pointerDistance * pointerDistance / 900.0);
+        float pullStrength = min(length(u_pointerMove) * 0.5, 5.0) * exp(-pointerDistance * pointerDistance / 3600.0);
+        // Reading from further out makes the image flow inward
+        vec2 pull = -toPointer / max(pointerDistance, 1.0) * pullStrength;
+        vec2 from = gl_FragCoord.xy - floor(motion * u_motion + drag + pull + hash2(block + jump(u_frame) + 3.3));
         vec3 moshed = texture2D(u_prev, from / u_res).rgb;
 
         // A few blocks per frame refresh from the clean image
