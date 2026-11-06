@@ -14,7 +14,7 @@ const stages = [
     {
         venue: "Fiddler's Green Amphitheatre",
         image: "/assets/Stage Mile High.jpg",
-        alt: "Visional's visuals on the LED walls at Fiddler's Green Amphitheatre, with flame jets, green lights and lasers over the crowd",
+        alt: "Visional's halftone glitch visuals on the LED walls at Fiddler's Green Amphitheatre, framed by red light columns and lasers over the crowd",
     },
     {
         venue: "Lost Lands",
