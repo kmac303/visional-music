@@ -5,15 +5,15 @@ function Events() {
     // List of artists
     // Roughly ordered by Instagram following, biggest first (estimates, not live counts)
     const artistList = [
-        "DJ Diesel (Shaq)", "Purple Disco Machine", "Getter", "Netsky", "Valentino Khan", "The Glitch Mob", "Rusko",
-        "Wuki", "Bear Grillz", "Coco & Breezy", "Sidepiece", "The Gaslamp Killer", "Midnight Tyrannosaurus",
-        "Wreckno", "Space Laces", "Skepsis", "UZ", "Noizu", "Shipwrek", "Hol!", "Tynan", "Maddy O’Neal",
+        "DJ Diesel (Shaq)", "Purple Disco Machine", "Getter", "The Glitch Mob", "Valentino Khan", "Netsky",  "Rusko",
+        "Wuki", "Sidepiece", "Bear Grillz", "Coco & Breezy", "The Gaslamp Killer", "Midnight Tyrannosaurus",
+        "Wreckno", "Skepsis",  "Noizu", "Space Laces", "UZ", "Shipwrek", "Hol!", "Tynan", "Maddy O’Neal",
         "Jkyl & Hyde", "MC4D", "Ayybo", "Sisto", "Figure", "Swimming Paul", "Phutureprimitive", "Pauline Herr",
-        "DMVU", "Kumarion", "Desert Dwellers", "David Starfire", "WonkyWilla", "Lizzy Jane", "Random Rab", "Savej",
-        "Heyz", "DJ Pressed", "Hostage Situation", "Green Matter", "Habitaat", "Toadface", "Covex", "Twopercent",
-        "Bolo", "OG Nixin", "Benda", "Hills", "Pretty Sweet", "The Sponges", "Jon Casey", "Swampz", "Chozen",
-        "Tsu Nami", "PapaJay", "Omas", "Noetika", "Dela Moon", "MFinity", "Lil Fish", "Decker Rush", "Nyrus", "MZG",
-        "Vinnie Maniscalco", "Bruer"
+        "DMVU", "Kumarion", "Desert Dwellers", "David Starfire", "WonkyWilla", "Lizzy Jane", "Savej", "Random Rab", 
+        "Heyz", "Hostage Situation", "DJ Pressed", "Green Matter", "Habitaat", "Toadface", "Covex", "Twopercent",
+        "Bolo", "OG Nixin", "Pretty Sweet", "Benda", "Hills", "The Sponges", "Chozen", "Jon Casey", "Swampz",
+        "Tsu Nami", "PapaJay", "Omas", "Noetika", "Dela Moon", "Lil Fish", "MFinity", "Decker Rush", "Nyrus", "MZG",
+        "Bruer", "Vinnie Maniscalco"
     ];
 
     // List of events (upcoming & past)
@@ -39,13 +39,13 @@ function Events() {
             link: "https://globaldancefestival.com", 
             category: "past" 
         },
-        // { 
-        //     title: "Tynan - Denver", 
-        //     imgSrc: "/assets/Tynan Denver 2026.jpeg", 
-        //     alt: "tynandenver", 
-        //     link: "https://www.ticketmaster.com/tynan-16-and-over-denver-09-05-2026/event/Z7r9jZ1A7JeGV", 
-        //     category: "past" 
-        // },
+        { 
+            title: "Tynan - Denver, CO", 
+            imgSrc: "/assets/Tynan Denver 2026.jpeg", 
+            alt: "tynandenver", 
+            link: "https://www.ticketmaster.com/tynan-16-and-over-denver-09-05-2026/event/Z7r9jZ1A7JeGV", 
+            category: "past" 
+        },
         // { 
         //     title: "Bear Grillz - Denver", 
         //     imgSrc: "/assets/Bear Grillz Summit Denver.png", 
@@ -143,7 +143,7 @@ function Events() {
 
     return (
         <section id="events" className="page-section events-section">
-            <SectionHeader index="02" label="Events" title="Where the visuals have been" />
+            <SectionHeader index="02" label="Events" title="Where the visuals go" />
             {upcoming.length > 0 && (
                 <>
                     <div className="hud-label events-group-label">Upcoming // {upcoming.length}</div>
