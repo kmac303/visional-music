@@ -124,11 +124,12 @@ function Hero() {
             <div className="hero-panel">
                 <div className="hud hud-top-left">
                     {/* Each group stays together, so narrow windows wrap between them */}
+                    {/* Says what, not who: the corner logo already names Visional. The name stays in
+                        the heading for screen readers and search engines, hidden on screen. */}
                     <h1 className="hud-title">
-                        <span className="hud-nowrap">Visional <span className="hud-dim">//</span> VJ</span>{" "}
-                        <span className="hud-optional">
-                            <span className="hud-dim">//</span> <span className="hud-nowrap">Audio-reactive</span> artist
-                        </span>
+                        <span className="sr-only">Visional, </span>
+                        <span className="hud-nowrap">VJ <span className="hud-dim">//</span></span>{" "}
+                        <span className="hud-nowrap">Audio-reactive</span> artist
                     </h1>
                     <div>
                         <span className="hud-nowrap">Denver, CO</span>
@@ -158,8 +159,8 @@ function Hero() {
                         <span className="target-corner target-corner-tr" aria-hidden="true" />
                         <span className="target-corner target-corner-bl" aria-hidden="true" />
                         <span className="target-corner target-corner-br" aria-hidden="true" />
-                        <span className="hud-label target-label target-label-top" aria-hidden="true">Subject // Kevin McIntosh</span>
-                        <span className="hud-label target-label target-label-bottom" aria-hidden="true">Ref 0001 // Denver, CO</span>
+                        <span className="hud-label target-label target-label-top" aria-hidden="true">Subject // Visional</span>
+                        <span className="hud-label target-label target-label-bottom" aria-hidden="true">Kevin McIntosh // Ref 0001</span>
                     </div>
                     {mode === "off" && (
                         <div className="hero-start">
