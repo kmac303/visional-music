@@ -608,8 +608,9 @@ function AudioBackground({ children }) {
             else if (level.presence > 0.35) flowOn = true;
             // With presence the blocks flow at full speed; when it drops out they ease down to a
             // very slow drift rather than stopping. Only pausing the sound freezes them.
+            // The Flow slider scales the sound-driven motion; hand-fired hits stay at full strength
             const motionTarget = (!moving ? 0 : flowOn ? 1.2 + 2.1 * level.presence + 1.5 * level.kick : SLOW_FLOW)
-                + 2.5 * punch;
+                * moshControls.flowAmount + 2.5 * punch;
             motion += (motionTarget - motion) * Math.min(1, dt * 12);
             if (!moving && !punch) motion = 0;
             audioLevels.flow = !listening ? "hold" : moshControls.freeze ? "frozen" : flowOn ? "active" : "drift";

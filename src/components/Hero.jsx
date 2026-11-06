@@ -67,6 +67,12 @@ function Hero() {
     // True while the visitor is dragging the scrubber, so playback doesn't fight their hand
     const scrubbing = useRef(false);
     const [frozen, setFrozen] = useState(moshControls.freeze);
+    const [flow, setFlow] = useState(Math.round(moshControls.flowAmount * 100));
+    const changeFlow = (event) => {
+        const value = Number(event.currentTarget.value);
+        moshControls.flowAmount = value / 100;
+        setFlow(value);
+    };
     const toggleFreeze = () => {
         moshControls.freeze = !moshControls.freeze;
         setFrozen(moshControls.freeze);
@@ -110,8 +116,6 @@ function Hero() {
             write("bass", meter(on ? a.bass : 0));
             write("mid", meter(on ? a.mid : 0));
             write("high", meter(on ? a.high : 0));
-            write("flowBar", meter(on ? a.presence : 0));
-            write("flowValue", `${Math.round((on ? a.presence : 0) * 100)}%`);
             write("mosh", a.flow.toUpperCase());
             write("hits", String(a.kicks).padStart(4, "0"));
             write("frame", String(a.frame).padStart(6, "0"));
@@ -220,7 +224,25 @@ function Hero() {
                 </dl>
 
                 <dl className="hud hud-bottom-right hud-optional">
-                    <div><dt>Flow</dt><dd><span ref={readout("flowBar")} className="hud-meter">{meter(0)}</span> <span ref={readout("flowValue")}>0%</span></dd></div>
+                    <div>
+                        <dt>Flow</dt>
+                        <dd className="hud-flow">
+                            <input
+                                type="range"
+                                className="hud-scrubber hud-flow-slider"
+                                min="1"
+                                max="100"
+                                step="1"
+                                value={flow}
+                                onChange={changeFlow}
+                                style={{ "--progress": `${flow}%` }}
+                                aria-label="Flow amount"
+                                aria-valuetext={`${flow}%`}
+                                title="How strongly the sound moves the background"
+                            />{" "}
+                            <span>{flow}%</span>
+                        </dd>
+                    </div>
                     {/* Each readout here comes with a control for the background */}
                     <div>
                         <dt>Mosh</dt>

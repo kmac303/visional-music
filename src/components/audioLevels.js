@@ -27,6 +27,9 @@ export const audioLevels = {
 export const moshControls = {
     // Hold the background still even while sound is on
     freeze: false,
+    // How strongly the sound moves the background, from 0.01 to 1 (the Flow slider).
+    // Starts at full on every page load.
+    flowAmount: 1,
     // Wipe the background back to the clean image
     clearRequests: 0,
     // Fire a hit by hand, like a detected kick

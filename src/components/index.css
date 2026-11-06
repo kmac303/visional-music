@@ -1417,6 +1417,26 @@ li {
   color: #ffffff;
 }
 
+/* The Flow slider sits where a 10-segment meter would, with its handle always showing */
+.hud-flow {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.hud-flow-slider {
+  flex: none;
+  width: 7.5em;
+}
+
+.hud-flow-slider::-webkit-slider-thumb {
+  opacity: 1;
+}
+
+.hud-flow-slider::-moz-range-thumb {
+  opacity: 1;
+}
+
 /* ---------- Sections ---------- */
 section.page-section {
   display: block;
