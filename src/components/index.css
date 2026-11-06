@@ -1421,18 +1421,54 @@ section.page-section {
   gap: 20px;
 }
 
+/* The artist's photo fills each card in color, with the quote over a dark
+   fade at the bottom so the face stays clear at the top */
 .transmission {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-height: 460px;
   margin: 0;
   padding: 22px;
+  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: #0a0a0e;
 }
 
+.transmission-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.transmission::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 5, 8, 0.55) 0%,
+    rgba(5, 5, 8, 0) 18%,
+    rgba(5, 5, 8, 0.25) 40%,
+    rgba(5, 5, 8, 0.88) 62%,
+    rgba(5, 5, 8, 0.95) 100%
+  );
+}
+
+.transmission .hud-label {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* The quote and name sit at the bottom, over the dark part of the fade */
 .transmission blockquote {
-  margin: 0;
+  margin: auto 0 0;
   font-size: 1rem;
   line-height: 1.55;
 }
@@ -1441,18 +1477,9 @@ section.page-section {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: auto;
   font-family: var(--hud-font);
   font-size: 0.8rem;
   text-transform: uppercase;
-}
-
-.transmission figcaption img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  filter: grayscale(1);
 }
 
 /* Events: scene cut to white */

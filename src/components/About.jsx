@@ -54,12 +54,13 @@ function About() {
             <div className="transmissions">
                 {testimonials.map((testimonial, index) => (
                     <motion.figure key={testimonial.name} className="transmission" {...reveal}>
+                        {/* The artist's photo fills the card; a dark fade at the bottom keeps the quote readable */}
+                        <img className="transmission-photo" src={testimonial.image} alt={testimonial.name} loading="lazy" />
                         <div className="hud-label">
                             Transmission {String(index + 1).padStart(2, "0")} // {testimonial.name}
                         </div>
                         <blockquote>“{testimonial.quote}”</blockquote>
                         <figcaption>
-                            <img src={testimonial.image} alt="" />
                             <a href={testimonial.link} target="_blank" rel="noopener noreferrer">
                                 — {testimonial.name}
                             </a>
