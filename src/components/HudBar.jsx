@@ -41,7 +41,19 @@ function HudBar() {
             const element = document.getElementById(id);
             if (element) observer.observe(element);
         });
-        return () => observer.disconnect();
+
+        // The last section can be shorter than a tall screen and never reach the middle, so
+        // highlight it whenever the page is scrolled all the way down
+        const handleScroll = () => {
+            const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+            if (atBottom) setActive(SECTIONS.length - 1);
+        };
+        window.addEventListener("scroll", handleScroll, { passive: true });
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, []);
 
     useEffect(() => {

@@ -1925,11 +1925,10 @@ ul.artist-cloud {
 }
 
 /* Contact: scene cut to red */
+/* Same spacing as the other sections, plus room at the bottom so the sign-off clears the
+   fixed bottom bar */
 section.contact-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 80vh;
+  padding-bottom: 160px;
   background-color: var(--red);
   color: var(--ink);
 }
@@ -2261,6 +2260,10 @@ ul.hud-bar-links {
 
   section.page-section {
     padding: 72px 16px;
+  }
+
+  section.contact-section {
+    padding-bottom: 120px;
   }
 
   .events-banner {
