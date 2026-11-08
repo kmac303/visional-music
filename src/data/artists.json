@@ -1,0 +1,1034 @@
+{
+  "updated": "2026-11-08",
+  "note": "Instagram followers, TikTok followers and Spotify monthly listeners. Updated by scripts/update-followers.mjs; edit by hand if needed.",
+  "artists": [
+    {
+      "name": "DJ Diesel (Shaq)",
+      "red": true,
+      "instagram": {
+        "handle": "djdiesel",
+        "followers": 2000000
+      },
+      "tiktok": {
+        "handle": "djdiesel",
+        "followers": 1800000
+      },
+      "spotify": {
+        "id": "75vCyksqhYjtt5VIpc8g7u",
+        "listeners": 220587
+      },
+      "pinFirst": true,
+      "alsoCount": [
+        {
+          "name": "Shaquille O'Neal",
+          "instagram": {
+            "handle": "shaq",
+            "followers": 35000000
+          },
+          "tiktok": {
+            "handle": "shaq",
+            "followers": 14800000
+          },
+          "spotify": {
+            "id": "67RWyN1fDOu7WuSTIi5hE7",
+            "listeners": 341205
+          }
+        }
+      ]
+    },
+    {
+      "name": "Valentino Khan",
+      "red": true,
+      "instagram": {
+        "handle": "valentinokhan",
+        "followers": 281000
+      },
+      "tiktok": {
+        "handle": "valentinokhan",
+        "followers": 164800
+      },
+      "spotify": {
+        "id": "0deIjoDjl9g9Zpw0sCIOHh",
+        "listeners": 687077
+      }
+    },
+    {
+      "name": "Sidepiece",
+      "red": true,
+      "instagram": {
+        "handle": "sidepiece",
+        "followers": 247000
+      },
+      "tiktok": {
+        "handle": "youasidepiece",
+        "followers": 95600
+      },
+      "spotify": {
+        "id": "5czbzNZZfWpyFgZyfT3Mkk",
+        "listeners": 6661570
+      }
+    },
+    {
+      "name": "Midnight Tyrannosaurus",
+      "red": true,
+      "instagram": {
+        "handle": "midnight_tyrannosaurus",
+        "followers": 149000
+      },
+      "tiktok": {
+        "handle": "midnight_tyrannosaurus",
+        "followers": 3094
+      },
+      "spotify": {
+        "id": "6Z8O8PugLuKyLFVkZLQDRZ",
+        "listeners": 148879
+      }
+    },
+    {
+      "name": "Tynan",
+      "red": true,
+      "instagram": {
+        "handle": "tynanofficial",
+        "followers": 193000
+      },
+      "tiktok": null,
+      "spotify": {
+        "id": "5oiSxivTCIoOk5UlMSwzWM",
+        "listeners": 365788
+      }
+    },
+    {
+      "name": "Space Laces",
+      "red": true,
+      "instagram": {
+        "handle": "space_laces",
+        "followers": 125000
+      },
+      "tiktok": null,
+      "spotify": {
+        "id": "37PZXblQTqpEWGdjctNcGP",
+        "listeners": 408906
+      }
+    },
+    {
+      "name": "Shipwrek",
+      "red": true,
+      "instagram": {
+        "handle": "shipwrekdj",
+        "followers": 74000
+      },
+      "tiktok": {
+        "handle": "shipwrekdj",
+        "followers": 101500
+      },
+      "spotify": {
+        "id": "1ic0FHNGIjXZAWH6O6Reif",
+        "listeners": 1008670
+      }
+    },
+    {
+      "name": "Ayybo",
+      "red": true,
+      "instagram": {
+        "handle": "ayybomusic",
+        "followers": 188000
+      },
+      "tiktok": {
+        "handle": "ayybomusic",
+        "followers": 98200
+      },
+      "spotify": {
+        "id": "0YVquC9RaJLYFNmlJFzkTV",
+        "listeners": 1677642
+      }
+    },
+    {
+      "name": "Desert Dwellers",
+      "red": true,
+      "instagram": {
+        "handle": "desert_dwellers_music",
+        "followers": 46000
+      },
+      "tiktok": {
+        "handle": "desertdwellersmusic",
+        "followers": 517
+      },
+      "spotify": {
+        "id": "6EN5zX1Q2W7qcesyatdUfO",
+        "listeners": 180754
+      }
+    },
+    {
+      "name": "Heyz",
+      "red": true,
+      "instagram": {
+        "handle": "heyzmsc",
+        "followers": 129000
+      },
+      "tiktok": {
+        "handle": "heyzmsc",
+        "followers": 660000
+      },
+      "spotify": {
+        "id": "5X1EM1jg35YB5jmw7qVIlh",
+        "listeners": 187773
+      }
+    },
+    {
+      "name": "DJ Pressed",
+      "red": true,
+      "instagram": {
+        "handle": "djpressed",
+        "followers": 53000
+      },
+      "tiktok": {
+        "handle": "djpressed",
+        "followers": 30200
+      },
+      "spotify": {
+        "id": "5jUHGCefwYDtzfyXCdZHNZ",
+        "listeners": 10745
+      }
+    },
+    {
+      "name": "Savej",
+      "red": true,
+      "instagram": {
+        "handle": "savejlife",
+        "followers": 23000
+      },
+      "tiktok": null,
+      "spotify": {
+        "id": "0QZI6uO8AqGwHRDkS2ubGD",
+        "listeners": 69255
+      }
+    },
+    {
+      "name": "Green Matter",
+      "red": true,
+      "instagram": {
+        "handle": "greenmatterofficial",
+        "followers": 15000
+      },
+      "tiktok": {
+        "handle": "greenmatterofficial",
+        "followers": 3154
+      },
+      "spotify": {
+        "id": "0x8VuDkaLNeQPkxynPbDxE",
+        "listeners": 8525
+      }
+    },
+    {
+      "name": "Pretty Sweet",
+      "red": true,
+      "instagram": {
+        "handle": "whoisprettysweet",
+        "followers": 29000
+      },
+      "tiktok": {
+        "handle": "whoisprettysweet",
+        "followers": 7413
+      },
+      "spotify": {
+        "id": "1tGxccjxxG3IlNwSs2x8eX",
+        "listeners": 254379
+      }
+    },
+    {
+      "name": "PapaJay",
+      "red": true,
+      "instagram": {
+        "handle": "itspapajay",
+        "followers": 22000
+      },
+      "tiktok": {
+        "handle": "papajaymusic",
+        "followers": 5904
+      },
+      "spotify": {
+        "id": "01DhMMIQcr9vaLuuemButV",
+        "listeners": 10414
+      }
+    },
+    {
+      "name": "Spoone",
+      "red": true,
+      "instagram": {
+        "handle": "spoonemusic",
+        "followers": 15000
+      },
+      "tiktok": {
+        "handle": "spoonemusic",
+        "followers": 3368
+      },
+      "spotify": {
+        "id": "7A1SzQc0FvmwQ3et8H5g03",
+        "listeners": 5519
+      }
+    },
+    {
+      "name": "Lil Fish",
+      "red": true,
+      "instagram": {
+        "handle": "lilfishmusic",
+        "followers": 8328
+      },
+      "tiktok": {
+        "handle": "lilfishmusic",
+        "followers": 43
+      },
+      "spotify": {
+        "id": "6v1gwQsToXK5nl09vuGywg",
+        "listeners": 57065
+      }
+    },
+    {
+      "name": "Getter",
+      "instagram": {
+        "handle": "getter",
+        "followers": 748000
+      },
+      "tiktok": {
+        "handle": "getter",
+        "followers": 89900
+      },
+      "spotify": {
+        "id": "3QryVD03gGZOLQQXjy3EoA",
+        "listeners": 1576039
+      }
+    },
+    {
+      "name": "Purple Disco Machine",
+      "instagram": {
+        "handle": "purple_disco_machine",
+        "followers": 509000
+      },
+      "tiktok": {
+        "handle": "purplediscomachine_",
+        "followers": 115900
+      },
+      "spotify": {
+        "id": "2WBJQGf1bT1kxuoqziH5g4",
+        "listeners": 7902294
+      }
+    },
+    {
+      "name": "The Glitch Mob",
+      "instagram": {
+        "handle": "theglitchmob",
+        "followers": 123000
+      },
+      "tiktok": {
+        "handle": "theglitchmob",
+        "followers": 9323
+      },
+      "spotify": {
+        "id": "3a9qv6NLHnsVxJUtKOMHvD",
+        "listeners": 854859
+      }
+    },
+    {
+      "name": "Wuki",
+      "instagram": {
+        "handle": "wuki",
+        "followers": 640000
+      },
+      "tiktok": {
+        "handle": "wukiwukiwuki",
+        "followers": 796500
+      },
+      "spotify": {
+        "id": "6Se1y4vDcu9fVHLqdj1N3q",
+        "listeners": 2151698
+      }
+    },
+    {
+      "name": "Bear Grillz",
+      "instagram": {
+        "handle": "itsbeargrillz",
+        "followers": 241000
+      },
+      "tiktok": {
+        "handle": "itsbeargrillz",
+        "followers": 40100
+      },
+      "spotify": {
+        "id": "04vdWVjgi45nrMAxeCEVQe",
+        "listeners": 151344
+      }
+    },
+    {
+      "name": "Netsky",
+      "instagram": {
+        "handle": "netskyofficial",
+        "followers": 177000
+      },
+      "tiktok": {
+        "handle": "netskymusic",
+        "followers": 28100
+      },
+      "spotify": {
+        "id": "5TgQ66WuWkoQ2xYxaSTnVP",
+        "listeners": 1639430
+      }
+    },
+    {
+      "name": "Coco & Breezy",
+      "instagram": {
+        "handle": "cocoandbreezy",
+        "followers": 285000
+      },
+      "tiktok": {
+        "handle": "cocoandbreezy",
+        "followers": 9416
+      },
+      "spotify": {
+        "id": "0Adbm5kzcPUxFybf9fhjgG",
+        "listeners": 576187
+      }
+    },
+    {
+      "name": "Rusko",
+      "instagram": {
+        "handle": "rusko",
+        "followers": 94000
+      },
+      "tiktok": {
+        "handle": "ruskoofficial",
+        "followers": 1309
+      },
+      "spotify": {
+        "id": "4BTcOR2hEQZQQL5AMo5u10",
+        "listeners": 347843
+      }
+    },
+    {
+      "name": "Jkyl & Hyde",
+      "instagram": {
+        "handle": "jkylxhyde",
+        "followers": 225000
+      },
+      "tiktok": {
+        "handle": "jkylxhyde",
+        "followers": 78500
+      },
+      "spotify": {
+        "id": "23AH13eC6V0NB0QCkV6206",
+        "listeners": 579063
+      }
+    },
+    {
+      "name": "Hills",
+      "instagram": {
+        "handle": "itshillshouse",
+        "followers": 191000
+      },
+      "tiktok": {
+        "handle": "hillsishouse",
+        "followers": 14900
+      },
+      "spotify": {
+        "id": "3r1crp6G0IKYW21wO5h7dB",
+        "listeners": 643369
+      }
+    },
+    {
+      "name": "Hol!",
+      "instagram": {
+        "handle": "hol.mp3",
+        "followers": 145000
+      },
+      "tiktok": {
+        "handle": "hol.mp3",
+        "followers": 71000
+      },
+      "spotify": {
+        "id": "75YeSAKC6xPhgkjnltCmGB",
+        "listeners": 409514
+      }
+    },
+    {
+      "name": "Bolo",
+      "instagram": {
+        "handle": "bolothedj",
+        "followers": 142000
+      },
+      "tiktok": {
+        "handle": "bolothedj",
+        "followers": 72800
+      },
+      "spotify": {
+        "id": "4qaAcBXIagTIWYkJRlxYZ7",
+        "listeners": 257739
+      }
+    },
+    {
+      "name": "The Gaslamp Killer",
+      "instagram": {
+        "handle": "gaslampkiller",
+        "followers": 136000
+      },
+      "tiktok": {
+        "handle": "gaslampkiller",
+        "followers": 46200
+      },
+      "spotify": {
+        "id": "5dVua2HdrY1VlbPh6OM9KZ",
+        "listeners": 79918
+      }
+    },
+    {
+      "name": "Wreckno",
+      "instagram": {
+        "handle": "wreckno",
+        "followers": 78200
+      },
+      "tiktok": {
+        "handle": "wrecknosound",
+        "followers": 29100
+      },
+      "spotify": {
+        "id": "6j78LtFLqDG65Ju57NUM5N",
+        "listeners": 136433
+      }
+    },
+    {
+      "name": "Skepsis",
+      "instagram": {
+        "handle": "skepsismusicuk",
+        "followers": 76000
+      },
+      "tiktok": {
+        "handle": "skepsismusic",
+        "followers": 31800
+      },
+      "spotify": {
+        "id": "6DnQYUjtYusK9QJts9HqSC",
+        "listeners": 1403322
+      }
+    },
+    {
+      "name": "Noizu",
+      "instagram": {
+        "handle": "noizusound",
+        "followers": 97000
+      },
+      "tiktok": {
+        "handle": "noizusound",
+        "followers": 12900
+      },
+      "spotify": {
+        "id": "3VRyybsQu0MDG0F2LBxnv7",
+        "listeners": 2852351
+      }
+    },
+    {
+      "name": "MC4D",
+      "instagram": {
+        "handle": "mc4dmusic",
+        "followers": 267000
+      },
+      "tiktok": {
+        "handle": "mc4dmusic",
+        "followers": 245600
+      },
+      "spotify": {
+        "id": "2MbY32LPINIi9P6PCkrOJI",
+        "listeners": 1822916
+      }
+    },
+    {
+      "name": "UZ",
+      "instagram": {
+        "handle": "balltrapmusic",
+        "followers": 37000
+      },
+      "tiktok": null,
+      "spotify": {
+        "id": "2hndbDJCfHwD1o2ZTzKLMo",
+        "listeners": 38153
+      }
+    },
+    {
+      "name": "Maddy O’Neal",
+      "instagram": {
+        "handle": "maddy_oneal",
+        "followers": 44000
+      },
+      "tiktok": {
+        "handle": "maddy.oneal.music",
+        "followers": 2148
+      },
+      "spotify": {
+        "id": "2G4VZIbfdmr60dYUB0oIxF",
+        "listeners": 118489
+      }
+    },
+    {
+      "name": "Jon Casey",
+      "instagram": {
+        "handle": "joncaseybeats",
+        "followers": 47000
+      },
+      "tiktok": {
+        "handle": "joncaseybeats",
+        "followers": 5906
+      },
+      "spotify": {
+        "id": "5ttBnysifryX99bjzeFPGr",
+        "listeners": 250948
+      }
+    },
+    {
+      "name": "Sisto",
+      "instagram": {
+        "handle": "sisto_official",
+        "followers": 35000
+      },
+      "tiktok": {
+        "handle": "sisto_official",
+        "followers": 4298
+      },
+      "spotify": {
+        "id": "2M1fROBYTycpAcvsi2zkPJ",
+        "listeners": 30841
+      }
+    },
+    {
+      "name": "Figure",
+      "instagram": {
+        "handle": "imfigure",
+        "followers": 75000
+      },
+      "tiktok": {
+        "handle": "im_figure",
+        "followers": 194
+      },
+      "spotify": {
+        "id": "5mADpqv2E8KIHDmEhH7wmr",
+        "listeners": 177290
+      }
+    },
+    {
+      "name": "Swimming Paul",
+      "instagram": {
+        "handle": "swimming___paul",
+        "followers": 63000
+      },
+      "tiktok": {
+        "handle": "swimmingpaulmusic",
+        "followers": 3128
+      },
+      "spotify": {
+        "id": "5rEwPEAHq2q1yW3wF4av5s",
+        "listeners": 2070185
+      }
+    },
+    {
+      "name": "Phutureprimitive",
+      "instagram": {
+        "handle": "phutureprimitive",
+        "followers": 16000
+      },
+      "tiktok": null,
+      "spotify": {
+        "id": "7dSn0mEhOoCO7TA8biZRq6",
+        "listeners": 29823
+      }
+    },
+    {
+      "name": "Pauline Herr",
+      "instagram": {
+        "handle": "paulineherr",
+        "followers": 29000
+      },
+      "tiktok": {
+        "handle": "paulineherr",
+        "followers": 8041
+      },
+      "spotify": {
+        "id": "66VgJGpaRMwrNaS2MPqIDf",
+        "listeners": 101600
+      }
+    },
+    {
+      "name": "DMVU",
+      "instagram": {
+        "handle": "dmvuofficial",
+        "followers": 29000
+      },
+      "tiktok": {
+        "handle": "dmvuofficial",
+        "followers": 4147
+      },
+      "spotify": {
+        "id": "59DcOmdlmKUgsUrb2S7Nb6",
+        "listeners": 28507
+      }
+    },
+    {
+      "name": "Kumarion",
+      "instagram": {
+        "handle": "kumarionmusic",
+        "followers": 15000
+      },
+      "tiktok": {
+        "handle": "kumarionmusic",
+        "followers": 2226
+      },
+      "spotify": {
+        "id": "1mlAkvaCrzWSxS2ATBZh27",
+        "listeners": 84729
+      }
+    },
+    {
+      "name": "WonkyWilla",
+      "instagram": {
+        "handle": "wonkywillaofficial",
+        "followers": 63000
+      },
+      "tiktok": null,
+      "spotify": {
+        "id": "2Aa5prvbqcjMJTHURdKyOO",
+        "listeners": 215353
+      }
+    },
+    {
+      "name": "Lizzy Jane",
+      "instagram": {
+        "handle": "thisislizzyjane",
+        "followers": 25000
+      },
+      "tiktok": {
+        "handle": "thisislizzyjane",
+        "followers": 2576
+      },
+      "spotify": {
+        "id": "1LpxuJ9gD3eHAPjGGvr9Zy",
+        "listeners": 7893
+      }
+    },
+    {
+      "name": "Random Rab",
+      "instagram": {
+        "handle": "randomrab",
+        "followers": 27000
+      },
+      "tiktok": null,
+      "spotify": {
+        "id": "4w8MWlPCLi8uZRkCMyrtCO",
+        "listeners": 191354
+      }
+    },
+    {
+      "name": "David Starfire",
+      "instagram": {
+        "handle": "davidstarfire",
+        "followers": 23000
+      },
+      "tiktok": {
+        "handle": "david.starfire",
+        "followers": 1433
+      },
+      "spotify": {
+        "id": "6nhEcP9sIqaoQ6hM5R55IB",
+        "listeners": 50700
+      }
+    },
+    {
+      "name": "Hostage Situation",
+      "instagram": {
+        "handle": "hostagesituationofficial",
+        "followers": 37000
+      },
+      "tiktok": {
+        "handle": "hostagesituation",
+        "followers": 10000
+      },
+      "spotify": {
+        "id": "1UnA09CtdmT16mvmzbXnON",
+        "listeners": 78349
+      }
+    },
+    {
+      "name": "Habitaat",
+      "instagram": {
+        "handle": "habitaatmusic",
+        "followers": 11000
+      },
+      "tiktok": {
+        "handle": "habitaat",
+        "followers": 192
+      },
+      "spotify": {
+        "id": "2ZHWY8T51vTXN0Ott4FAHC",
+        "listeners": 233730
+      }
+    },
+    {
+      "name": "Twopercent",
+      "instagram": {
+        "handle": "twopercent_music",
+        "followers": 28000
+      },
+      "tiktok": {
+        "handle": "twopercent_wubz",
+        "followers": 5133
+      },
+      "spotify": {
+        "id": "4Gm9RrVjqWXfS1ew8UeAT8",
+        "listeners": 35496
+      }
+    },
+    {
+      "name": "OG Nixin",
+      "instagram": {
+        "handle": "ognixinofficial",
+        "followers": 44000
+      },
+      "tiktok": {
+        "handle": "ognixinofficial",
+        "followers": 5533
+      },
+      "spotify": {
+        "id": "6AzehpPyhn3Qrwg6pQfPXz",
+        "listeners": 66551
+      }
+    },
+    {
+      "name": "Benda",
+      "instagram": {
+        "handle": "bendamusic",
+        "followers": 42000
+      },
+      "tiktok": {
+        "handle": "bendamusic",
+        "followers": 7416
+      },
+      "spotify": {
+        "id": "0md3NIXueJZSFZ82HMu26M",
+        "listeners": 102220
+      }
+    },
+    {
+      "name": "Tsu Nami",
+      "instagram": {
+        "handle": "tsunamimusicx",
+        "followers": 31000
+      },
+      "tiktok": {
+        "handle": "tsunamimusicx",
+        "followers": 73000
+      },
+      "spotify": {
+        "id": "3jdMkaMs7875drsoUevvyu",
+        "listeners": 158582
+      }
+    },
+    {
+      "name": "Toadface",
+      "instagram": {
+        "handle": "toadfacemusic",
+        "followers": 29000
+      },
+      "tiktok": null,
+      "spotify": {
+        "id": "5lsvMPwR3bjyZblIe3h9EK",
+        "listeners": 23300
+      }
+    },
+    {
+      "name": "The Sponges",
+      "instagram": {
+        "handle": "thesponges",
+        "followers": 20000
+      },
+      "tiktok": {
+        "handle": "thesponges",
+        "followers": 7
+      },
+      "spotify": {
+        "id": "3cj6O7NrjS5l0CVo8LhpV1",
+        "listeners": 107520
+      }
+    },
+    {
+      "name": "Chozen",
+      "instagram": {
+        "handle": "chozen_soundz",
+        "followers": 19000
+      },
+      "tiktok": {
+        "handle": "chozen_soundz",
+        "followers": 4019
+      },
+      "spotify": {
+        "id": "0T8PFaa4SnSE2VyKYN5E4N",
+        "listeners": 66803
+      }
+    },
+    {
+      "name": "Noetika",
+      "instagram": {
+        "handle": "noetikamusic",
+        "followers": 14000
+      },
+      "tiktok": {
+        "handle": "noetika_music",
+        "followers": 3560
+      },
+      "spotify": {
+        "id": "5nWMvCkzK4A0K8GgG529m5",
+        "listeners": 20485
+      }
+    },
+    {
+      "name": "Dela Moon",
+      "instagram": {
+        "handle": "delamoonmusic",
+        "followers": 12000
+      },
+      "tiktok": null,
+      "spotify": {
+        "id": "4kqDBfCR1fR9XiBg7kuGWp",
+        "listeners": 2563
+      }
+    },
+    {
+      "name": "MFinity",
+      "instagram": {
+        "handle": "mfinity.official",
+        "followers": 10000
+      },
+      "tiktok": {
+        "handle": "mfinityofficial",
+        "followers": 1675
+      },
+      "spotify": {
+        "id": "7FK8Hg4eKZZ4kipxWDwpV7",
+        "listeners": 123397
+      }
+    },
+    {
+      "name": "MZG",
+      "instagram": {
+        "handle": "mzgtwins",
+        "followers": 9808
+      },
+      "tiktok": {
+        "handle": "mzgtwins",
+        "followers": 2285
+      },
+      "spotify": {
+        "id": "1wYOGoKwFM8sRryvmRf206",
+        "listeners": 9328
+      }
+    },
+    {
+      "name": "Swampz",
+      "instagram": {
+        "handle": "swampzmusic",
+        "followers": 10000
+      },
+      "tiktok": {
+        "handle": "swampzmusic",
+        "followers": 1777
+      },
+      "spotify": {
+        "id": "4Qk0fjjVPud8UUH0xGyLsP",
+        "listeners": 3017
+      }
+    },
+    {
+      "name": "Covex",
+      "instagram": {
+        "handle": "covexmusic",
+        "followers": 8708
+      },
+      "tiktok": {
+        "handle": "covexmusic",
+        "followers": 12900
+      },
+      "spotify": {
+        "id": "2BlB5MW4WdyyglpczlQ6Mm",
+        "listeners": 95702
+      }
+    },
+    {
+      "name": "Decker Rush",
+      "instagram": {
+        "handle": "deckerush",
+        "followers": 7066
+      },
+      "tiktok": {
+        "handle": "deckerrush",
+        "followers": 1296
+      },
+      "spotify": {
+        "id": "3Rz4TikEfEd7o3ExMJHgrJ",
+        "listeners": 58244
+      }
+    },
+    {
+      "name": "Nyrus",
+      "instagram": {
+        "handle": "nyrus_music",
+        "followers": 5737
+      },
+      "tiktok": {
+        "handle": "nyrusmusic",
+        "followers": 67
+      },
+      "spotify": {
+        "id": "4K129VU520mAbin25QcKfH",
+        "listeners": 95655
+      }
+    },
+    {
+      "name": "Omas",
+      "instagram": {
+        "handle": "omasmusic",
+        "followers": 5138
+      },
+      "tiktok": {
+        "handle": "omasmusicofficial",
+        "followers": 952
+      },
+      "spotify": {
+        "id": "6TwO05VN5ZM3DYVEsP9vjK",
+        "listeners": 9267
+      }
+    },
+    {
+      "name": "Bruer",
+      "instagram": {
+        "handle": "iambruer",
+        "followers": 3904
+      },
+      "tiktok": {
+        "handle": "iambruer",
+        "followers": 543
+      },
+      "spotify": {
+        "id": "45TGBidKQqFyOZus89YBHI",
+        "listeners": 21034
+      }
+    },
+    {
+      "name": "Vinnie Maniscalco",
+      "instagram": {
+        "handle": "vinnienotvinny",
+        "followers": 2026
+      },
+      "tiktok": {
+        "handle": "vinnienotvinny",
+        "followers": 330
+      },
+      "spotify": {
+        "id": "4oXg9XU96ClUOVcwMNikae",
+        "listeners": 7795
+      }
+    }
+  ]
+}
