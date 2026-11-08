@@ -67,6 +67,10 @@ async function getFollowers(token, ids) {
             continue;
         }
         const artist = await response.json();
+        if (!artist?.followers && !followers.size && !getFollowers.reported) {
+            getFollowers.reported = true;
+            console.warn(`Spotify's artist data has no follower count. Fields returned: ${Object.keys(artist || {}).join(", ")}`);
+        }
         if (artist?.followers) followers.set(artist.id, artist.followers.total);
         await new Promise((resolve) => setTimeout(resolve, 150));
     }
