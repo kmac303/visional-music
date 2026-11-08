@@ -1062,8 +1062,12 @@ li {
   bottom: 100%;
   left: 0;
   margin-bottom: 8px;
+  font-size: 0.78rem;
   text-transform: none;
   white-space: nowrap;
+  /* As bright as the frame's own text, with a dark edge so it reads over the moving background */
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.9);
 }
 
 .hero-panel {
