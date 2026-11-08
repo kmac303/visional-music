@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-08",
-  "note": "Instagram followers, TikTok followers and Spotify monthly listeners. Updated by scripts/update-followers.mjs; edit by hand if needed.",
+  "note": "Instagram and TikTok followers are updated by hand. Spotify followers are refreshed weekly by scripts/update-followers.mjs (until its first run, Spotify holds monthly listeners collected by hand).",
   "artists": [
     {
       "name": "DJ Diesel (Shaq)",
