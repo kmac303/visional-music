@@ -1869,16 +1869,11 @@ ul.artist-cloud {
   text-align: center;
 }
 
-.artist-cloud-label {
-  text-align: center;
-}
-
-/* A file-name readout above the label, lined up on the left like the section labels and
-   kept lowercase; the label under it stays centered over the lineup */
+/* A file-name readout above the label, kept lowercase like the section labels. Both lines
+   sit on the left like every other label; the lineup under them stays centered. */
 .artist-cloud-file {
   display: block;
   margin-bottom: 6px;
-  text-align: left;
   text-transform: none;
 }
 
