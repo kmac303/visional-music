@@ -210,7 +210,9 @@ function Events() {
             <div className="hud-label events-group-label">Past</div>
             <div className="event-cards">{past.map(card)}</div>
 
-            <div className="hud-label events-group-label artist-cloud-label">Selected artists Visional has worked with</div>
+            <div className="artist-cloud-header">
+                <SectionHeader index="02.1" label="artists.json" title="Selected artists" />
+            </div>
             <ul className="artist-cloud">
                 {lineup.map((artist) => (
                     <li key={artist.name} className={artist.red ? "is-red" : undefined}>
