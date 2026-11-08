@@ -128,7 +128,7 @@ function About() {
                             loading="lazy"
                         />
                         <div className="hud-label">
-                            Transmission {String(index + 1).padStart(2, "0")} // {testimonial.name}
+                            Transmission {String(index + 1).padStart(2, "0")} // Received
                         </div>
                         <blockquote>“{testimonial.quote}”</blockquote>
                         <figcaption>
