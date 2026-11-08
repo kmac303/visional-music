@@ -1056,6 +1056,16 @@ li {
   box-sizing: border-box;
 }
 
+/* "[00] // begin_transmission", sitting just above the frame's top-left corner */
+.hero-opener {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 8px;
+  text-transform: none;
+  white-space: nowrap;
+}
+
 .hero-panel {
   position: relative;
   display: grid;

@@ -163,6 +163,13 @@ function Hero() {
     return (
         <section id="top" className="hero" ref={heroRef}>
             <div className="hero-panel">
+                {/* Opens the page the way the Contact sign-off closes it ("End of transmission").
+                    It sits just above the frame's top-left corner, like the section labels sit
+                    above their titles. */}
+                <div className="hud-label hero-opener" aria-hidden="true">
+                    [00] // begin_transmission
+                    <span className="terminal-cursor" />
+                </div>
                 <div className="hud hud-top-left">
                     {/* Each group stays together, so narrow windows wrap between them */}
                     {/* Says what, not who: the corner logo already names Visional. The name stays in
