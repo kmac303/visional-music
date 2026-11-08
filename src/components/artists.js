@@ -1,15 +1,15 @@
 // Artists Visional has worked with, shown as a festival-style lineup in the Events section.
 //
 // - red: artists Visional worked with directly (not as a house VJ). They stay red and keep
-//   every fourth spot in the lineup (1st, 5th, 9th, ...), in the order listed here.
-// - Every other artist is ranked by total following (instagram + tiktok + spotify), biggest
-//   first, and fills the spots in between.
+//   every fourth spot in the lineup (1st, 5th, 9th, ...).
+// - Both groups are ranked by total following (instagram + tiktok + spotify), biggest first:
+//   red artists among the red spots, everyone else in the spots in between.
 //
 // The follower numbers are rough estimates (November 2026), not live counts: update any that
 // look off. They only decide the order; visitors never see them. Spotify means followers,
 // not monthly listeners.
 export const ARTISTS = [
-    // Red, in lineup order
+    // Red, in any order (sorted automatically)
     { name: "DJ Diesel (Shaq)", red: true, instagram: 4000000, tiktok: 3000000, spotify: 1000000 },
     { name: "Valentino Khan", red: true, instagram: 400000, tiktok: 100000, spotify: 500000 },
     { name: "Sidepiece", red: true, instagram: 200000, tiktok: 100000, spotify: 300000 },
@@ -86,13 +86,12 @@ export function totalFollowing(artist) {
     return (artist.instagram || 0) + (artist.tiktok || 0) + (artist.spotify || 0);
 }
 
-// Red artists hold every fourth spot in their listed order; everyone else fills the gaps,
-// ranked by total following. If one group runs out, the other fills the rest.
+// Red artists hold every fourth spot and everyone else fills the gaps, each group ranked by
+// total following. If one group runs out, the other fills the rest.
 export function buildLineup(artists = ARTISTS) {
-    const red = artists.filter((artist) => artist.red);
-    const others = artists
-        .filter((artist) => !artist.red)
-        .sort((a, b) => totalFollowing(b) - totalFollowing(a));
+    const byFollowing = (a, b) => totalFollowing(b) - totalFollowing(a);
+    const red = artists.filter((artist) => artist.red).sort(byFollowing);
+    const others = artists.filter((artist) => !artist.red).sort(byFollowing);
     const lineup = [];
     while (red.length || others.length) {
         const redSpot = lineup.length % 4 === 0;
