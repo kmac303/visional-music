@@ -1,16 +1,14 @@
 // Artists Visional has worked with, shown as a lineup in the Events section.
 //
-// The artists, their accounts and their latest counts live in src/data/artists.json, so a
-// scheduled job can refresh the numbers without touching this code.
+// The artists, their accounts and their latest counts live in src/data/artists.json.
 // - red: artists Visional worked with directly (not as a house VJ). They stay red and keep
 //   every fourth spot in the lineup (1st, 5th, 9th, ...).
 // - pinFirst: always the first name in the lineup (DJ Diesel).
-// - Following = Instagram followers + TikTok followers + Spotify followers, plus any linked
-//   accounts in alsoCount (Shaq's for DJ Diesel). Both groups are ranked by it, biggest
-//   first: red artists among the red spots, everyone else in between.
-// - Spotify followers refresh weekly on their own (scripts/update-followers.mjs). Instagram
-//   and TikTok are updated by hand. Until the first weekly run, Spotify uses the monthly
-//   listener counts collected by hand.
+// - Following = Instagram followers + TikTok followers + Spotify monthly listeners, plus any
+//   linked accounts in alsoCount (Shaq's for DJ Diesel). Both groups are ranked by it,
+//   biggest first: red artists among the red spots, everyone else in between.
+// - The counts are refreshed by hand every few months, using the handles and Spotify IDs
+//   saved in artists.json.
 import data from "../data/artists.json";
 
 export const ARTISTS = data.artists;
@@ -18,7 +16,7 @@ export const ARTISTS = data.artists;
 function accountTotal(account) {
     return (account.instagram?.followers || 0)
         + (account.tiktok?.followers || 0)
-        + (account.spotify?.followers ?? account.spotify?.listeners ?? 0);
+        + (account.spotify?.listeners || 0);
 }
 
 export function totalFollowing(artist) {
