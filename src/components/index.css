@@ -1481,6 +1481,27 @@ section.page-section {
   text-transform: none;
 }
 
+/* A blinking cursor after each label, like a terminal waiting for input */
+.terminal-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 2px;
+  margin-left: 0.25em;
+  background-color: currentColor;
+  vertical-align: baseline;
+  animation: terminal-blink 1.06s steps(1, end) infinite;
+}
+
+@keyframes terminal-blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-cursor {
+    animation: none;
+  }
+}
+
 .page-section h2.section-title {
   width: auto;
   margin: 10px 0 0;
