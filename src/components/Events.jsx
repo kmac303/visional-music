@@ -211,7 +211,7 @@ function Events() {
                     />
                 </picture>
             </div>
-            <SectionHeader index="02" label="Events" title="Where the visuals go" />
+            <SectionHeader index="02" label="Events" title="Show log" />
             {upcoming.length > 0 && (
                 <>
                     <div className="hud-label events-group-label">Upcoming</div>
