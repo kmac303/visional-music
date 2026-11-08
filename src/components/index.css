@@ -2365,6 +2365,30 @@ ul.hud-bar-links {
   text-transform: uppercase;
 }
 
+/* A very light blur behind the top corners. It changes no colors, so the corner text
+   still inverts over light sections; it just softens text scrolling underneath. The mask
+   fades it out so there's no visible box. */
+.top-bar-haze {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 260px;
+  height: 110px;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.top-bar-haze-left {
+  left: 0;
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0 0, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 100% 100% at 0 0, #000 40%, transparent 100%);
+}
+.top-bar-haze-right {
+  right: 0;
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 100% 100% at 100% 0, #000 40%, transparent 100%);
+}
+
 .top-bar-logo {
   position: fixed;
   top: calc(10px + env(safe-area-inset-top));
@@ -2510,6 +2534,11 @@ ul.hud-bar-links {
 
   .top-bar .logo-icon {
     width: 60px;
+  }
+
+  .top-bar-haze {
+    width: 160px;
+    height: 90px;
   }
 
   .top-bar-socials {
