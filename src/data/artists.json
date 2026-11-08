@@ -312,26 +312,6 @@
       }
     },
     {
-      "name": "Spoone",
-      "red": true,
-      "instagram": {
-        "handle": "spoonemusic",
-        "followers": 15000
-      },
-      "tiktok": {
-        "handle": "spoonemusic",
-        "followers": 3368
-      },
-      "spotify": {
-        "id": "7A1SzQc0FvmwQ3et8H5g03",
-        "listeners": 5519
-      },
-      "soundcloud": {
-        "handle": "spoonemusic",
-        "followers": 14989
-      }
-    },
-    {
       "name": "Lil Fish",
       "red": true,
       "instagram": {
@@ -366,6 +346,26 @@
       "soundcloud": {
         "handle": "savagef80",
         "followers": 13303
+      }
+    },
+    {
+      "name": "Vinnie Maniscalco",
+      "red": true,
+      "instagram": {
+        "handle": "vinnienotvinny",
+        "followers": 2026
+      },
+      "tiktok": {
+        "handle": "vinnienotvinny",
+        "followers": 330
+      },
+      "spotify": {
+        "id": "4oXg9XU96ClUOVcwMNikae",
+        "listeners": 7795
+      },
+      "soundcloud": {
+        "handle": "vinnie",
+        "followers": 25126
       }
     },
     {
@@ -1301,22 +1301,22 @@
       }
     },
     {
-      "name": "Vinnie Maniscalco",
+      "name": "Spoone",
       "instagram": {
-        "handle": "vinnienotvinny",
-        "followers": 2026
+        "handle": "spoonemusic",
+        "followers": 15000
       },
       "tiktok": {
-        "handle": "vinnienotvinny",
-        "followers": 330
+        "handle": "spoonemusic",
+        "followers": 3368
       },
       "spotify": {
-        "id": "4oXg9XU96ClUOVcwMNikae",
-        "listeners": 7795
+        "id": "7A1SzQc0FvmwQ3et8H5g03",
+        "listeners": 5519
       },
       "soundcloud": {
-        "handle": "vinnie",
-        "followers": 25126
+        "handle": "spoonemusic",
+        "followers": 14989
       }
     }
   ]
