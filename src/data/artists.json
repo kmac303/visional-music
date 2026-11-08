@@ -352,6 +352,23 @@
       }
     },
     {
+      "name": "Savage",
+      "red": true,
+      "instagram": {
+        "handle": "savage_bass_",
+        "followers": 2450
+      },
+      "tiktok": null,
+      "spotify": {
+        "id": "5qdzYl1ZlATB8Ww3Wg1H6H",
+        "listeners": 455
+      },
+      "soundcloud": {
+        "handle": "savagef80",
+        "followers": 13303
+      }
+    },
+    {
       "name": "Getter",
       "instagram": {
         "handle": "getter",
@@ -1300,22 +1317,6 @@
       "soundcloud": {
         "handle": "vinnie",
         "followers": 25126
-      }
-    },
-    {
-      "name": "Savage",
-      "instagram": {
-        "handle": "savage_bass_",
-        "followers": 2450
-      },
-      "tiktok": null,
-      "spotify": {
-        "id": "5qdzYl1ZlATB8Ww3Wg1H6H",
-        "listeners": 455
-      },
-      "soundcloud": {
-        "handle": "savagef80",
-        "followers": 13303
       }
     }
   ]
