@@ -29,6 +29,9 @@ body {
   color: rgba(255, 255, 255, 0.87);
   overflow: auto;
   padding-bottom: 50px;
+  /* Keeps content out from under the notch when a phone is turned sideways */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
 body::before {
@@ -2061,7 +2064,10 @@ ul.contact-socials {
   align-items: center;
   gap: 20px;
   height: 44px;
-  padding: 0 16px env(safe-area-inset-bottom);
+  /* Clears the phone's rounded corners and home bar. These insets only work because the
+     viewport meta in index.html has viewport-fit=cover; in-app browsers like Instagram's
+     run the page all the way to the bottom of the screen. */
+  padding: 0 max(16px, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(16px, env(safe-area-inset-left));
   box-sizing: content-box;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   background-color: rgba(10, 10, 14, 0.92);
@@ -2333,7 +2339,7 @@ ul.hud-bar-links {
 
   .hud-bar {
     gap: 12px;
-    padding: 0 12px env(safe-area-inset-bottom);
+    padding: 0 max(12px, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(12px, env(safe-area-inset-left));
   }
 
   .hud-bar-audio span {
@@ -2359,8 +2365,8 @@ ul.hud-bar-links {
 
 .top-bar-logo {
   position: fixed;
-  top: 10px;
-  left: 20px;
+  top: calc(10px + env(safe-area-inset-top));
+  left: max(20px, env(safe-area-inset-left));
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -2389,8 +2395,8 @@ ul.hud-bar-links {
    over dark sections and black over the white and red ones */
 .top-bar-socials {
   position: fixed;
-  top: 32px;
-  right: 20px;
+  top: calc(32px + env(safe-area-inset-top));
+  right: max(20px, env(safe-area-inset-right));
   z-index: 1000;
   display: flex;
   gap: 20px;
@@ -2407,8 +2413,8 @@ ul.hud-bar-links {
 
 .top-bar-menu {
   position: fixed;
-  top: 16px;
-  right: 12px;
+  top: calc(16px + env(safe-area-inset-top));
+  right: max(12px, env(safe-area-inset-right));
   z-index: 1001;
   display: none;
   padding: 6px 10px;
@@ -2436,7 +2442,7 @@ ul.hud-bar-links {
 .site-menu {
   position: fixed;
   z-index: 1000;
-  top: 64px;
+  top: calc(64px + env(safe-area-inset-top));
   left: 0;
   right: 0;
   bottom: 0;
@@ -2496,8 +2502,8 @@ ul.hud-bar-links {
 
 @media (max-width: 768px) {
   .top-bar-logo {
-    top: 8px;
-    left: 12px;
+    top: calc(8px + env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
   }
 
   .top-bar .logo-icon {
@@ -2513,7 +2519,7 @@ ul.hud-bar-links {
   }
 
   .site-menu {
-    top: 56px;
+    top: calc(56px + env(safe-area-inset-top));
   }
 
   .page-section {
