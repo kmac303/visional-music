@@ -32,8 +32,8 @@ function NavBar() {
 
     return (
         <header className="top-bar">
-            {/* Faint blur patches behind the two top corners, so page text scrolling underneath
-                softens and the logo and corner links stay readable over it */}
+            {/* Faint blur patches behind the VISIONAL lettering and the top-right link, so page
+                text scrolling underneath softens and they stay readable over it */}
             <div className="top-bar-haze top-bar-haze-left" aria-hidden="true" />
             <div className="top-bar-haze top-bar-haze-right" aria-hidden="true" />
             {/* The logo is drawn twice in the same spot, each cropped to one part: the

@@ -2365,28 +2365,32 @@ ul.hud-bar-links {
   text-transform: uppercase;
 }
 
-/* A very light blur behind the top corners. It changes no colors, so the corner text
-   still inverts over light sections; it just softens text scrolling underneath. The mask
-   fades it out so there's no visible box. */
+/* A very light blur centered behind the VISIONAL lettering and the top-right link. It
+   changes no colors, so the corner text still inverts over light sections; it just softens
+   text scrolling underneath. Each patch is an oval that fades out from the middle, so
+   there's no visible box. The positions follow the logo and link placement below. */
 .top-bar-haze {
   position: fixed;
-  top: 0;
   z-index: 999;
-  width: 260px;
-  height: 110px;
   pointer-events: none;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
+  -webkit-mask-image: radial-gradient(closest-side, #000 50%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 50%, transparent 100%);
 }
+/* Behind VISIONAL, under the eye */
 .top-bar-haze-left {
-  left: 0;
-  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0 0, #000 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse 100% 100% at 0 0, #000 40%, transparent 100%);
+  top: calc(42px + env(safe-area-inset-top));
+  left: -7px;
+  width: 130px;
+  height: 48px;
 }
+/* Behind INSTAGRAM */
 .top-bar-haze-right {
-  right: 0;
-  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0, #000 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse 100% 100% at 100% 0, #000 40%, transparent 100%);
+  top: calc(17px + env(safe-area-inset-top));
+  right: -12px;
+  width: 150px;
+  height: 48px;
 }
 
 .top-bar-logo {
@@ -2536,9 +2540,19 @@ ul.hud-bar-links {
     width: 60px;
   }
 
-  .top-bar-haze {
-    width: 160px;
-    height: 90px;
+  /* Behind the smaller VISIONAL lettering and the Menu button */
+  .top-bar-haze-left {
+    top: calc(32px + env(safe-area-inset-top));
+    left: -8px;
+    width: 100px;
+    height: 40px;
+  }
+
+  .top-bar-haze-right {
+    top: calc(4px + env(safe-area-inset-top));
+    right: -9px;
+    width: 110px;
+    height: 56px;
   }
 
   .top-bar-socials {
