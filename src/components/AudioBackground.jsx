@@ -277,7 +277,7 @@ function createTarget(gl, width, height) {
 function createAnalysis() {
     // kicks counts every hit (kicks, snares, claps); bassHits counts only sudden jumps
     // in the bass band, like Synesthesia's syn_BassHits
-    const level = { bass: 0, mid: 0, high: 0, kick: 0, kicks: 0, bassHits: 0, presence: 0, presenceFast: 0 };
+    const level = { bass: 0, mid: 0, high: 0, kick: 0, kicks: 0, bassHits: 0, presence: 0 };
     let bassPeak = 0;
     let midPeak = 0;
     const peak = { bass: 0.2, mid: 0.2, high: 0.2 };
@@ -342,11 +342,7 @@ function createAnalysis() {
             const midPresence = fixedScale ? clamp((midDb + 60) / 14) : clamp((mid - (midPeak - 0.28)) / 0.21);
             const mix = fixedScale ? TRACK_FLOW_MIX : MIC_FLOW_MIX;
             const presence = mix.bass * bassPresence + mix.mid * midPresence;
-            // presence sets how fast the flow moves, so it falls gently between bass notes.
-            // presenceFast falls quicker and is only used to notice the bass has stopped, so the
-            // flow cuts out within a fraction of a second (any faster and it flickers).
             level.presence += (presence - level.presence) * (presence > level.presence ? 0.25 : 0.08);
-            level.presenceFast += (presence - level.presenceFast) * (presence > level.presenceFast ? 0.25 : 0.15);
             smooth("mid", mid);
             smooth("high", bandAverage(data, binHz, 4000, 12000));
 
@@ -393,7 +389,6 @@ function createAnalysis() {
         decay() {
             level.bass *= 0.95;
             level.presence *= 0.95;
-            level.presenceFast *= 0.9;
             level.mid *= 0.95;
             level.high *= 0.95;
             level.kick *= 0.9;
@@ -659,15 +654,14 @@ function AudioBackground({ children }) {
 
             // Block motion follows presence (the bass and mid blend above) and eases off
             // when it fades. On above 35% presence, off below 20%, so it can't flicker at the edge
-            if (!moving || level.presenceFast < 0.2) flowOn = false;
+            if (!moving || level.presence < 0.2) flowOn = false;
             else if (level.presence > 0.35) flowOn = true;
             // With presence the blocks flow at full speed; when it drops out they ease down to a
             // very slow drift rather than stopping. Only pausing the sound freezes them.
             // The Flow slider scales the sound-driven motion; hand-fired hits stay at full strength
             const motionTarget = (!moving ? 0 : flowOn ? 1.2 + 2.1 * level.presence + 1.5 * level.kick : SLOW_FLOW)
                 * moshControls.flowAmount + 2.5 * punch;
-            // Once the bass has gone, it brakes twice as hard, so the flow settles right away
-            motion += (motionTarget - motion) * Math.min(1, dt * (flowOn ? 12 : 24));
+            motion += (motionTarget - motion) * Math.min(1, dt * 12);
             if (!moving && !punch) motion = 0;
             audioLevels.flow = !listening ? "hold" : moshControls.freeze ? "frozen" : flowOn ? "active" : "drift";
             // Bass hits in heavy sections send the blocks off in new directions, like a cut in
