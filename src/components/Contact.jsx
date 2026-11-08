@@ -5,7 +5,7 @@ import EmailLink from "./EmailLink";
 function Contact() {
     return (
         <section id="contact" className="page-section contact-section">
-            <SectionHeader index="04" label="Contact" title="Book a set" />
+            <SectionHeader index="04" label="open_channel" title="Book a set" />
             <p className="contact-lead">Want Visional on the screens at your show? Get in touch.</p>
             <EmailLink className="contact-email" />
             <ul className="contact-socials">

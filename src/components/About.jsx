@@ -69,7 +69,7 @@ function About() {
 
     return (
         <section id="about" className="page-section about-section">
-            <SectionHeader index="01" label="About" title="Who is Visional?" />
+            <SectionHeader index="01" label="readme.txt" title="Who is Visional?" />
             <div className="about-intro">
                 <div className="bio">
                     {bio.map((paragraph, index) => (
@@ -112,7 +112,7 @@ function About() {
                 )}
             </dialog>
 
-            <SectionHeader index="01.1" label="Testimonials" title="What artists say" />
+            <SectionHeader index="01.1" label="incoming_transmissions" title="What artists say" />
             <div className="transmissions">
                 {testimonials.map((testimonial, index) => (
                     <motion.figure key={testimonial.name} className="transmission" {...reveal}>

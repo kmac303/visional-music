@@ -102,7 +102,7 @@ function Gallery() {
 
     return (
         <section id="gallery" className="page-section gallery-section">
-            <SectionHeader index="03" label="Gallery" title="Live VJ sets" />
+            <SectionHeader index="03" label="playback" title="Live VJ sets" />
             <div className="video-gallery">
                 {shownSets.map((id, index) => (
                     <div className="video-container" key={id}>
@@ -116,7 +116,7 @@ function Gallery() {
                 </button>
             )}
 
-            <SectionHeader index="03.1" label="Collaborations" title="Beyond the stage" />
+            <SectionHeader index="03.1" label="side_processes" title="Beyond the stage" />
             <div className="video-gallery">
                 {projects.map((id, index) => (
                     <div className="video-container" key={id}>

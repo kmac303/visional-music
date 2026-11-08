@@ -1477,6 +1477,10 @@ section.page-section {
   margin-bottom: 44px;
 }
 
+.section-header .section-label {
+  text-transform: none;
+}
+
 .page-section h2.section-title {
   width: auto;
   margin: 10px 0 0;
