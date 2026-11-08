@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
+import { buildLineup } from "./artists";
 
 // Today's date in Denver as "YYYY-MM-DD", so shows roll over at midnight local time
 function denverToday() {
@@ -27,19 +28,7 @@ function formatShowDate(date, endDate) {
 }
 
 function Events() {
-    // List of artists
-    // Roughly ordered by Instagram following, biggest first (estimates, not live counts)
-    const artistList = [
-        "DJ Diesel (Shaq)", "Purple Disco Machine", "Getter", "The Glitch Mob", "Valentino Khan", "Netsky",  "Rusko",
-        "Wuki", "Sidepiece", "Bear Grillz", "Coco & Breezy", "The Gaslamp Killer", "Midnight Tyrannosaurus",
-        "Wreckno", "Skepsis",  "Noizu", "Space Laces", "UZ", "Shipwrek", "Hol!", "Tynan", "Maddy O’Neal",
-        "Jkyl & Hyde", "MC4D", "Ayybo", "Sisto", "Figure", "Swimming Paul", "Phutureprimitive", "Pauline Herr",
-        "DMVU", "Kumarion", "Desert Dwellers", "David Starfire", "WonkyWilla", "Lizzy Jane", "Savej", "Random Rab", 
-        "Heyz", "Hostage Situation", "DJ Pressed", "Green Matter", "Habitaat", "Toadface", "Covex", "Twopercent",
-        "Bolo", "OG Nixin", "Pretty Sweet", "Benda", "Hills", "The Sponges", "Chozen", "Jon Casey", "Swampz",
-        "Tsu Nami", "PapaJay", "Omas", "Noetika", "Dela Moon", "Lil Fish", "MFinity", "Decker Rush", "Nyrus", "MZG",
-        "Bruer", "Vinnie Maniscalco"
-    ];
+    const lineup = buildLineup();
 
     // List of events (upcoming & past).
     // date (and endDate for multi-day shows) is "YYYY-MM-DD". A dated show appears under
@@ -223,8 +212,10 @@ function Events() {
 
             <div className="hud-label events-group-label artist-cloud-label">Selected artists Visional has worked with</div>
             <ul className="artist-cloud">
-                {artistList.map((artist, index) => (
-                    <li key={index}>{artist}</li>
+                {lineup.map((artist) => (
+                    <li key={artist.name} className={artist.red ? "is-red" : undefined}>
+                        {artist.name}
+                    </li>
                 ))}
             </ul>
         </section>

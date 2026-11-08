@@ -1869,7 +1869,8 @@ ul.artist-cloud {
   text-align: center;
 }
 
-.artist-cloud li:nth-child(4n + 1) {
+/* Red names are picked in artists.js; they hold every fourth spot */
+.artist-cloud li.is-red {
   color: var(--red);
 }
 
