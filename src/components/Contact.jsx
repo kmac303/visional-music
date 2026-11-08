@@ -1,4 +1,4 @@
-import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
 import SectionHeader from "./SectionHeader";
 import EmailLink from "./EmailLink";
 
@@ -12,16 +12,6 @@ function Contact() {
                 <li>
                     <a href="https://www.instagram.com/visionalmusic" target="_blank" rel="noopener noreferrer">
                         <FaInstagram aria-hidden="true" /> @visionalmusic
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/@visionalmusic" target="_blank" rel="noopener noreferrer">
-                        <FaYoutube aria-hidden="true" /> YouTube
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.tiktok.com/@visionalmusic" target="_blank" rel="noopener noreferrer">
-                        <FaTiktok aria-hidden="true" /> TikTok
                     </a>
                 </li>
             </ul>

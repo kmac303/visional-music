@@ -2030,7 +2030,9 @@ ul.contact-socials {
   gap: 12px 28px;
   margin-top: 40px;
   font-family: var(--hud-font);
-  font-size: 0.85rem;
+  /* Instagram is the one social, so it gets room to stand out under the email */
+  font-size: clamp(1.1rem, 2.4vw, 1.75rem);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -2041,7 +2043,7 @@ ul.contact-socials {
 .contact-socials a {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.45em;
   color: var(--ink);
 }
 

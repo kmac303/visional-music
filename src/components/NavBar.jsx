@@ -4,8 +4,6 @@ import GlitchLogo from './GlitchLogo';
 
 const SOCIALS = [
     { label: "IG", name: "Instagram", href: "https://www.instagram.com/visionalmusic" },
-    { label: "YT", name: "YouTube", href: "https://www.youtube.com/@visionalmusic" },
-    { label: "TT", name: "TikTok", href: "https://www.tiktok.com/@visionalmusic" },
 ];
 
 const SECTIONS = [
