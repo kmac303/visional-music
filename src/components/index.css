@@ -1885,8 +1885,8 @@ ul.artist-cloud {
   text-align: center;
 }
 
-/* A sub-section heading like the Gallery's [03.1], with room above it after the flyers */
-.artist-cloud-header {
+/* The show log is a sub-section under the artist lineup, with room above it */
+.show-log-header {
   margin-top: 104px;
 }
 

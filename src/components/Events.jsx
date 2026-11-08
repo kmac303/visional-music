@@ -200,7 +200,19 @@ function Events() {
                     />
                 </picture>
             </div>
-            <SectionHeader index="02" label="events.db" title="Show log" />
+            {/* The artist lineup leads, for a quick sense of who Visional has worked with */}
+            <SectionHeader index="02" label="artists.json" title="Worked with" />
+            <ul className="artist-cloud">
+                {lineup.map((artist) => (
+                    <li key={artist.name} className={artist.red ? "is-red" : undefined}>
+                        {artist.name}
+                    </li>
+                ))}
+            </ul>
+
+            <div className="show-log-header">
+                <SectionHeader index="02.1" label="events.db" title="Show log" />
+            </div>
             {upcoming.length > 0 && (
                 <>
                     <div className="hud-label events-group-label">Upcoming</div>
@@ -209,17 +221,6 @@ function Events() {
             )}
             <div className="hud-label events-group-label">Past</div>
             <div className="event-cards">{past.map(card)}</div>
-
-            <div className="artist-cloud-header">
-                <SectionHeader index="02.1" label="artists.json" title="Worked with" />
-            </div>
-            <ul className="artist-cloud">
-                {lineup.map((artist) => (
-                    <li key={artist.name} className={artist.red ? "is-red" : undefined}>
-                        {artist.name}
-                    </li>
-                ))}
-            </ul>
         </section>
     );
 }
