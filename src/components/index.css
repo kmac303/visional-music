@@ -1827,6 +1827,21 @@ section.page-section {
   text-transform: uppercase;
 }
 
+.event-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* The show date under an upcoming flyer's title */
+.event-card-date {
+  font-family: var(--hud-font);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
 .events-section a:hover,
 .events-section a:hover .event-card-title {
   color: var(--red);

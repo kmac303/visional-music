@@ -1,6 +1,31 @@
 import { motion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 
+// Today's date in Denver as "YYYY-MM-DD", so shows roll over at midnight local time
+function denverToday() {
+    return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Denver" }).format(new Date());
+}
+
+// "SAT // NOV 14, 2026", or "WED–THU // DEC 30–31, 2026" for a two-day run
+function formatShowDate(date, endDate) {
+    const day = (value) => {
+        const [year, month, dayOfMonth] = value.split("-").map(Number);
+        return new Date(Date.UTC(year, month - 1, dayOfMonth));
+    };
+    const format = (value, options) => new Intl.DateTimeFormat("en-US", { timeZone: "UTC", ...options }).format(value);
+    const start = day(date);
+    const weekday = format(start, { weekday: "short" });
+    if (!endDate || endDate === date) {
+        return `${weekday} // ${format(start, { month: "short", day: "numeric", year: "numeric" })}`;
+    }
+    const end = day(endDate);
+    const sameMonth = start.getUTCMonth() === end.getUTCMonth();
+    const range = sameMonth
+        ? `${format(start, { month: "short", day: "numeric" })}–${format(end, { day: "numeric" })}`
+        : `${format(start, { month: "short", day: "numeric" })} – ${format(end, { month: "short", day: "numeric" })}`;
+    return `${weekday}–${format(end, { weekday: "short" })} // ${range}, ${end.getUTCFullYear()}`;
+}
+
 function Events() {
     // List of artists
     // Roughly ordered by Instagram following, biggest first (estimates, not live counts)
@@ -16,13 +41,17 @@ function Events() {
         "Bruer", "Vinnie Maniscalco"
     ];
 
-    // List of events (upcoming & past)
+    // List of events (upcoming & past).
+    // date (and endDate for multi-day shows) is "YYYY-MM-DD". A dated show appears under
+    // Upcoming, soonest first, until its last day is over in Denver, then moves to Past
+    // on its own. Shows without a date stay wherever their category puts them.
     const events = [
         { 
             title: "Pretty Sweet - Mission Ballroom", 
             imgSrc: "/assets/PrettySweet.png", 
             alt: "prettysweet", 
             link: "https://www.axs.com/events/1392934/smoakland-tickets", 
+            date: "2026-11-14",
             category: "upcoming" 
         },
         { 
@@ -30,6 +59,7 @@ function Events() {
             imgSrc: "/assets/Phyphr.jpeg", 
             alt: "phyphr", 
             link: "https://cervantesmasterpiece.com/event/phyphr-w-miilk-blossm-xenolinguist-samso/cervantes-masterpiece-ballroom/denver-colorado/", 
+            date: "2026-11-28",
             category: "upcoming" 
         },
         { 
@@ -37,6 +67,8 @@ function Events() {
             imgSrc: "/assets/Decadence CO 2026.jpg", 
             alt: "decadence2026", 
             link: "https://decadencenye.com", 
+            date: "2026-12-30",
+            endDate: "2026-12-31",
             category: "upcoming" 
         },
         { 
@@ -132,8 +164,13 @@ function Events() {
         }
     ];
 
-    const upcoming = events.filter((event) => event.category === "upcoming");
-    const past = events.filter((event) => event.category === "past");
+    const today = denverToday();
+    const isUpcoming = (event) =>
+        event.date ? (event.endDate || event.date) >= today : event.category === "upcoming";
+    const upcoming = events
+        .filter(isUpcoming)
+        .sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
+    const past = events.filter((event) => !isUpcoming(event));
 
     const card = (event, index) => (
         <motion.a
@@ -150,7 +187,12 @@ function Events() {
             <img src={event.imgSrc} alt={event.alt} loading="lazy" />
             <span className="event-card-caption">
                 <span className="hud-label">{String(index + 1).padStart(4, "0")}</span>
-                <span className="event-card-title">{event.title}</span>
+                <span className="event-card-text">
+                    <span className="event-card-title">{event.title}</span>
+                    {event.date && isUpcoming(event) && (
+                        <span className="event-card-date">{formatShowDate(event.date, event.endDate)}</span>
+                    )}
+                </span>
             </span>
         </motion.a>
     );
