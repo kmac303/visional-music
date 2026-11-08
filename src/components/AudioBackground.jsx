@@ -275,7 +275,9 @@ function createTarget(gl, width, height) {
 // Turns raw FFT data into smoothed bass/mid/high levels plus a beat pulse.
 // "kick" means any strong hit (kick, snare, clap), found by onset detection.
 function createAnalysis() {
-    const level = { bass: 0, mid: 0, high: 0, kick: 0, kicks: 0, presence: 0 };
+    // kicks counts every hit (kicks, snares, claps); bassHits counts only sudden jumps
+    // in the bass band, like Synesthesia's syn_BassHits
+    const level = { bass: 0, mid: 0, high: 0, kick: 0, kicks: 0, bassHits: 0, presence: 0 };
     let bassPeak = 0;
     let midPeak = 0;
     const peak = { bass: 0.2, mid: 0.2, high: 0.2 };
@@ -284,6 +286,9 @@ function createAnalysis() {
     let fluxAverage = 0;
     let fluxSpread = 0.01;
     let lastKick = 0;
+    let bassFluxAverage = 0;
+    let bassFluxSpread = 0.01;
+    let lastBassHit = 0;
 
     // How much a band got louder since the last frame (spectral flux)
     function bandFlux(data, binHz, lo, hi) {
@@ -355,6 +360,20 @@ function createAnalysis() {
                     level.kick = 1;
                     level.kicks += 1;
                     lastKick = now;
+                }
+
+                // Bass hits: a sudden jump in the bass band (40-120 Hz) that stands well out
+                // from how jumpy that band has been lately. Catches kicks and strong bass
+                // notes, not snares or claps. Tuned on the three tracks to land about once
+                // every one or two beats in a drop. A mic's quieter signal gets a lower floor.
+                const bassFlux = bandFlux(data, binHz, 40, 120);
+                const bassExcess = bassFlux - bassFluxAverage;
+                bassFluxAverage += bassExcess * 0.05;
+                bassFluxSpread += (Math.abs(bassExcess) - bassFluxSpread) * 0.05;
+                const bassFloor = fixedScale ? 0.015 : 0.008;
+                if (bassExcess > Math.max(bassFloor, bassFluxSpread * 3.5) && now - lastBassHit > 300) {
+                    level.bassHits += 1;
+                    lastBassHit = now;
                 }
             } else {
                 previous = new Uint8Array(data.length);
@@ -526,6 +545,7 @@ function AudioBackground({ children }) {
         const start = performance.now();
         let lastFrame = start;
         let kicksSeen = 0;
+        let bassHitsSeen = 0;
         let amount = 0;
         let seed = 0;
         let nextRefresh = 0;
@@ -630,8 +650,12 @@ function AudioBackground({ children }) {
             motion += (motionTarget - motion) * Math.min(1, dt * 12);
             if (!moving && !punch) motion = 0;
             audioLevels.flow = !listening ? "hold" : moshControls.freeze ? "frozen" : flowOn ? "active" : "drift";
-            // Heavy kicks send the blocks off in new directions, like a cut in a mosh edit
-            if (level.kick > 0.85 && level.presence > 0.4) field += 0.37;
+            // Bass hits in heavy sections send the blocks off in new directions, like a cut in
+            // a mosh edit. Snares and claps still glitch the blocks but don't re-aim them.
+            if (bassHitsSeen < level.bassHits) {
+                bassHitsSeen = level.bassHits;
+                if (level.presence > 0.4) field += 0.74;
+            }
 
             // How far the cursor moved since the last frame drives the drag
             // capped so a fast flick smears instead of tearing the whole screen
