@@ -342,7 +342,9 @@ function createAnalysis() {
             const midPresence = fixedScale ? clamp((midDb + 60) / 14) : clamp((mid - (midPeak - 0.28)) / 0.21);
             const mix = fixedScale ? TRACK_FLOW_MIX : MIC_FLOW_MIX;
             const presence = mix.bass * bassPresence + mix.mid * midPresence;
-            level.presence += (presence - level.presence) * (presence > level.presence ? 0.25 : 0.08);
+            // Rises fast and falls nearly as fast, so the flow eases off within a fraction of a
+            // second when the bass drops out (any faster and it flickers between bass notes)
+            level.presence += (presence - level.presence) * (presence > level.presence ? 0.25 : 0.15);
             smooth("mid", mid);
             smooth("high", bandAverage(data, binHz, 4000, 12000));
 
@@ -661,7 +663,8 @@ function AudioBackground({ children }) {
             // The Flow slider scales the sound-driven motion; hand-fired hits stay at full strength
             const motionTarget = (!moving ? 0 : flowOn ? 1.2 + 2.1 * level.presence + 1.5 * level.kick : SLOW_FLOW)
                 * moshControls.flowAmount + 2.5 * punch;
-            motion += (motionTarget - motion) * Math.min(1, dt * 12);
+            // Slowing down is quicker than speeding up, so the flow settles as soon as the bass goes
+            motion += (motionTarget - motion) * Math.min(1, dt * (motionTarget < motion ? 24 : 12));
             if (!moving && !punch) motion = 0;
             audioLevels.flow = !listening ? "hold" : moshControls.freeze ? "frozen" : flowOn ? "active" : "drift";
             // Bass hits in heavy sections send the blocks off in new directions, like a cut in
