@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-08",
-  "note": "Instagram followers, TikTok followers and Spotify monthly listeners, collected by hand from each profile. Refresh every few months; visitors never see these numbers.",
+  "note": "Instagram followers, TikTok followers, Spotify monthly listeners and SoundCloud followers, collected by hand from each profile. Refresh every few months; visitors never see these numbers.",
   "artists": [
     {
       "name": "DJ Diesel (Shaq)",
@@ -34,7 +34,11 @@
             "listeners": 341205
           }
         }
-      ]
+      ],
+      "soundcloud": {
+        "handle": "djdieselofficial",
+        "followers": 19744
+      }
     },
     {
       "name": "Valentino Khan",
@@ -50,6 +54,10 @@
       "spotify": {
         "id": "0deIjoDjl9g9Zpw0sCIOHh",
         "listeners": 687077
+      },
+      "soundcloud": {
+        "handle": "valentinokhan",
+        "followers": 217937
       }
     },
     {
@@ -66,6 +74,10 @@
       "spotify": {
         "id": "5czbzNZZfWpyFgZyfT3Mkk",
         "listeners": 6661570
+      },
+      "soundcloud": {
+        "handle": "sidepiece",
+        "followers": 64455
       }
     },
     {
@@ -82,6 +94,10 @@
       "spotify": {
         "id": "6Z8O8PugLuKyLFVkZLQDRZ",
         "listeners": 148879
+      },
+      "soundcloud": {
+        "handle": "midnightasaurus",
+        "followers": 141282
       }
     },
     {
@@ -95,6 +111,10 @@
       "spotify": {
         "id": "5oiSxivTCIoOk5UlMSwzWM",
         "listeners": 365788
+      },
+      "soundcloud": {
+        "handle": "tynanofficial",
+        "followers": 86352
       }
     },
     {
@@ -108,6 +128,10 @@
       "spotify": {
         "id": "37PZXblQTqpEWGdjctNcGP",
         "listeners": 408906
+      },
+      "soundcloud": {
+        "handle": "space-laces",
+        "followers": 137740
       }
     },
     {
@@ -124,6 +148,10 @@
       "spotify": {
         "id": "1ic0FHNGIjXZAWH6O6Reif",
         "listeners": 1008670
+      },
+      "soundcloud": {
+        "handle": "theshipwrek",
+        "followers": 116240
       }
     },
     {
@@ -140,6 +168,10 @@
       "spotify": {
         "id": "0YVquC9RaJLYFNmlJFzkTV",
         "listeners": 1677642
+      },
+      "soundcloud": {
+        "handle": "ayybo",
+        "followers": 55832
       }
     },
     {
@@ -156,6 +188,10 @@
       "spotify": {
         "id": "6EN5zX1Q2W7qcesyatdUfO",
         "listeners": 180754
+      },
+      "soundcloud": {
+        "handle": "desertdwellers",
+        "followers": 100708
       }
     },
     {
@@ -172,6 +208,10 @@
       "spotify": {
         "id": "5X1EM1jg35YB5jmw7qVIlh",
         "listeners": 187773
+      },
+      "soundcloud": {
+        "handle": "heyzmsc",
+        "followers": 38434
       }
     },
     {
@@ -188,6 +228,10 @@
       "spotify": {
         "id": "5jUHGCefwYDtzfyXCdZHNZ",
         "listeners": 10745
+      },
+      "soundcloud": {
+        "handle": "djpressed",
+        "followers": 2277
       }
     },
     {
@@ -201,6 +245,10 @@
       "spotify": {
         "id": "0QZI6uO8AqGwHRDkS2ubGD",
         "listeners": 69255
+      },
+      "soundcloud": {
+        "handle": "savejofficial",
+        "followers": 9705
       }
     },
     {
@@ -217,6 +265,10 @@
       "spotify": {
         "id": "0x8VuDkaLNeQPkxynPbDxE",
         "listeners": 8525
+      },
+      "soundcloud": {
+        "handle": "greenmatterofficial",
+        "followers": 6056
       }
     },
     {
@@ -233,6 +285,10 @@
       "spotify": {
         "id": "1tGxccjxxG3IlNwSs2x8eX",
         "listeners": 254379
+      },
+      "soundcloud": {
+        "handle": "prettysweet2",
+        "followers": 19713
       }
     },
     {
@@ -249,6 +305,10 @@
       "spotify": {
         "id": "01DhMMIQcr9vaLuuemButV",
         "listeners": 10414
+      },
+      "soundcloud": {
+        "handle": "papajay7",
+        "followers": 16468
       }
     },
     {
@@ -265,6 +325,10 @@
       "spotify": {
         "id": "7A1SzQc0FvmwQ3et8H5g03",
         "listeners": 5519
+      },
+      "soundcloud": {
+        "handle": "spoonemusic",
+        "followers": 14989
       }
     },
     {
@@ -281,6 +345,10 @@
       "spotify": {
         "id": "6v1gwQsToXK5nl09vuGywg",
         "listeners": 57065
+      },
+      "soundcloud": {
+        "handle": "lilfish-1",
+        "followers": 7237
       }
     },
     {
@@ -296,6 +364,10 @@
       "spotify": {
         "id": "3QryVD03gGZOLQQXjy3EoA",
         "listeners": 1576039
+      },
+      "soundcloud": {
+        "handle": "getterofficial",
+        "followers": 441859
       }
     },
     {
@@ -311,6 +383,10 @@
       "spotify": {
         "id": "2WBJQGf1bT1kxuoqziH5g4",
         "listeners": 7902294
+      },
+      "soundcloud": {
+        "handle": "purplediscomachine",
+        "followers": 150158
       }
     },
     {
@@ -326,6 +402,10 @@
       "spotify": {
         "id": "3a9qv6NLHnsVxJUtKOMHvD",
         "listeners": 854859
+      },
+      "soundcloud": {
+        "handle": "theglitchmob",
+        "followers": 348632
       }
     },
     {
@@ -341,6 +421,10 @@
       "spotify": {
         "id": "6Se1y4vDcu9fVHLqdj1N3q",
         "listeners": 2151698
+      },
+      "soundcloud": {
+        "handle": "iamwuki",
+        "followers": 146167
       }
     },
     {
@@ -356,6 +440,10 @@
       "spotify": {
         "id": "04vdWVjgi45nrMAxeCEVQe",
         "listeners": 151344
+      },
+      "soundcloud": {
+        "handle": "itsbeargrillz",
+        "followers": 131680
       }
     },
     {
@@ -371,6 +459,10 @@
       "spotify": {
         "id": "5TgQ66WuWkoQ2xYxaSTnVP",
         "listeners": 1639430
+      },
+      "soundcloud": {
+        "handle": "netsky",
+        "followers": 236645
       }
     },
     {
@@ -386,6 +478,10 @@
       "spotify": {
         "id": "0Adbm5kzcPUxFybf9fhjgG",
         "listeners": 576187
+      },
+      "soundcloud": {
+        "handle": "cocoandbreezy",
+        "followers": 3547
       }
     },
     {
@@ -401,6 +497,10 @@
       "spotify": {
         "id": "4BTcOR2hEQZQQL5AMo5u10",
         "listeners": 347843
+      },
+      "soundcloud": {
+        "handle": "rusko",
+        "followers": 516478
       }
     },
     {
@@ -416,6 +516,10 @@
       "spotify": {
         "id": "23AH13eC6V0NB0QCkV6206",
         "listeners": 579063
+      },
+      "soundcloud": {
+        "handle": "jkylxhyde",
+        "followers": 67620
       }
     },
     {
@@ -431,6 +535,10 @@
       "spotify": {
         "id": "3r1crp6G0IKYW21wO5h7dB",
         "listeners": 643369
+      },
+      "soundcloud": {
+        "handle": "hillshouse88",
+        "followers": 42789
       }
     },
     {
@@ -446,6 +554,10 @@
       "spotify": {
         "id": "75YeSAKC6xPhgkjnltCmGB",
         "listeners": 409514
+      },
+      "soundcloud": {
+        "handle": "hollmusic",
+        "followers": 63014
       }
     },
     {
@@ -461,6 +573,10 @@
       "spotify": {
         "id": "4qaAcBXIagTIWYkJRlxYZ7",
         "listeners": 257739
+      },
+      "soundcloud": {
+        "handle": "bolothedj",
+        "followers": 11572
       }
     },
     {
@@ -476,6 +592,10 @@
       "spotify": {
         "id": "5dVua2HdrY1VlbPh6OM9KZ",
         "listeners": 79918
+      },
+      "soundcloud": {
+        "handle": "gaslampkiller",
+        "followers": 40882
       }
     },
     {
@@ -491,6 +611,10 @@
       "spotify": {
         "id": "6j78LtFLqDG65Ju57NUM5N",
         "listeners": 136433
+      },
+      "soundcloud": {
+        "handle": "definitelynotwreckno",
+        "followers": 32645
       }
     },
     {
@@ -506,6 +630,10 @@
       "spotify": {
         "id": "6DnQYUjtYusK9QJts9HqSC",
         "listeners": 1403322
+      },
+      "soundcloud": {
+        "handle": "skepsisproducer",
+        "followers": 53548
       }
     },
     {
@@ -521,6 +649,10 @@
       "spotify": {
         "id": "3VRyybsQu0MDG0F2LBxnv7",
         "listeners": 2852351
+      },
+      "soundcloud": {
+        "handle": "noizusound",
+        "followers": 45949
       }
     },
     {
@@ -536,6 +668,10 @@
       "spotify": {
         "id": "2MbY32LPINIi9P6PCkrOJI",
         "listeners": 1822916
+      },
+      "soundcloud": {
+        "handle": "mc4d_official",
+        "followers": 108052
       }
     },
     {
@@ -548,6 +684,10 @@
       "spotify": {
         "id": "2hndbDJCfHwD1o2ZTzKLMo",
         "listeners": 38153
+      },
+      "soundcloud": {
+        "handle": "ball-trap-music",
+        "followers": 190367
       }
     },
     {
@@ -563,6 +703,10 @@
       "spotify": {
         "id": "2G4VZIbfdmr60dYUB0oIxF",
         "listeners": 118489
+      },
+      "soundcloud": {
+        "handle": "maddy-oneal",
+        "followers": 24263
       }
     },
     {
@@ -578,6 +722,10 @@
       "spotify": {
         "id": "5ttBnysifryX99bjzeFPGr",
         "listeners": 250948
+      },
+      "soundcloud": {
+        "handle": "joncasey",
+        "followers": 24116
       }
     },
     {
@@ -593,6 +741,10 @@
       "spotify": {
         "id": "2M1fROBYTycpAcvsi2zkPJ",
         "listeners": 30841
+      },
+      "soundcloud": {
+        "handle": "sisto_official",
+        "followers": 25062
       }
     },
     {
@@ -608,6 +760,10 @@
       "spotify": {
         "id": "5mADpqv2E8KIHDmEhH7wmr",
         "listeners": 177290
+      },
+      "soundcloud": {
+        "handle": "figure",
+        "followers": 216572
       }
     },
     {
@@ -623,6 +779,10 @@
       "spotify": {
         "id": "5rEwPEAHq2q1yW3wF4av5s",
         "listeners": 2070185
+      },
+      "soundcloud": {
+        "handle": "swimmingpaul_music",
+        "followers": 8644
       }
     },
     {
@@ -635,6 +795,10 @@
       "spotify": {
         "id": "7dSn0mEhOoCO7TA8biZRq6",
         "listeners": 29823
+      },
+      "soundcloud": {
+        "handle": "phutureprimitive",
+        "followers": 50901
       }
     },
     {
@@ -650,6 +814,10 @@
       "spotify": {
         "id": "66VgJGpaRMwrNaS2MPqIDf",
         "listeners": 101600
+      },
+      "soundcloud": {
+        "handle": "paulineherr",
+        "followers": 9508
       }
     },
     {
@@ -665,6 +833,10 @@
       "spotify": {
         "id": "59DcOmdlmKUgsUrb2S7Nb6",
         "listeners": 28507
+      },
+      "soundcloud": {
+        "handle": "dmvuofficial",
+        "followers": 39582
       }
     },
     {
@@ -680,6 +852,10 @@
       "spotify": {
         "id": "1mlAkvaCrzWSxS2ATBZh27",
         "listeners": 84729
+      },
+      "soundcloud": {
+        "handle": "kumarionmusic",
+        "followers": 15216
       }
     },
     {
@@ -692,6 +868,10 @@
       "spotify": {
         "id": "2Aa5prvbqcjMJTHURdKyOO",
         "listeners": 215353
+      },
+      "soundcloud": {
+        "handle": "wonkywilla",
+        "followers": 36013
       }
     },
     {
@@ -707,6 +887,10 @@
       "spotify": {
         "id": "1LpxuJ9gD3eHAPjGGvr9Zy",
         "listeners": 7893
+      },
+      "soundcloud": {
+        "handle": "thisislizzyjane",
+        "followers": 7064
       }
     },
     {
@@ -719,6 +903,10 @@
       "spotify": {
         "id": "4w8MWlPCLi8uZRkCMyrtCO",
         "listeners": 191354
+      },
+      "soundcloud": {
+        "handle": "random-rab",
+        "followers": 48569
       }
     },
     {
@@ -734,6 +922,10 @@
       "spotify": {
         "id": "6nhEcP9sIqaoQ6hM5R55IB",
         "listeners": 50700
+      },
+      "soundcloud": {
+        "handle": "davidstarfire",
+        "followers": 30837
       }
     },
     {
@@ -749,6 +941,10 @@
       "spotify": {
         "id": "1UnA09CtdmT16mvmzbXnON",
         "listeners": 78349
+      },
+      "soundcloud": {
+        "handle": "the-hostage-situation",
+        "followers": 25209
       }
     },
     {
@@ -764,6 +960,10 @@
       "spotify": {
         "id": "2ZHWY8T51vTXN0Ott4FAHC",
         "listeners": 233730
+      },
+      "soundcloud": {
+        "handle": "habitaat",
+        "followers": 3897
       }
     },
     {
@@ -779,6 +979,10 @@
       "spotify": {
         "id": "4Gm9RrVjqWXfS1ew8UeAT8",
         "listeners": 35496
+      },
+      "soundcloud": {
+        "handle": "twopercentmusic",
+        "followers": 18585
       }
     },
     {
@@ -794,6 +998,10 @@
       "spotify": {
         "id": "6AzehpPyhn3Qrwg6pQfPXz",
         "listeners": 66551
+      },
+      "soundcloud": {
+        "handle": "og-nixin",
+        "followers": 49823
       }
     },
     {
@@ -809,6 +1017,10 @@
       "spotify": {
         "id": "0md3NIXueJZSFZ82HMu26M",
         "listeners": 102220
+      },
+      "soundcloud": {
+        "handle": "bendamusic",
+        "followers": 15179
       }
     },
     {
@@ -824,6 +1036,10 @@
       "spotify": {
         "id": "3jdMkaMs7875drsoUevvyu",
         "listeners": 158582
+      },
+      "soundcloud": {
+        "handle": "tsunamimusicx",
+        "followers": 11703
       }
     },
     {
@@ -836,6 +1052,10 @@
       "spotify": {
         "id": "5lsvMPwR3bjyZblIe3h9EK",
         "listeners": 23300
+      },
+      "soundcloud": {
+        "handle": "toadface",
+        "followers": 39106
       }
     },
     {
@@ -851,6 +1071,10 @@
       "spotify": {
         "id": "3cj6O7NrjS5l0CVo8LhpV1",
         "listeners": 107520
+      },
+      "soundcloud": {
+        "handle": "thesponges",
+        "followers": 16660
       }
     },
     {
@@ -866,6 +1090,10 @@
       "spotify": {
         "id": "0T8PFaa4SnSE2VyKYN5E4N",
         "listeners": 66803
+      },
+      "soundcloud": {
+        "handle": "chozenofficial",
+        "followers": 10527
       }
     },
     {
@@ -881,6 +1109,10 @@
       "spotify": {
         "id": "5nWMvCkzK4A0K8GgG529m5",
         "listeners": 20485
+      },
+      "soundcloud": {
+        "handle": "noetika",
+        "followers": 13773
       }
     },
     {
@@ -893,6 +1125,10 @@
       "spotify": {
         "id": "4kqDBfCR1fR9XiBg7kuGWp",
         "listeners": 2563
+      },
+      "soundcloud": {
+        "handle": "delamoonmusic",
+        "followers": 14784
       }
     },
     {
@@ -908,6 +1144,10 @@
       "spotify": {
         "id": "7FK8Hg4eKZZ4kipxWDwpV7",
         "listeners": 123397
+      },
+      "soundcloud": {
+        "handle": "mfinityofficial",
+        "followers": 10875
       }
     },
     {
@@ -923,6 +1163,10 @@
       "spotify": {
         "id": "1wYOGoKwFM8sRryvmRf206",
         "listeners": 9328
+      },
+      "soundcloud": {
+        "handle": "mzgtwins",
+        "followers": 7778
       }
     },
     {
@@ -938,6 +1182,10 @@
       "spotify": {
         "id": "4Qk0fjjVPud8UUH0xGyLsP",
         "listeners": 3017
+      },
+      "soundcloud": {
+        "handle": "swampzmusic",
+        "followers": 8007
       }
     },
     {
@@ -953,6 +1201,10 @@
       "spotify": {
         "id": "2BlB5MW4WdyyglpczlQ6Mm",
         "listeners": 95702
+      },
+      "soundcloud": {
+        "handle": "covexmusic",
+        "followers": 11910
       }
     },
     {
@@ -968,6 +1220,10 @@
       "spotify": {
         "id": "3Rz4TikEfEd7o3ExMJHgrJ",
         "listeners": 58244
+      },
+      "soundcloud": {
+        "handle": "deckerush",
+        "followers": 4783
       }
     },
     {
@@ -983,6 +1239,10 @@
       "spotify": {
         "id": "4K129VU520mAbin25QcKfH",
         "listeners": 95655
+      },
+      "soundcloud": {
+        "handle": "nyrusbeats",
+        "followers": 2499
       }
     },
     {
@@ -998,6 +1258,10 @@
       "spotify": {
         "id": "6TwO05VN5ZM3DYVEsP9vjK",
         "listeners": 9267
+      },
+      "soundcloud": {
+        "handle": "omasofficial",
+        "followers": 4661
       }
     },
     {
@@ -1013,6 +1277,10 @@
       "spotify": {
         "id": "45TGBidKQqFyOZus89YBHI",
         "listeners": 21034
+      },
+      "soundcloud": {
+        "handle": "iambruer",
+        "followers": 4568
       }
     },
     {
@@ -1028,6 +1296,10 @@
       "spotify": {
         "id": "4oXg9XU96ClUOVcwMNikae",
         "listeners": 7795
+      },
+      "soundcloud": {
+        "handle": "vinnie",
+        "followers": 25126
       }
     },
     {
@@ -1040,6 +1312,10 @@
       "spotify": {
         "id": "5qdzYl1ZlATB8Ww3Wg1H6H",
         "listeners": 455
+      },
+      "soundcloud": {
+        "handle": "savagebassmusic",
+        "followers": 521
       }
     }
   ]
