@@ -1869,9 +1869,15 @@ ul.artist-cloud {
   text-align: center;
 }
 
-/* A sub-section heading like the Gallery's [03.1], with room above it after the flyers */
-.artist-cloud-header {
-  margin-top: 104px;
+.artist-cloud-label {
+  text-align: center;
+}
+
+/* A file-name readout above the label, like the section labels, kept lowercase */
+.artist-cloud-file {
+  display: block;
+  margin-bottom: 6px;
+  text-transform: none;
 }
 
 /* Red names are picked in artists.js; they hold every fourth spot */

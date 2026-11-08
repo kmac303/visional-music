@@ -210,8 +210,9 @@ function Events() {
             <div className="hud-label events-group-label">Past</div>
             <div className="event-cards">{past.map(card)}</div>
 
-            <div className="artist-cloud-header">
-                <SectionHeader index="02.1" label="artists.json" title="Selected artists Visional has worked with" />
+            <div className="hud-label events-group-label artist-cloud-label">
+                <span className="artist-cloud-file">[02.1] // artists.json</span>
+                Selected artists Visional has worked with
             </div>
             <ul className="artist-cloud">
                 {lineup.map((artist) => (
