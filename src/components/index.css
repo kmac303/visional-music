@@ -1481,7 +1481,8 @@ section.page-section {
   text-transform: none;
 }
 
-/* A blinking cursor after each label, like a terminal waiting for input */
+/* A blinking cursor after each label, like a terminal waiting for input. It blinks for
+   everyone, including visitors who prefer reduced motion: it's a small blink in place. */
 .terminal-cursor {
   display: inline-block;
   width: 0.6em;
@@ -1494,12 +1495,6 @@ section.page-section {
 
 @keyframes terminal-blink {
   50% { opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .terminal-cursor {
-    animation: none;
-  }
 }
 
 .page-section h2.section-title {
