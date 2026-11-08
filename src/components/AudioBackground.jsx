@@ -522,9 +522,9 @@ function AudioBackground({ children }) {
 
         // Track the cursor (or a finger) in canvas pixels; the canvas's y axis points up
         const pointer = { x: -10000, y: -10000, moveX: 0, moveY: 0 };
-        function handlePointerMove(event) {
-            const x = event.clientX * scale;
-            const y = (window.innerHeight - event.clientY) * scale;
+        function moveTo(clientX, clientY) {
+            const x = clientX * scale;
+            const y = (window.innerHeight - clientY) * scale;
             if (pointer.x > -10000) {
                 pointer.moveX += x - pointer.x;
                 pointer.moveY += y - pointer.y;
@@ -532,12 +532,26 @@ function AudioBackground({ children }) {
             pointer.x = x;
             pointer.y = y;
         }
+        function handlePointerMove(event) {
+            moveTo(event.clientX, event.clientY);
+        }
         function handlePointerLeave() {
             pointer.x = -10000;
             pointer.y = -10000;
         }
+        // On phones, dragging a finger scrolls the page, and once it scrolls the browser
+        // stops sending pointer moves. Touch moves keep coming, so a finger swiping
+        // anywhere on the page drags the flow too.
+        function handleTouchMove(event) {
+            const touch = event.touches[0];
+            if (touch) moveTo(touch.clientX, touch.clientY);
+        }
         window.addEventListener("pointermove", handlePointerMove, { passive: true });
         document.documentElement.addEventListener("pointerleave", handlePointerLeave);
+        window.addEventListener("touchstart", handleTouchMove, { passive: true });
+        window.addEventListener("touchmove", handleTouchMove, { passive: true });
+        window.addEventListener("touchend", handlePointerLeave, { passive: true });
+        window.addEventListener("touchcancel", handlePointerLeave, { passive: true });
 
         const analysis = createAnalysis();
         let data = null;
@@ -722,6 +736,10 @@ function AudioBackground({ children }) {
             cancelAnimationFrame(frame);
             window.removeEventListener("resize", resize);
             window.removeEventListener("pointermove", handlePointerMove);
+            window.removeEventListener("touchstart", handleTouchMove);
+            window.removeEventListener("touchmove", handleTouchMove);
+            window.removeEventListener("touchend", handlePointerLeave);
+            window.removeEventListener("touchcancel", handlePointerLeave);
             document.documentElement.removeEventListener("pointerleave", handlePointerLeave);
             canvas.removeEventListener("webglcontextlost", handleContextLost);
             canvas.classList.remove("ready");
