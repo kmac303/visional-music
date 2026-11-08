@@ -116,7 +116,7 @@ function Gallery() {
                 </button>
             )}
 
-            <SectionHeader index="03.1" label="Collaborations" title="Art collaborations" />
+            <SectionHeader index="03.1" label="Collaborations" title="Beyond the stage" />
             <div className="video-gallery">
                 {projects.map((id, index) => (
                     <div className="video-container" key={id}>
