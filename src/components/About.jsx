@@ -69,7 +69,7 @@ function About() {
 
     return (
         <section id="about" className="page-section about-section">
-            <SectionHeader index="01" label="readme.txt" title="Who is Visional?" />
+            <SectionHeader index="01" label="README.txt" title="Who is Visional?" />
             <div className="about-intro">
                 <div className="bio">
                     {bio.map((paragraph, index) => (
