@@ -1056,26 +1056,22 @@ li {
   box-sizing: border-box;
 }
 
-/* "[00] // begin_transmission", sitting just above the frame's top-left corner */
+/* "[00] // begin_transmission": its own row across the top of the frame, so everything
+   else in the frame sits below it */
 .hero-opener {
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  margin-bottom: 8px;
-  font-size: 0.78rem;
+  grid-area: opener;
   text-transform: none;
   white-space: nowrap;
-  /* As bright as the frame's own text, with a dark edge so it reads over the moving background */
-  color: rgba(255, 255, 255, 0.85);
-  text-shadow: 0 0 6px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.9);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .hero-panel {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  grid-template-rows: 1fr 1fr auto;
+  grid-template-rows: auto 1fr 1fr auto;
   grid-template-areas:
+    "opener opener opener"
     "tl center tr"
     "bl center br"
     "timeline timeline timeline";
@@ -2146,8 +2142,9 @@ ul.hud-bar-links {
 @media (max-width: 960px) {
   .hero-panel {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
     grid-template-areas:
+      "opener opener"
       "tl tr"
       "center center"
       "bl br"
@@ -2186,8 +2183,9 @@ ul.hud-bar-links {
 
   .hero-panel {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
     grid-template-areas:
+      "opener opener"
       "tl tr"
       "center center"
       "bl br"

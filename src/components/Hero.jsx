@@ -164,8 +164,7 @@ function Hero() {
         <section id="top" className="hero" ref={heroRef}>
             <div className="hero-panel">
                 {/* Opens the page the way the Contact sign-off closes it ("End of transmission").
-                    It sits just above the frame's top-left corner, like the section labels sit
-                    above their titles. */}
+                    It gets its own row across the top of the frame. */}
                 <div className="hud-label hero-opener" aria-hidden="true">
                     [00] // begin_transmission
                     <span className="terminal-cursor" />
