@@ -30,26 +30,45 @@ async function getToken() {
     return (await response.json()).access_token;
 }
 
-// Spotify accepts up to 50 artist IDs per request; waits and retries if asked to slow down
+// Asks Spotify for one URL, waiting and retrying if told to slow down
+async function spotifyGet(token, url) {
+    for (let attempt = 0; attempt < 3; attempt++) {
+        const response = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+        if (response.status === 429) {
+            const wait = Number(response.headers.get("retry-after") || 5);
+            await new Promise((resolve) => setTimeout(resolve, wait * 1000));
+            continue;
+        }
+        return response;
+    }
+    throw new Error(`Spotify kept asking to slow down: ${url}`);
+}
+
+// Tries up to 50 artists per request first. Some Spotify apps aren't allowed the bulk request,
+// so if it's refused, this falls back to asking for each artist on its own.
 async function getFollowers(token, ids) {
     const followers = new Map();
-    for (let i = 0; i < ids.length; i += 50) {
-        const batch = ids.slice(i, i + 50);
-        for (let attempt = 0; attempt < 3; attempt++) {
-            const response = await fetch(`https://api.spotify.com/v1/artists?ids=${batch.join(",")}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            if (response.status === 429) {
-                const wait = Number(response.headers.get("retry-after") || 5);
-                await new Promise((resolve) => setTimeout(resolve, wait * 1000));
-                continue;
-            }
-            if (!response.ok) throw new Error(`Spotify artists request failed: ${response.status}`);
+    const bulk = await spotifyGet(token, `https://api.spotify.com/v1/artists?ids=${ids.slice(0, 50).join(",")}`);
+    if (bulk.ok) {
+        for (let i = 0; i < ids.length; i += 50) {
+            const response = i === 0 ? bulk : await spotifyGet(token, `https://api.spotify.com/v1/artists?ids=${ids.slice(i, i + 50).join(",")}`);
+            if (!response.ok) throw new Error(`Spotify artists request failed: ${response.status} ${await response.text()}`);
             for (const artist of (await response.json()).artists) {
                 if (artist) followers.set(artist.id, artist.followers.total);
             }
-            break;
         }
+        return followers;
+    }
+    console.warn(`Bulk request refused (${bulk.status} ${await bulk.text()}); asking for each artist on its own`);
+    for (const id of ids) {
+        const response = await spotifyGet(token, `https://api.spotify.com/v1/artists/${id}`);
+        if (!response.ok) {
+            console.warn(`Artist ${id}: ${response.status} ${await response.text()}`);
+            continue;
+        }
+        const artist = await response.json();
+        if (artist?.followers) followers.set(artist.id, artist.followers.total);
+        await new Promise((resolve) => setTimeout(resolve, 150));
     }
     return followers;
 }
