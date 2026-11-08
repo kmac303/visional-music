@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import GlitchLogo from './GlitchLogo';
 
 const SOCIALS = [
-    { label: "IG", name: "Instagram", href: "https://www.instagram.com/visionalmusic" },
+    { label: "Instagram", name: "Instagram", href: "https://www.instagram.com/visionalmusic" },
 ];
 
 const SECTIONS = [
