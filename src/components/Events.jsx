@@ -175,7 +175,6 @@ function Events() {
         >
             <img src={event.imgSrc} alt={event.alt} loading="lazy" />
             <span className="event-card-caption">
-                <span className="hud-label">{String(index + 1).padStart(4, "0")}</span>
                 <span className="event-card-text">
                     <span className="event-card-title">{event.title}</span>
                     {event.date && isUpcoming(event) && (
