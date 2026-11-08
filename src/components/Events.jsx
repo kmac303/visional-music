@@ -211,7 +211,7 @@ function Events() {
             <div className="event-cards">{past.map(card)}</div>
 
             <div className="artist-cloud-header">
-                <SectionHeader index="02.1" label="artists.json" title="Artists worked with" />
+                <SectionHeader index="02.1" label="artists.json" title="Worked with" />
             </div>
             <ul className="artist-cloud">
                 {lineup.map((artist) => (
