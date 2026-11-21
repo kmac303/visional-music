@@ -23,10 +23,8 @@
 ## 📩 Contact & Booking
 
 ### 💡 Looking to hire a VJ, book a lesson, or collaborate on an event?
-- 📧 Email: contact@visionalmusic.com
-- 📷 Instagram: @visionalmusic
-- 🎥 YouTube: @visionalmusic
-- 🎵 TikTok: @visionalmusic
+- 📧 Email: use the email button on [visionalmusic.com](https://visionalmusic.com/contact)
+- 📷 Instagram: [@visionalmusic](https://www.instagram.com/visionalmusic)
 
 ---
 
