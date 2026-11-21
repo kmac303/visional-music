@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaPlay, FaMicrophone, FaStepBackward, FaStepForward } from "react-icons/fa";
-import GlitchHeadshot from "./GlitchHeadshot";
+import ParticleHeadshot from "./ParticleHeadshot";
 import { audioLevels, moshControls } from "./audioLevels";
 import { useSound } from "./AudioBackground";
 
@@ -202,7 +202,7 @@ function Hero() {
 
                 <div className="hero-center">
                     <div className="hero-target">
-                        <GlitchHeadshot className="hero-headshot" />
+                        <ParticleHeadshot className="hero-headshot" />
                         <span className="target-corner target-corner-tl" aria-hidden="true" />
                         <span className="target-corner target-corner-tr" aria-hidden="true" />
                         <span className="target-corner target-corner-bl" aria-hidden="true" />
