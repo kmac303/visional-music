@@ -67,6 +67,14 @@ function Hero() {
     // True while the visitor is dragging the scrubber, so playback doesn't fight their hand
     const scrubbing = useRef(false);
     const [frozen, setFrozen] = useState(moshControls.freeze);
+    // The scroll cues bob until the visitor starts scrolling, then fade away
+    const [scrolled, setScrolled] = useState(false);
+    useEffect(() => {
+        const update = () => setScrolled(window.scrollY > 40);
+        update();
+        window.addEventListener("scroll", update, { passive: true });
+        return () => window.removeEventListener("scroll", update);
+    }, []);
     const [flow, setFlow] = useState(Math.round(moshControls.flowAmount * 100));
     const changeFlow = (event) => {
         const value = Number(event.currentTarget.value);
@@ -161,7 +169,7 @@ function Hero() {
     }, [track, getTrackPosition]);
 
     return (
-        <section id="top" className="hero" ref={heroRef}>
+        <section id="top" className={scrolled ? "hero is-scrolled" : "hero"} ref={heroRef}>
             <div className="hero-panel">
                 {/* Opens the page the way the Contact sign-off closes it ("End of transmission").
                     It gets its own row across the top of the frame. */}
@@ -318,9 +326,16 @@ function Hero() {
                         onPointerCancel={() => { scrubbing.current = false; }}
                         onInput={(event) => seekTrack(Number(event.currentTarget.value))}
                     />
-                    <Link to="/about" className="hud-scroll">▼ Scroll</Link>
+                    <Link to="/about" className="hud-scroll">
+                        <span className="scroll-arrow" aria-hidden="true">▼</span> Scroll
+                    </Link>
                 </div>
             </div>
+            {/* Phones only: a small arrow under the frame, since the hero fills the screen
+                and nothing below it peeks in */}
+            <Link to="/about" className="hero-scroll-cue" aria-label="Scroll to About">
+                <span className="scroll-arrow" aria-hidden="true">▼</span>
+            </Link>
         </section>
     );
 }

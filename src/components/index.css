@@ -1449,6 +1449,30 @@ li {
 
 .hud-scroll {
   color: #ffffff;
+  transition: opacity 0.4s ease;
+}
+
+/* The ▼ bobs gently so it reads as "scroll down", until the visitor starts scrolling.
+   Like the terminal cursor, it moves for everyone: it's a small 4px bob in place. */
+.scroll-arrow {
+  display: inline-block;
+  animation: scroll-bob 2.2s ease-in-out infinite;
+}
+
+@keyframes scroll-bob {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(4px); }
+}
+
+.hero.is-scrolled .hud-scroll,
+.hero.is-scrolled .hero-scroll-cue {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The phone arrow under the frame; hidden on wider screens, where the Scroll link shows */
+.hero-scroll-cue {
+  display: none;
 }
 
 /* The Flow meter doubles as a slider: an invisible range input covers the meter */
@@ -2215,6 +2239,23 @@ ul.hud-bar-links {
 
   .hud-scroll {
     display: none;
+  }
+
+  .hero {
+    position: relative;
+  }
+
+  .hero-scroll-cue {
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 2px;
+    transform: translateX(-50%);
+    padding: 4px 12px;
+    font-family: var(--hud-font);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.75);
+    transition: opacity 0.4s ease;
   }
 
   /* The top-right readouts take the full right half, and the track name scrolls
