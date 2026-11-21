@@ -128,19 +128,19 @@ const pointsVertexShader = `
         // Each point travels its own distance, so the cloud spreads into wisps
         // instead of moving as one sheet
         float reach = 0.2 + aRandom * 0.45;
-        vec3 drift = swirl * reach * 0.5 + vec3(0.12, 0.08, 0.45) * reach;
+        vec3 drift = swirl * reach * 0.5 + vec3(0.12, 0.08, 1.0) * reach;
         vec3 moved = home + drift * lift;
 
         vec4 viewPosition = modelViewMatrix * vec4(moved, 1.0);
         gl_Position = projectionMatrix * viewPosition;
         // At rest each point covers exactly its square of the photo (points pulled forward
         // for depth are scaled down to cancel the perspective). They shrink as they fly
-        // off, which thins them into wisps.
+        // off a little, but coming toward the camera still makes them look bigger.
         float restScale = (uCameraDistance - home.z) / uCameraDistance;
-        gl_PointSize = uPointSize * uOverlap * restScale * (1.0 - 0.25 * lift) / -viewPosition.z;
+        gl_PointSize = uPointSize * uOverlap * restScale * (1.0 - 0.1 * lift) / -viewPosition.z;
 
         vUv = aUv;
-        vFade = 1.0 - 0.25 * lift;
+        vFade = 1.0 - 0.1 * lift;
     }
 `;
 
