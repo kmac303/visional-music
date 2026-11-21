@@ -12,6 +12,10 @@ import * as THREE from "three";
 const GRID = 200;
 // How dark a square can be on average before it's left out as empty background
 const MIN_BRIGHTNESS = 0.02;
+// Points are drawn this much bigger than their square so neighbors overlap a little. The
+// screen can only draw whole pixels, so exact-size squares left thin seams between them.
+// Each point shows a matching bit more of the photo, so overlaps show the same pixels.
+const OVERLAP = 1.15;
 // Size of the trail texture that remembers where the cursor has been
 const TRAIL_SIZE = 96;
 
@@ -102,6 +106,7 @@ const pointsVertexShader = `
     uniform float uTime;
     uniform float uPointSize;
     uniform float uCameraDistance;
+    uniform float uOverlap;
     attribute vec2 aUv;
     attribute float aRandom;
     varying vec2 vUv;
@@ -132,7 +137,7 @@ const pointsVertexShader = `
         // for depth are scaled down to cancel the perspective). They shrink as they fly
         // off, which thins them into wisps.
         float restScale = (uCameraDistance - home.z) / uCameraDistance;
-        gl_PointSize = uPointSize * restScale * (1.0 - 0.25 * lift) / -viewPosition.z;
+        gl_PointSize = uPointSize * uOverlap * restScale * (1.0 - 0.25 * lift) / -viewPosition.z;
 
         vUv = aUv;
         vFade = 1.0 - 0.25 * lift;
@@ -142,11 +147,12 @@ const pointsVertexShader = `
 const pointsFragmentShader = `
     uniform sampler2D uPhoto;
     uniform float uCell;
+    uniform float uOverlap;
     varying vec2 vUv;
     varying float vFade;
     void main() {
         // Each square point shows its own piece of the full-resolution photo
-        vec2 uv = vUv + (gl_PointCoord - 0.5) * vec2(uCell, -uCell);
+        vec2 uv = vUv + (gl_PointCoord - 0.5) * vec2(uCell, -uCell) * uOverlap;
         gl_FragColor = vec4(texture2D(uPhoto, uv).rgb * vFade, 1.0);
     }
 `;
@@ -269,6 +275,7 @@ function ParticleHeadshot({ className = "" }) {
                 uCameraDistance: { value: cameraDistance },
                 uPhoto: { value: null },
                 uCell: { value: 1 / GRID },
+                uOverlap: { value: OVERLAP },
             },
             vertexShader: pointsVertexShader,
             fragmentShader: pointsFragmentShader,
