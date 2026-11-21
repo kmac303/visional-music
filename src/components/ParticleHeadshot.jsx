@@ -157,6 +157,49 @@ const pointsFragmentShader = `
     }
 `;
 
+// How far forward a spot on the photo sits: a gentle dome so the head has depth when it
+// tilts, closest at the face. Shared by the points and the photo backing so they line up.
+function domeDepth(x, y) {
+    return Math.max(0, 1 - (x * x * 1.2 + (y - 0.1) * (y - 0.1))) * 0.22;
+}
+
+// A solid copy of the photo on the same dome, drawn behind the points. Any hairline gap
+// between points shows the photo instead of black. Where the cursor stirs the points,
+// it fades away so the wisps break apart cleanly.
+const backingVertexShader = `
+    varying vec2 vUv;
+    void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+`;
+
+const backingFragmentShader = `
+    uniform sampler2D uPhoto;
+    uniform sampler2D uTrail;
+    varying vec2 vUv;
+    void main() {
+        float lift = texture2D(uTrail, vUv).r;
+        float keep = 1.0 - smoothstep(0.01, 0.12, lift);
+        if (keep <= 0.0) discard;
+        gl_FragColor = vec4(texture2D(uPhoto, vUv).rgb * keep, keep);
+    }
+`;
+
+function buildBacking(cameraDistance) {
+    const geometry = new THREE.PlaneGeometry(2, 2, 120, 120);
+    const position = geometry.attributes.position;
+    for (let i = 0; i < position.count; i++) {
+        const x = position.getX(i);
+        const y = position.getY(i);
+        const z = domeDepth(x, y);
+        // Same perspective correction as the points, so at rest it lines up with the photo
+        const squeeze = (cameraDistance - z) / cameraDistance;
+        position.setXYZ(i, x * squeeze, y * squeeze, z);
+    }
+    return geometry;
+}
+
 // Lays out a point for every non-empty square of the photo, with a random value per point
 function buildPointCloud(image, cameraDistance) {
     const canvas = document.createElement("canvas");
@@ -182,11 +225,9 @@ function buildPointCloud(image, cameraDistance) {
             const v = 1 - (row + 0.5) / GRID;
             const x = u * 2 - 1;
             const y = v * 2 - 1;
-            // A gentle dome so the head has depth when it tilts, closest at the face.
             // Points pulled forward are drawn in toward the middle by the same amount the
-            // camera's perspective spreads them, so at rest the face lines up with the photo.
-            const dome = Math.max(0, 1 - (x * x * 1.2 + (y - 0.1) * (y - 0.1)));
-            const z = dome * 0.22 + brightness * 0.04;
+            // camera's perspective spreads them, so at rest the face lines up with the photo
+            const z = domeDepth(x, y);
             const squeeze = (cameraDistance - z) / cameraDistance;
             positions.push(x * squeeze, y * squeeze, z);
             uvs.push(u, v);
@@ -280,7 +321,21 @@ function ParticleHeadshot({ className = "" }) {
             vertexShader: pointsVertexShader,
             fragmentShader: pointsFragmentShader,
             depthWrite: false,
+            depthTest: false,
         });
+        const backingMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                uPhoto: { value: null },
+                uTrail: { value: trailRead.texture },
+            },
+            vertexShader: backingVertexShader,
+            fragmentShader: backingFragmentShader,
+            transparent: true,
+            premultipliedAlpha: true,
+            depthWrite: false,
+            depthTest: false,
+        });
+        let backing;
         let points;
         let geometry;
         let photo;
@@ -351,8 +406,8 @@ function ParticleHeadshot({ className = "" }) {
 
             tilt.x += (tilt.targetX - tilt.x) * 0.06;
             tilt.y += (tilt.targetY - tilt.y) * 0.06;
-            points.rotation.y = tilt.x;
-            points.rotation.x = -tilt.y;
+            points.rotation.y = backing.rotation.y = tilt.x;
+            points.rotation.x = backing.rotation.x = -tilt.y;
 
             const trail = trailMaterial.uniforms;
             trail.uPrevious.value = trailRead.texture;
@@ -371,6 +426,7 @@ function ParticleHeadshot({ className = "" }) {
             pointer.moved = false;
 
             pointsMaterial.uniforms.uTrail.value = trailRead.texture;
+            backingMaterial.uniforms.uTrail.value = trailRead.texture;
             pointsMaterial.uniforms.uTime.value = (performance.now() - startTime) / 1000;
             renderer.render(scene, camera);
             handOver();
@@ -383,6 +439,12 @@ function ParticleHeadshot({ className = "" }) {
             photo.needsUpdate = true;
             pointsMaterial.uniforms.uPhoto.value = photo;
             points = new THREE.Points(geometry, pointsMaterial);
+            backingMaterial.uniforms.uPhoto.value = photo;
+            backing = new THREE.Mesh(buildBacking(cameraDistance), backingMaterial);
+            // The backing draws first, the points over it
+            backing.renderOrder = 0;
+            points.renderOrder = 1;
+            scene.add(backing);
             scene.add(points);
             updateSize();
         };
@@ -401,6 +463,8 @@ function ParticleHeadshot({ className = "" }) {
             container.removeEventListener("touchend", leave);
             container.removeEventListener("touchcancel", leave);
             geometry?.dispose();
+            backing?.geometry.dispose();
+            backingMaterial.dispose();
             photo?.dispose();
             pointsMaterial.dispose();
             trailMaterial.dispose();
