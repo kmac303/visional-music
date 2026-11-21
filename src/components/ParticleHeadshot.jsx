@@ -1,11 +1,10 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { audioLevels } from "./audioLevels";
 
 // The headshot rebuilt as a 3D point cloud, one point per block of the photo. Where the
 // cursor (or a finger) passes, points lift off and drift away in smoky wisps, then settle
-// back into the face. The head also tilts a little toward the cursor, and each kick
-// sends a small ripple through it while music is playing.
+// back into the face. The head also tilts a little toward the cursor. It reacts only to
+// the cursor, not to the music.
 
 // Points across the photo. The image is 1200px with ~12px blocks, so 200 keeps the
 // blocky look close to the original at rest.
@@ -24,7 +23,6 @@ const trailFragmentShader = `
     uniform float uRadius;
     uniform float uAmount;
     uniform float uDecay;
-    uniform float uPulse;
     varying vec2 vUv;
 
     float distanceToSegment(vec2 p, vec2 a, vec2 b) {
@@ -36,9 +34,7 @@ const trailFragmentShader = `
     void main() {
         float previous = texture2D(uPrevious, vUv).r * uDecay;
         float brush = smoothstep(uRadius, 0.0, distanceToSegment(vUv, uFrom, uTo)) * uAmount;
-        // A kick lifts the whole face a little, strongest in the middle
-        float pulse = uPulse * smoothstep(0.75, 0.0, length(vUv - vec2(0.5, 0.55)));
-        gl_FragColor = vec4(min(1.0, previous + brush + pulse), 0.0, 0.0, 1.0);
+        gl_FragColor = vec4(min(1.0, previous + brush), 0.0, 0.0, 1.0);
     }
 `;
 
@@ -238,7 +234,6 @@ function ParticleHeadshot({ className = "" }) {
                 uRadius: { value: 0.16 },
                 uAmount: { value: 0 },
                 uDecay: { value: 0.965 },
-                uPulse: { value: 0 },
             },
             vertexShader: passVertexShader,
             fragmentShader: trailFragmentShader,
@@ -276,8 +271,6 @@ function ParticleHeadshot({ className = "" }) {
         const pointer = { x: -1, y: -1, previousX: -1, previousY: -1, inside: false, moved: false };
         // Tilt toward the cursor, eased
         const tilt = { x: 0, y: 0, targetX: 0, targetY: 0 };
-        let kicksSeen = audioLevels.kicks;
-        let pulse = 0;
         let lastLift = 0;
         let dirty = true;
         let frameId;
@@ -322,15 +315,9 @@ function ParticleHeadshot({ className = "" }) {
             frameId = requestAnimationFrame(animate);
             if (!points) return;
 
-            // A kick ripples the face while music is playing
-            if (audioLevels.kicks !== kicksSeen) {
-                kicksSeen = audioLevels.kicks;
-                if (audioLevels.playing) pulse = 0.1;
-            }
-
             const tiltMoving = Math.abs(tilt.targetX - tilt.x) > 0.0005 || Math.abs(tilt.targetY - tilt.y) > 0.0005;
             // Skip the draw when everything has settled, instead of a full WebGL frame 60 times a second
-            if (!pointer.moved && pulse < 0.001 && lastLift < 0.002 && !tiltMoving && !dirty) return;
+            if (!pointer.moved && lastLift < 0.002 && !tiltMoving && !dirty) return;
             dirty = false;
 
             tilt.x += (tilt.targetX - tilt.x) * 0.06;
@@ -343,7 +330,6 @@ function ParticleHeadshot({ className = "" }) {
             trail.uFrom.value.set(pointer.previousX, pointer.previousY);
             trail.uTo.value.set(pointer.x, pointer.y);
             trail.uAmount.value = pointer.moved ? 0.22 : 0;
-            trail.uPulse.value = pulse;
             renderer.setRenderTarget(trailWrite);
             renderer.render(trailScene, trailCamera);
             renderer.setRenderTarget(null);
@@ -351,10 +337,9 @@ function ParticleHeadshot({ className = "" }) {
 
             pointer.previousX = pointer.x;
             pointer.previousY = pointer.y;
-            // Keep the trail fading for about two seconds after the last movement or kick
-            lastLift = pointer.moved || pulse > 0.001 ? 1 : lastLift * trail.uDecay.value;
+            // Keep the trail fading for about two seconds after the last movement
+            lastLift = pointer.moved ? 1 : lastLift * trail.uDecay.value;
             pointer.moved = false;
-            pulse *= 0.5;
 
             pointsMaterial.uniforms.uTrail.value = trailRead.texture;
             pointsMaterial.uniforms.uTime.value = (performance.now() - startTime) / 1000;
