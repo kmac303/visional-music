@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-// The headshot as a 3D point cloud, one point per block of the photo. At rest the original
-// photo shows; where the cursor (or a finger) passes, the particles take over, lift off and
-// drift away in smoky wisps, then settle back and hand over to the photo again. The head
-// also tilts a little toward the cursor. It reacts only to the cursor, not to the music.
+// The headshot as a 3D point cloud, each point showing its own square of the photo, so at
+// rest it looks exactly like the photo. Where the cursor (or a finger) passes, points lift
+// off and drift away in smoky wisps, then settle back into the face. The head also tilts a
+// little toward the cursor. It reacts only to the cursor, not to the music.
 
 // Points across the photo. Each point shows its own square of the full-resolution photo,
 // so at rest the points rebuild the photo exactly; this only sets how fine the pieces are
@@ -215,21 +215,17 @@ function ParticleHeadshot({ className = "" }) {
         renderer.setClearColor(0x000000, 0);
         container.appendChild(renderer.domElement);
 
-        // At rest the original photo shows, sharp and untouched. The particles take over
-        // while the cursor stirs them, then the photo fades back in once they've settled.
+        // The photo shows until the first frame of points is drawn, then the points take
+        // over for good. At rest they rebuild the photo exactly, so there's no swap back
+        // and forth (fading between the two made the face dip and flash).
         const canvas = renderer.domElement;
         canvas.style.opacity = "0";
-        let showingParticles = false;
-        const showParticles = (show) => {
-            if (show === showingParticles) return;
-            showingParticles = show;
-            // Switch to the particles at once, so the photo never shows through the wisps;
-            // fade back to the photo gently, since the settled points line up with it
-            const fade = show ? "none" : "opacity 0.4s ease";
-            canvas.style.transition = fade;
-            image.style.transition = fade;
-            canvas.style.opacity = show ? "1" : "0";
-            image.style.opacity = show ? "0" : "1";
+        let handedOver = false;
+        const handOver = () => {
+            if (handedOver) return;
+            handedOver = true;
+            canvas.style.opacity = "1";
+            image.style.opacity = "0";
         };
 
         // The camera sits so the flat photo exactly fills the square at rest
@@ -341,10 +337,7 @@ function ParticleHeadshot({ className = "" }) {
             if (!points) return;
 
             const tiltMoving = Math.abs(tilt.targetX - tilt.x) > 0.0005 || Math.abs(tilt.targetY - tilt.y) > 0.0005;
-            const tilted = Math.abs(tilt.x) > 0.002 || Math.abs(tilt.y) > 0.002;
             const active = pointer.moved || lastLift >= 0.002 || tiltMoving;
-            // Everything is back in place and facing forward: hand back to the photo
-            if (!active && !tilted) showParticles(false);
             // Skip the draw when everything has settled, instead of a full WebGL frame 60 times a second
             if (!active && !dirty) return;
             dirty = false;
@@ -373,7 +366,7 @@ function ParticleHeadshot({ className = "" }) {
             pointsMaterial.uniforms.uTrail.value = trailRead.texture;
             pointsMaterial.uniforms.uTime.value = (performance.now() - startTime) / 1000;
             renderer.render(scene, camera);
-            if (active) showParticles(true);
+            handOver();
         };
 
         const build = () => {
@@ -409,7 +402,6 @@ function ParticleHeadshot({ className = "" }) {
             renderer.dispose();
             renderer.domElement.remove();
             image.style.opacity = "";
-            image.style.transition = "";
         };
     }, []);
 
