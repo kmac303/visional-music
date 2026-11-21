@@ -327,14 +327,15 @@ function Hero() {
                         onInput={(event) => seekTrack(Number(event.currentTarget.value))}
                     />
                     <Link to="/about" className="hud-scroll">
-                        <span className="scroll-arrow" aria-hidden="true">▼</span> Scroll
+                        <span className="scroll-arrow scroll-sweep" aria-hidden="true">▼</span>{" "}
+                        <span className="scroll-sweep">Scroll</span>
                     </Link>
                 </div>
             </div>
             {/* Phones only: a small arrow under the frame, since the hero fills the screen
                 and nothing below it peeks in */}
             <Link to="/about" className="hero-scroll-cue" aria-label="Scroll to About">
-                <span className="scroll-arrow" aria-hidden="true">▼</span>
+                <span className="scroll-arrow scroll-sweep" aria-hidden="true">▼</span>
             </Link>
         </section>
     );

@@ -1464,6 +1464,30 @@ li {
   30% { transform: translateY(4px); }
 }
 
+/* A band of red washes down through the letters, timed with the bob: the text is
+   painted with a tall white-red-white gradient that slides from top to bottom */
+.scroll-sweep {
+  background-image: linear-gradient(to bottom, #ffffff 0%, #ffffff 30%, var(--red) 42%, var(--red) 58%, #ffffff 70%, #ffffff 100%);
+  background-size: 100% 300%;
+  background-position: 0 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: scroll-sweep 2.2s ease-in-out infinite;
+}
+
+/* The arrow keeps its bob alongside the sweep */
+.scroll-arrow.scroll-sweep {
+  animation: scroll-bob 2.2s ease-in-out infinite, scroll-sweep 2.2s ease-in-out infinite;
+}
+
+@keyframes scroll-sweep {
+  0% { background-position: 0 100%; }
+  45% { background-position: 0 10%; }
+  100% { background-position: 0 10%; }
+}
+
 .hero.is-scrolled .hud-scroll,
 .hero.is-scrolled .hero-scroll-cue {
   opacity: 0;
