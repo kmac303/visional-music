@@ -222,8 +222,6 @@ function Hero() {
                             </button>
                         </div>
                     )}
-                    {/* A quick line of proof on the first screen, for bookers deciding whether to scroll */}
-                    <p className="hud-label hero-proof">Live visuals for DJ Diesel (Shaq), Valentino Khan, Sidepiece &amp; more</p>
                     {message && <p className="hud-message" role="status">{message}</p>}
                     {mode === "mic" && <p className="hud-message">Mic audio stays on your device</p>}
                 </div>
