@@ -70,6 +70,7 @@ function VideoEmbed({ id, title }) {
 
 function Gallery() {
     const liveSets = [
+        "AjMwUlOUe8g?si",
         "-LXMkHBRMYU",
         "HoThrF1lgVA",
         "koF3Oj2KLPE",
