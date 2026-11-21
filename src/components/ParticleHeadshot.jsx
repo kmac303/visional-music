@@ -258,7 +258,8 @@ function ParticleHeadshot({ className = "" }) {
             // No WebGL: the plain photo stays on screen
             return;
         }
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 3));
+        // Sizes are worked out in screen pixels by hand (see updateSize)
+        renderer.setPixelRatio(1);
         renderer.setClearColor(0x000000, 0);
         container.appendChild(renderer.domElement);
 
@@ -341,11 +342,18 @@ function ParticleHeadshot({ className = "" }) {
         let photo;
 
         // Point size so neighboring blocks just touch at rest, like the photo
+        // The canvas is drawn at a whole number of screen pixels and shown at exactly that
+        // size, so the browser never squeezes it to fit the box. Squeezing even a fraction
+        // of a pixel dropped a row and column of pixels, which showed as a line across the face.
         const updateSize = () => {
-            const size = container.clientWidth;
-            if (!size) return;
-            renderer.setSize(size, size, false);
-            const devicePixels = size * renderer.getPixelRatio();
+            const width = container.getBoundingClientRect().width;
+            if (!width) return;
+            const ratio = Math.min(window.devicePixelRatio || 1, 3);
+            const devicePixels = Math.round(width * ratio);
+            renderer.setSize(devicePixels, devicePixels, false);
+            const cssSize = `${devicePixels / ratio}px`;
+            renderer.domElement.style.setProperty("width", cssSize, "important");
+            renderer.domElement.style.setProperty("height", cssSize, "important");
             pointsMaterial.uniforms.uPointSize.value = (devicePixels / GRID) * cameraDistance;
             dirty = true;
         };
