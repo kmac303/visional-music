@@ -6,8 +6,8 @@ import Events from "./Events";
 import Gallery from "./Gallery";
 import Contact from "./Contact";
 
-// The whole site on one scrolling page. /about, /testimonials, /events, /gallery, and
-// /contact still work as links: they open this page and scroll to that section.
+// The whole site on one scrolling page. /about, /testimonials, /events, /shows, /gallery,
+// and /contact still work as links: they open this page and scroll to that section.
 function Home() {
     const location = useLocation();
     const firstVisit = useRef(true);

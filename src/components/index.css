@@ -2597,9 +2597,10 @@ ul.hud-bar-links {
   scroll-margin-top: 64px;
 }
 
-/* /testimonials lands on a header inside About, which has no padding of its own above
-   the label, so it gets extra room to clear the logo */
-#testimonials {
+/* /testimonials and /shows land on headers inside a section, which have no padding of
+   their own above the label, so they get extra room to clear the logo */
+#testimonials,
+#shows {
   scroll-margin-top: 104px;
 }
 
@@ -2649,7 +2650,8 @@ ul.hud-bar-links {
     scroll-margin-top: 56px;
   }
 
-  #testimonials {
+  #testimonials,
+  #shows {
     scroll-margin-top: 84px;
   }
 }

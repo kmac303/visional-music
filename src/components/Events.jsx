@@ -208,7 +208,7 @@ function Events() {
             </ul>
 
             <div className="show-log-header">
-                <SectionHeader index="02.1" label="events.db" title="Show log" />
+                <SectionHeader id="shows" index="02.1" label="events.db" title="Show log" />
             </div>
             {upcoming.length > 0 && (
                 <>
