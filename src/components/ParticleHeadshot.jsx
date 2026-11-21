@@ -113,7 +113,7 @@ const pointsVertexShader = `
         lift = lift * lift * (3.0 - 2.0 * lift);
 
         vec3 home = position;
-        vec3 swirlAt = home * 2.4 + vec3(0.0, 0.0, uTime * 0.35);
+        vec3 swirlAt = home * 3.2 + vec3(0.0, 0.0, uTime * 0.35);
         vec3 swirl = vec3(
             snoise(swirlAt),
             snoise(swirlAt + vec3(31.4, 0.0, 0.0)),
@@ -121,17 +121,17 @@ const pointsVertexShader = `
         );
         // Each point travels its own distance, so the cloud spreads into wisps
         // instead of moving as one sheet
-        float reach = 0.25 + aRandom * 0.75;
-        vec3 drift = swirl * reach * 0.8 + vec3(0.22, 0.16, 0.7) * reach;
+        float reach = 0.2 + aRandom * 0.45;
+        vec3 drift = swirl * reach * 0.5 + vec3(0.12, 0.08, 0.45) * reach;
         vec3 moved = home + drift * lift;
 
         vec4 viewPosition = modelViewMatrix * vec4(moved, 1.0);
         gl_Position = projectionMatrix * viewPosition;
         // Points shrink as they fly off, which thins them into wisps
-        gl_PointSize = uPointSize * (1.0 - 0.45 * lift) * (1.0 / -viewPosition.z);
+        gl_PointSize = uPointSize * (1.0 - 0.25 * lift) * (1.0 / -viewPosition.z);
 
         vColor = aColor;
-        vFade = 1.0 - 0.55 * lift;
+        vFade = 1.0 - 0.25 * lift;
     }
 `;
 
