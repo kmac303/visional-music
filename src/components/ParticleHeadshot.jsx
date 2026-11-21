@@ -6,11 +6,12 @@ import * as THREE from "three";
 // drift away in smoky wisps, then settle back and hand over to the photo again. The head
 // also tilts a little toward the cursor. It reacts only to the cursor, not to the music.
 
-// Points across the photo. The image is 1200px with ~12px blocks, so 200 keeps the
-// blocky look close to the original at rest.
+// Points across the photo. Each point shows its own square of the full-resolution photo,
+// so at rest the points rebuild the photo exactly; this only sets how fine the pieces are
+// when they break apart.
 const GRID = 200;
-// How dark a sample can be before it's left out as background
-const MIN_BRIGHTNESS = 0.06;
+// How dark a square can be on average before it's left out as empty background
+const MIN_BRIGHTNESS = 0.02;
 // Size of the trail texture that remembers where the cursor has been
 const TRAIL_SIZE = 96;
 
@@ -100,10 +101,10 @@ const pointsVertexShader = `
     uniform sampler2D uTrail;
     uniform float uTime;
     uniform float uPointSize;
+    uniform float uCameraDistance;
     attribute vec2 aUv;
-    attribute vec3 aColor;
     attribute float aRandom;
-    varying vec3 vColor;
+    varying vec2 vUv;
     varying float vFade;
     ${noiseChunk}
 
@@ -127,24 +128,30 @@ const pointsVertexShader = `
 
         vec4 viewPosition = modelViewMatrix * vec4(moved, 1.0);
         gl_Position = projectionMatrix * viewPosition;
-        // Points shrink as they fly off, which thins them into wisps
-        gl_PointSize = uPointSize * (1.0 - 0.25 * lift) * (1.0 / -viewPosition.z);
+        // At rest each point covers exactly its square of the photo (points pulled forward
+        // for depth are scaled down to cancel the perspective). They shrink as they fly
+        // off, which thins them into wisps.
+        float restScale = (uCameraDistance - home.z) / uCameraDistance;
+        gl_PointSize = uPointSize * restScale * (1.0 - 0.25 * lift) / -viewPosition.z;
 
-        vColor = aColor;
+        vUv = aUv;
         vFade = 1.0 - 0.25 * lift;
     }
 `;
 
 const pointsFragmentShader = `
-    varying vec3 vColor;
+    uniform sampler2D uPhoto;
+    uniform float uCell;
+    varying vec2 vUv;
     varying float vFade;
     void main() {
-        // Square points, like the blocks in the photo
-        gl_FragColor = vec4(vColor * vFade, 1.0);
+        // Each square point shows its own piece of the full-resolution photo
+        vec2 uv = vUv + (gl_PointCoord - 0.5) * vec2(uCell, -uCell);
+        gl_FragColor = vec4(texture2D(uPhoto, uv).rgb * vFade, 1.0);
     }
 `;
 
-// Reads the photo into point positions, colors and a random value per point
+// Lays out a point for every non-empty square of the photo, with a random value per point
 function buildPointCloud(image, cameraDistance) {
     const canvas = document.createElement("canvas");
     canvas.width = GRID;
@@ -154,7 +161,6 @@ function buildPointCloud(image, cameraDistance) {
     const pixels = context.getImageData(0, 0, GRID, GRID).data;
 
     const positions = [];
-    const colors = [];
     const uvs = [];
     const randoms = [];
     for (let row = 0; row < GRID; row++) {
@@ -177,7 +183,6 @@ function buildPointCloud(image, cameraDistance) {
             const z = dome * 0.22 + brightness * 0.04;
             const squeeze = (cameraDistance - z) / cameraDistance;
             positions.push(x * squeeze, y * squeeze, z);
-            colors.push(r, g, b);
             uvs.push(u, v);
             randoms.push(Math.random());
         }
@@ -185,7 +190,6 @@ function buildPointCloud(image, cameraDistance) {
 
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
-    geometry.setAttribute("aColor", new THREE.Float32BufferAttribute(colors, 3));
     geometry.setAttribute("aUv", new THREE.Float32BufferAttribute(uvs, 2));
     geometry.setAttribute("aRandom", new THREE.Float32BufferAttribute(randoms, 1));
     return geometry;
@@ -207,7 +211,7 @@ function ParticleHeadshot({ className = "" }) {
             // No WebGL: the plain photo stays on screen
             return;
         }
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 3));
         renderer.setClearColor(0x000000, 0);
         container.appendChild(renderer.domElement);
 
@@ -266,6 +270,9 @@ function ParticleHeadshot({ className = "" }) {
                 uTrail: { value: trailRead.texture },
                 uTime: { value: 0 },
                 uPointSize: { value: 1 },
+                uCameraDistance: { value: cameraDistance },
+                uPhoto: { value: null },
+                uCell: { value: 1 / GRID },
             },
             vertexShader: pointsVertexShader,
             fragmentShader: pointsFragmentShader,
@@ -273,6 +280,7 @@ function ParticleHeadshot({ className = "" }) {
         });
         let points;
         let geometry;
+        let photo;
 
         // Point size so neighboring blocks just touch at rest, like the photo
         const updateSize = () => {
@@ -280,7 +288,7 @@ function ParticleHeadshot({ className = "" }) {
             if (!size) return;
             renderer.setSize(size, size, false);
             const devicePixels = size * renderer.getPixelRatio();
-            pointsMaterial.uniforms.uPointSize.value = (devicePixels / GRID) * cameraDistance * 1.05;
+            pointsMaterial.uniforms.uPointSize.value = (devicePixels / GRID) * cameraDistance;
             dirty = true;
         };
 
@@ -370,6 +378,10 @@ function ParticleHeadshot({ className = "" }) {
 
         const build = () => {
             geometry = buildPointCloud(image, cameraDistance);
+            photo = new THREE.Texture(image);
+            photo.anisotropy = renderer.capabilities.getMaxAnisotropy();
+            photo.needsUpdate = true;
+            pointsMaterial.uniforms.uPhoto.value = photo;
             points = new THREE.Points(geometry, pointsMaterial);
             scene.add(points);
             updateSize();
@@ -389,6 +401,7 @@ function ParticleHeadshot({ className = "" }) {
             container.removeEventListener("touchend", leave);
             container.removeEventListener("touchcancel", leave);
             geometry?.dispose();
+            photo?.dispose();
             pointsMaterial.dispose();
             trailMaterial.dispose();
             trailRead.dispose();
