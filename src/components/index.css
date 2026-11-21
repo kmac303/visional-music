@@ -1265,6 +1265,8 @@ li {
 }
 
 #imageContainer.hero-headshot {
+  /* A finger dragged on the headshot stirs the particles without scrolling the page */
+  touch-action: none;
   width: min(38vh, 64vw);
   min-width: 0;
   max-width: none;
