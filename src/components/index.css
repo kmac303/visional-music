@@ -1464,22 +1464,33 @@ li {
   30% { transform: translateY(4px); }
 }
 
-/* A quick red/teal split, timed with the bob: as the arrow dips, a red copy slips up
-   and a teal copy slips down, then they snap back together into white */
-.scroll-glitch {
-  animation: scroll-glitch 2.2s step-end infinite;
+/* A red/teal band washes down through the letters, timed with the bob, pointing the way
+   down: the text is painted with a tall gradient (white, red, teal, white) that slides
+   from top to bottom, teal leading and red trailing like the site's color split */
+.scroll-sweep {
+  background-image: linear-gradient(to bottom,
+    #ffffff 0%, #ffffff 35%,
+    var(--red) 41%, var(--red) 48%,
+    var(--cyan) 52%, var(--cyan) 59%,
+    #ffffff 65%, #ffffff 100%);
+  background-size: 100% 300%;
+  background-position: 0 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: scroll-sweep 2.2s ease-in-out infinite;
 }
 
-/* The arrow keeps its bob alongside the split */
-.scroll-arrow.scroll-glitch {
-  animation: scroll-bob 2.2s ease-in-out infinite, scroll-glitch 2.2s step-end infinite;
+/* The arrow keeps its bob alongside the sweep */
+.scroll-arrow.scroll-sweep {
+  animation: scroll-bob 2.2s ease-in-out infinite, scroll-sweep 2.2s ease-in-out infinite;
 }
 
-@keyframes scroll-glitch {
-  0%, 20%, 37%, 100% { text-shadow: 0 0 transparent, 0 0 transparent; }
-  23% { text-shadow: 0 -2px var(--red), 0 2px var(--cyan); }
-  29% { text-shadow: 0 -3px var(--red), 0 3px var(--cyan); }
-  34% { text-shadow: 0 -1px var(--red), 0 1px var(--cyan); }
+@keyframes scroll-sweep {
+  0% { background-position: 0 100%; }
+  45% { background-position: 0 0%; }
+  100% { background-position: 0 0%; }
 }
 
 .hero.is-scrolled .hud-scroll,
