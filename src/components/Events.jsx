@@ -33,23 +33,22 @@ function Events() {
     // List of events (upcoming & past).
     // date (and endDate for multi-day shows) is "YYYY-MM-DD". A dated show appears under
     // Upcoming, soonest first, until its last day is over in Denver, then moves to Past
-    // on its own. Shows without a date stay wherever their category puts them.
+    // on its own, so it needs no category. Only shows without a date use category
+    // ("upcoming" or "past") to say where they go.
     const events = [
         { 
             title: "Pretty Sweet - Mission Ballroom", 
             imgSrc: "/assets/PrettySweet.png", 
             alt: "prettysweet", 
             link: "https://www.axs.com/events/1392934/smoakland-tickets", 
-            date: "2026-11-14",
-            category: "upcoming" 
+            date: "2026-11-14"
         },
         { 
             title: "Phyphr - Cervantes Masterpiece Ballroom", 
             imgSrc: "/assets/Phyphr.jpeg", 
             alt: "phyphr", 
             link: "https://cervantesmasterpiece.com/event/phyphr-w-miilk-blossm-xenolinguist-samso/cervantes-masterpiece-ballroom/denver-colorado/", 
-            date: "2026-11-28",
-            category: "upcoming" 
+            date: "2026-11-28"
         },
         { 
             title: "Decadence 2026", 
@@ -57,8 +56,7 @@ function Events() {
             alt: "decadence2026", 
             link: "https://decadencenye.com", 
             date: "2026-12-30",
-            endDate: "2026-12-31",
-            category: "upcoming" 
+            endDate: "2026-12-31"
         },
         { 
             title: "WonkyWilla - Lost Lands 2026", 
