@@ -17,7 +17,7 @@ function App() {
         <NavBar />
         <Routes>
           {/* One scrolling page; the section paths scroll to their section */}
-          {["/", "/about", "/events", "/gallery", "/contact"].map((path) => (
+          {["/", "/about", "/testimonials", "/events", "/gallery", "/contact"].map((path) => (
             <Route key={path} path={path} element={<Home />} />
           ))}
           <Route path="/lessons" element={<Lessons />} />

@@ -112,7 +112,7 @@ function About() {
                 )}
             </dialog>
 
-            <SectionHeader index="01.1" label="incoming_transmissions" title="What artists say" />
+            <SectionHeader id="testimonials" index="01.1" label="incoming_transmissions" title="What artists say" />
             <div className="transmissions">
                 {testimonials.map((testimonial, index) => (
                     <motion.figure key={testimonial.name} className="transmission" {...reveal}>

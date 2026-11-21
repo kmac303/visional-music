@@ -2597,6 +2597,12 @@ ul.hud-bar-links {
   scroll-margin-top: 64px;
 }
 
+/* /testimonials lands on a header inside About, which has no padding of its own above
+   the label, so it gets extra room to clear the logo */
+#testimonials {
+  scroll-margin-top: 104px;
+}
+
 /* Pages without the hero, like Lessons, start below the strip */
 .top-bar + section {
   margin-top: 72px;
@@ -2641,5 +2647,9 @@ ul.hud-bar-links {
 
   .page-section {
     scroll-margin-top: 56px;
+  }
+
+  #testimonials {
+    scroll-margin-top: 84px;
   }
 }
