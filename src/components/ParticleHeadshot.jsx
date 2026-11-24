@@ -9,7 +9,7 @@ import * as THREE from "three";
 // Points across the photo. Each point shows its own square of the full-resolution photo,
 // so at rest the points rebuild the photo exactly; this only sets how fine the pieces are
 // when they break apart.
-const GRID = 200;
+const GRID = 150;
 // How dark a square can be on average before it's left out as empty background
 const MIN_BRIGHTNESS = 0.02;
 // Points are drawn this much bigger than their square so neighbors overlap a little. The
@@ -253,7 +253,7 @@ function ParticleHeadshot({ className = "" }) {
 
         let renderer;
         try {
-            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false, powerPreference: "high-performance" });
         } catch {
             // No WebGL: the plain photo stays on screen
             return;
@@ -348,7 +348,7 @@ function ParticleHeadshot({ className = "" }) {
         const updateSize = () => {
             const width = container.getBoundingClientRect().width;
             if (!width) return;
-            const ratio = Math.min(window.devicePixelRatio || 1, 3);
+            const ratio = Math.min(window.devicePixelRatio || 1, 2);
             const devicePixels = Math.round(width * ratio);
             renderer.setSize(devicePixels, devicePixels, false);
             const cssSize = `${devicePixels / ratio}px`;
@@ -443,7 +443,6 @@ function ParticleHeadshot({ className = "" }) {
         const build = () => {
             geometry = buildPointCloud(image, cameraDistance);
             photo = new THREE.Texture(image);
-            photo.anisotropy = renderer.capabilities.getMaxAnisotropy();
             photo.needsUpdate = true;
             pointsMaterial.uniforms.uPhoto.value = photo;
             points = new THREE.Points(geometry, pointsMaterial);
