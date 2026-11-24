@@ -342,13 +342,17 @@ function ParticleHeadshot({ className = "" }) {
         let photo;
 
         // Point size so neighboring blocks just touch at rest, like the photo
-        // The canvas is drawn at a whole number of screen pixels and shown at exactly that
-        // size, so the browser never squeezes it to fit the box. Squeezing even a fraction
-        // of a pixel dropped a row and column of pixels, which showed as a line across the face.
+        // The canvas is drawn at a whole number of pixels and shown at exactly its size divided
+        // by the ratio, so the browser never squeezes it by an uneven amount to fit the box.
+        // Squeezing by a fraction of a pixel dropped a row and column of pixels, which showed
+        // as a line across the face.
         const updateSize = () => {
             const width = container.getBoundingClientRect().width;
             if (!width) return;
-            const ratio = Math.min(window.devicePixelRatio || 1, 3);
+            // At least 2x, even on 1x monitors: there the points would be under 2 pixels wide
+            // and snap from pixel to pixel as they drift, which looks choppy. Drawn at 2x and
+            // shrunk down, they glide.
+            const ratio = Math.max(2, Math.min(window.devicePixelRatio || 1, 3));
             const devicePixels = Math.round(width * ratio);
             renderer.setSize(devicePixels, devicePixels, false);
             const cssSize = `${devicePixels / ratio}px`;
