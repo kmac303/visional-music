@@ -37,6 +37,13 @@ function Events() {
     // ("upcoming" or "past") to say where they go.
     const events = [
         {
+            title: "Savej - Denver, CO",
+            imgSrc: "/assets/Savej Cervantes 2027.jpg",
+            alt: "Shift featuring Savej, Animus Live, at Cervantes' Masterpiece Ballroom flyer, with Lily Fangz, Morillo and Saucy Feather",
+            link: "https://cervantesmasterpiece.com/event/shift-ft-savej-w-lily-fangz-morillo-saucy-feather/cervantes-masterpiece-ballroom/denver-colorado/",
+            date: "2027-01-14"
+        },
+        {
             title: "Mport - Mission Ballroom",
             imgSrc: "/assets/Mport Mission Ballroom.jpg",
             alt: "Ahee BassQuest at Mission Ballroom flyer, with Eliminate, Mport and Starmonster",
