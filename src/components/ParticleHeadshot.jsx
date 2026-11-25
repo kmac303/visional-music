@@ -37,7 +37,9 @@ const trailFragmentShader = `
     }
 
     void main() {
-        float previous = texture2D(uPrevious, vUv).r * uDecay;
+        // The small subtraction lets the 8-bit trail fade all the way to zero instead of
+        // getting stuck just above it
+        float previous = max(0.0, texture2D(uPrevious, vUv).r * uDecay - 0.006);
         float brush = smoothstep(uRadius, 0.0, distanceToSegment(vUv, uFrom, uTo)) * uAmount;
         gl_FragColor = vec4(min(1.0, previous + brush), 0.0, 0.0, 1.0);
     }
@@ -115,6 +117,9 @@ const pointsVertexShader = `
 
     void main() {
         float lift = texture2D(uTrail, aUv).r;
+        // Never trust the trail blindly: an invalid value would fling points out of sight
+        if (!(lift >= 0.0)) lift = 0.0;
+        lift = min(lift, 1.0);
         // Ease in so a light touch only ripples and a full pass breaks the face apart
         lift = lift * lift * (3.0 - 2.0 * lift);
 
@@ -134,10 +139,10 @@ const pointsVertexShader = `
         vec4 viewPosition = modelViewMatrix * vec4(moved, 1.0);
         gl_Position = projectionMatrix * viewPosition;
         // At rest each point covers exactly its square of the photo (points pulled forward
-        // for depth are scaled down to cancel the perspective). They shrink as they fly
-        // off a little, but coming toward the camera still makes them look bigger.
+        // for depth are scaled down to cancel the perspective). They grow as they lift, up to
+        // nearly double, so the stirred area stays filled and bright instead of going dark.
         float restScale = (uCameraDistance - home.z) / uCameraDistance;
-        gl_PointSize = uPointSize * uOverlap * restScale * (1.0 - 0.1 * lift) / -viewPosition.z;
+        gl_PointSize = uPointSize * uOverlap * restScale * (1.0 + 0.8 * lift) / -viewPosition.z;
 
         vUv = aUv;
         vFade = 1.0 - 0.1 * lift;
@@ -165,7 +170,7 @@ function domeDepth(x, y) {
 
 // A solid copy of the photo on the same dome, drawn behind the points. Any hairline gap
 // between points shows the photo instead of black. Where the cursor stirs the points,
-// it fades away so the wisps break apart cleanly.
+// it dims to a faint ghost of the face behind the wisps.
 const backingVertexShader = `
     varying vec2 vUv;
     void main() {
@@ -180,8 +185,9 @@ const backingFragmentShader = `
     varying vec2 vUv;
     void main() {
         float lift = texture2D(uTrail, vUv).r;
-        float keep = 1.0 - smoothstep(0.01, 0.12, lift);
-        if (keep <= 0.0) discard;
+        if (!(lift >= 0.0)) lift = 0.0;
+        // Where the face is stirred, a faint ghost of it stays behind the wisps instead of black
+        float keep = 1.0 - 0.7 * smoothstep(0.01, 0.12, lift);
         gl_FragColor = vec4(texture2D(uPhoto, vUv).rgb * keep, keep);
     }
 `;
@@ -284,7 +290,9 @@ function ParticleHeadshot({ className = "" }) {
 
         // Trail: two small textures swapped each frame
         const makeTarget = () => new THREE.WebGLRenderTarget(TRAIL_SIZE, TRAIL_SIZE, {
-            type: THREE.HalfFloatType,
+            // Plain 8-bit: Safari mishandles the higher-precision float formats, which let
+            // bad values creep in and blacked out the stirred part of the face
+            type: THREE.UnsignedByteType,
             minFilter: THREE.LinearFilter,
             magFilter: THREE.LinearFilter,
             depthBuffer: false,
