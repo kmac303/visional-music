@@ -37,7 +37,7 @@ function Events() {
     // ("upcoming" or "past") to say where they go.
     const events = [
         {
-            title: "Savej - Denver, CO",
+            title: "Savej - Cervantes Masterpiece Ballroom",
             imgSrc: "/assets/Savej Cervantes 2027.jpg",
             alt: "Shift featuring Savej, Animus Live, at Cervantes' Masterpiece Ballroom flyer, with Lily Fangz, Morillo and Saucy Feather",
             link: "https://cervantesmasterpiece.com/event/shift-ft-savej-w-lily-fangz-morillo-saucy-feather/cervantes-masterpiece-ballroom/denver-colorado/",
