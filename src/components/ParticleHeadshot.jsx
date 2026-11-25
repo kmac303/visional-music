@@ -139,10 +139,10 @@ const pointsVertexShader = `
         vec4 viewPosition = modelViewMatrix * vec4(moved, 1.0);
         gl_Position = projectionMatrix * viewPosition;
         // At rest each point covers exactly its square of the photo (points pulled forward
-        // for depth are scaled down to cancel the perspective). They grow as they lift, up to
-        // nearly double, so the stirred area stays filled and bright instead of going dark.
+        // for depth are scaled down to cancel the perspective). They shrink as they fly
+        // off a little, but coming toward the camera still makes them look bigger.
         float restScale = (uCameraDistance - home.z) / uCameraDistance;
-        gl_PointSize = uPointSize * uOverlap * restScale * (1.0 + 0.8 * lift) / -viewPosition.z;
+        gl_PointSize = uPointSize * uOverlap * restScale * (1.0 - 0.1 * lift) / -viewPosition.z;
 
         vUv = aUv;
         vFade = 1.0 - 0.1 * lift;
@@ -170,7 +170,7 @@ function domeDepth(x, y) {
 
 // A solid copy of the photo on the same dome, drawn behind the points. Any hairline gap
 // between points shows the photo instead of black. Where the cursor stirs the points,
-// it dims to a faint ghost of the face behind the wisps.
+// it fades away so the wisps break apart cleanly.
 const backingVertexShader = `
     varying vec2 vUv;
     void main() {
@@ -186,8 +186,8 @@ const backingFragmentShader = `
     void main() {
         float lift = texture2D(uTrail, vUv).r;
         if (!(lift >= 0.0)) lift = 0.0;
-        // Where the face is stirred, a faint ghost of it stays behind the wisps instead of black
-        float keep = 1.0 - 0.7 * smoothstep(0.01, 0.12, lift);
+        float keep = 1.0 - smoothstep(0.01, 0.12, lift);
+        if (keep <= 0.0) discard;
         gl_FragColor = vec4(texture2D(uPhoto, vUv).rgb * keep, keep);
     }
 `;
