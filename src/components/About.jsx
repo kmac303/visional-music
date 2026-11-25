@@ -36,7 +36,7 @@ const testimonials = [
         link: "https://www.instagram.com/whoisprettysweet/",
         image: "/assets/Pretty Sweet Live.jpg",
         showFullPhoto: true,
-        quote: "We’re very impressed with Kevin’s work. He’s run timecode, live cam feed, and freestyle visuals immaculately. We will be working with him again!",
+        quote: "We’re very impressed with Kevin’s work. He’s run timecode, live cam feed, and freestyle visuals immaculately. We’ll be working with him again!",
     },
     {
         name: "DJ Pressed",
