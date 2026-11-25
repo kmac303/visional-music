@@ -293,7 +293,6 @@
     },
     {
       "name": "PapaJay",
-      "red": true,
       "instagram": {
         "handle": "itspapajay",
         "followers": 22000
@@ -352,6 +351,7 @@
     },
     {
       "name": "Savage",
+      "red": true,
       "instagram": {
         "handle": "savage_bass_",
         "followers": 2450
@@ -1191,25 +1191,6 @@
       }
     },
     {
-      "name": "Swampz",
-      "instagram": {
-        "handle": "swampzmusic",
-        "followers": 10000
-      },
-      "tiktok": {
-        "handle": "swampzmusic",
-        "followers": 1777
-      },
-      "spotify": {
-        "id": "4Qk0fjjVPud8UUH0xGyLsP",
-        "listeners": 3017
-      },
-      "soundcloud": {
-        "handle": "swampzmusic",
-        "followers": 8007
-      }
-    },
-    {
       "name": "Covex",
       "instagram": {
         "handle": "covexmusic",
@@ -1230,7 +1211,6 @@
     },
     {
       "name": "Decker Rush",
-      "red": true,
       "instagram": {
         "handle": "deckerush",
         "followers": 7066
