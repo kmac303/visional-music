@@ -2,7 +2,7 @@
 //
 // The artists, their accounts and their latest counts live in src/data/artists.json.
 // - red: artists Visional worked with directly (not as a house VJ). They stay red and keep
-//   every fourth spot in the lineup (1st, 5th, 9th, ...).
+//   every third spot in the lineup (1st, 4th, 7th, ...).
 // - pinFirst: always the first name in the lineup (DJ Diesel).
 // - Following = Instagram followers + TikTok followers + Spotify monthly listeners +
 //   SoundCloud followers, plus any linked accounts in alsoCount (Shaq's for DJ Diesel).
@@ -25,7 +25,7 @@ export function totalFollowing(artist) {
     return accountTotal(artist) + (artist.alsoCount || []).reduce((sum, extra) => sum + accountTotal(extra), 0);
 }
 
-// Red artists hold every fourth spot and everyone else fills the gaps, each group ranked by
+// Red artists hold every third spot and everyone else fills the gaps, each group ranked by
 // total following, with a pinned artist always first. If one group runs out, the other
 // fills the rest.
 export function buildLineup(artists = ARTISTS) {
@@ -34,7 +34,7 @@ export function buildLineup(artists = ARTISTS) {
     const others = artists.filter((artist) => !artist.red).sort(rank);
     const lineup = [];
     while (red.length || others.length) {
-        const redSpot = lineup.length % 4 === 0;
+        const redSpot = lineup.length % 3 === 0;
         const next = (redSpot ? red.shift() : others.shift()) || red.shift() || others.shift();
         lineup.push(next);
     }

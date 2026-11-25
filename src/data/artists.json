@@ -313,7 +313,6 @@
     },
     {
       "name": "Spoone",
-      "red": true,
       "instagram": {
         "handle": "spoonemusic",
         "followers": 15000
@@ -353,7 +352,6 @@
     },
     {
       "name": "Savage",
-      "red": true,
       "instagram": {
         "handle": "savage_bass_",
         "followers": 2450
@@ -446,6 +444,7 @@
     },
     {
       "name": "Bear Grillz",
+      "red": true,
       "instagram": {
         "handle": "itsbeargrillz",
         "followers": 241000
@@ -522,6 +521,7 @@
     },
     {
       "name": "Jkyl & Hyde",
+      "red": true,
       "instagram": {
         "handle": "jkylxhyde",
         "followers": 225000
@@ -674,6 +674,7 @@
     },
     {
       "name": "MC4D",
+      "red": true,
       "instagram": {
         "handle": "mc4dmusic",
         "followers": 267000
@@ -747,6 +748,7 @@
     },
     {
       "name": "Sisto",
+      "red": true,
       "instagram": {
         "handle": "sisto_official",
         "followers": 35000
@@ -893,6 +895,7 @@
     },
     {
       "name": "Lizzy Jane",
+      "red": true,
       "instagram": {
         "handle": "thisislizzyjane",
         "followers": 25000
@@ -947,6 +950,7 @@
     },
     {
       "name": "Hostage Situation",
+      "red": true,
       "instagram": {
         "handle": "hostagesituationofficial",
         "followers": 37000
@@ -1226,6 +1230,7 @@
     },
     {
       "name": "Decker Rush",
+      "red": true,
       "instagram": {
         "handle": "deckerush",
         "followers": 7066
@@ -1321,6 +1326,7 @@
     },
     {
       "name": "Ravenscoon",
+      "red": true,
       "instagram": {
         "handle": "ravenscoon",
         "followers": 93000
@@ -1340,6 +1346,7 @@
     },
     {
       "name": "Jantsen",
+      "red": true,
       "instagram": {
         "handle": "jantsenr",
         "followers": 60000
