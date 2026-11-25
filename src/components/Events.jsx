@@ -58,7 +58,7 @@ function Events() {
             date: "2026-11-14"
         },
         { 
-            title: "Phyphr - Cervantes Masterpiece Ballroom", 
+            title: "Phyphr & Miilk - Cervantes Masterpiece Ballroom", 
             imgSrc: "/assets/Phyphr.jpeg", 
             alt: "phyphr", 
             link: "https://cervantesmasterpiece.com/event/phyphr-w-miilk-blossm-xenolinguist-samso/cervantes-masterpiece-ballroom/denver-colorado/", 
