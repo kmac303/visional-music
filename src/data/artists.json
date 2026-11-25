@@ -1318,6 +1318,44 @@
         "handle": "vinnie",
         "followers": 25126
       }
+    },
+    {
+      "name": "Ravenscoon",
+      "instagram": {
+        "handle": "ravenscoon",
+        "followers": 93000
+      },
+      "tiktok": {
+        "handle": "ravenscoon",
+        "followers": 45200
+      },
+      "spotify": {
+        "id": "7vfvYuEyJbh1Tf3QlOTAmZ",
+        "listeners": 129053
+      },
+      "soundcloud": {
+        "handle": "ravenscoon",
+        "followers": 71488
+      }
+    },
+    {
+      "name": "Jantsen",
+      "instagram": {
+        "handle": "jantsenr",
+        "followers": 60000
+      },
+      "tiktok": {
+        "handle": "jantsen.music",
+        "followers": 1976
+      },
+      "spotify": {
+        "id": "6rhTnHtyVcRrtuzS1wnLZg",
+        "listeners": 114194
+      },
+      "soundcloud": {
+        "handle": "jantsenmusic",
+        "followers": 72230
+      }
     }
   ]
 }
