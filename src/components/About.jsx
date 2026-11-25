@@ -36,7 +36,7 @@ const testimonials = [
         link: "https://www.instagram.com/whoisprettysweet/",
         image: "/assets/Pretty Sweet Live.jpg",
         showFullPhoto: true,
-        quote: "Very impressed with Kevin’s work. We had him VJ for us at The Ogden Theatre and Mission Ballroom. He ran timecode, live cam feed, and freestyle visuals immaculately. We will be working with him again!",
+        quote: "Very impressed with Kevin’s work. He ran timecode, live cam feed, and freestyle visuals immaculately. We will be working with him again!",
     },
     {
         name: "DJ Pressed",
