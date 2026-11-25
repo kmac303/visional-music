@@ -293,6 +293,7 @@
     },
     {
       "name": "PapaJay",
+      "red": true,
       "instagram": {
         "handle": "itspapajay",
         "followers": 22000
@@ -748,7 +749,6 @@
     },
     {
       "name": "Sisto",
-      "red": true,
       "instagram": {
         "handle": "sisto_official",
         "followers": 35000
