@@ -293,7 +293,6 @@
     },
     {
       "name": "PapaJay",
-      "red": true,
       "instagram": {
         "handle": "itspapajay",
         "followers": 22000
@@ -1211,6 +1210,7 @@
     },
     {
       "name": "Decker Rush",
+      "red": true,
       "instagram": {
         "handle": "deckerush",
         "followers": 7066
