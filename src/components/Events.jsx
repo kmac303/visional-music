@@ -121,13 +121,6 @@ function Events() {
             link: "https://www.sunnyrave.com/tour", 
             category: "past" 
         },
-        { 
-            title: "Decadence 2025", 
-            imgSrc: "/assets/Decadence2025.jpg", 
-            alt: "decadence25", 
-            link: "https://decadencenye.com", 
-            category: "past" 
-        },
         // { 
         //     title: "Desert Dwellers, David Starfire, & Savej - Denver", 
         //     imgSrc: "/assets/desertdwellers.jpg", 
