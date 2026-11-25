@@ -46,6 +46,13 @@ const testimonials = [
         showFullPhoto: true,
         quote: "Every VJ I’ve shared my custom Resolume composition with has been blown away. Kevin’s work on creating this is next-level and deeply appreciated.",
     },
+    {
+        name: "Pretty Sweet",
+        link: "https://www.instagram.com/whoisprettysweet/",
+        image: "/assets/Pretty Sweet Live.jpg",
+        showFullPhoto: true,
+        quote: "Very impressed with Kevin’s work. We had him VJ for us at The Ogden Theatre and Mission Ballroom. He ran timecode, live cam feed, and freestyle visuals immaculately. We will be working with him again!",
+    },
 ];
 
 // Fades each block in as it scrolls into view

@@ -1747,9 +1747,10 @@ section.page-section {
   color: var(--red);
 }
 
+/* Two per row, so four testimonials sit in an even 2x2 grid */
 .transmissions {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
