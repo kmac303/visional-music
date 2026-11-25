@@ -36,6 +36,13 @@ function Events() {
     // on its own, so it needs no category. Only shows without a date use category
     // ("upcoming" or "past") to say where they go.
     const events = [
+        {
+            title: "Mport - Mission Ballroom",
+            imgSrc: "/assets/Mport Mission Ballroom.jpg",
+            alt: "Ahee BassQuest at Mission Ballroom flyer, with Eliminate, Mport and Starmonster",
+            link: "https://www.axs.com/events/1447619/ahee-tickets",
+            date: "2026-12-19"
+        },
         { 
             title: "Pretty Sweet - Mission Ballroom", 
             imgSrc: "/assets/PrettySweet.png", 
