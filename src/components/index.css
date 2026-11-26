@@ -1950,6 +1950,13 @@ ul.artist-cloud {
   text-transform: uppercase;
 }
 
+/* Phones: names a touch smaller than the 22.4px minimum the desktop size bottoms out at */
+@media (max-width: 768px) {
+  ul.artist-cloud {
+    font-size: 22.2px;
+  }
+}
+
 .artist-cloud li {
   padding: 0;
   text-align: center;
