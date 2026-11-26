@@ -86,6 +86,40 @@ function Hero() {
         setFrozen(moshControls.freeze);
     };
     const heroRef = useRef(null);
+    const cursorRef = useRef(null);
+
+    // Desktop only: four animated corner brackets follow the mouse over the hero's
+    // background in place of the arrow, as a hint that the background reacts to it. Over
+    // the headshot, buttons, links and sliders the normal cursor comes back.
+    useEffect(() => {
+        const hero = heroRef.current;
+        const brackets = cursorRef.current;
+        if (!hero || !brackets || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+        let frame = 0;
+        let x = 0;
+        let y = 0;
+        const place = () => {
+            frame = 0;
+            brackets.style.transform = `translate(${x}px, ${y}px)`;
+        };
+        const move = (event) => {
+            x = event.clientX;
+            y = event.clientY;
+            // Over controls, and over the headshot (whose particles already show it reacts),
+            // the normal cursor takes over
+            const overControl = event.target.closest("a, button, input, label, [role='button'], #imageContainer");
+            brackets.classList.toggle("is-visible", !overControl);
+            if (!frame) frame = requestAnimationFrame(place);
+        };
+        const leave = () => brackets.classList.remove("is-visible");
+        hero.addEventListener("pointermove", move);
+        hero.addEventListener("pointerleave", leave);
+        return () => {
+            cancelAnimationFrame(frame);
+            hero.removeEventListener("pointermove", move);
+            hero.removeEventListener("pointerleave", leave);
+        };
+    }, []);
     const readouts = useRef({});
     const readout = (key) => (element) => {
         readouts.current[key] = element;
@@ -170,6 +204,12 @@ function Hero() {
 
     return (
         <section id="top" className={scrolled ? "hero is-scrolled" : "hero"} ref={heroRef}>
+            <div className="hero-cursor" ref={cursorRef} aria-hidden="true">
+                <span className="hero-cursor-corner hero-cursor-tl" />
+                <span className="hero-cursor-corner hero-cursor-tr" />
+                <span className="hero-cursor-corner hero-cursor-br" />
+                <span className="hero-cursor-corner hero-cursor-bl" />
+            </div>
             <div className="hero-panel">
                 {/* Opens the page the way the Contact sign-off closes it ("End of transmission").
                     It gets its own row across the top of the frame. */}

@@ -5,6 +5,7 @@ import About from "./About";
 import Events from "./Events";
 import Gallery from "./Gallery";
 import Contact from "./Contact";
+import BootIntro from "./BootIntro";
 
 // The whole site on one scrolling page. /about, /testimonials, /events, /shows, /gallery,
 // and /contact still work as links: they open this page and scroll to that section.
@@ -38,6 +39,7 @@ function Home() {
 
     return (
         <main className="page">
+            <BootIntro />
             <Hero />
             {/* Everything after the landing screen, as one block: on desktop the page snaps
                 between the hero and this block, and scrolls freely inside it */}
