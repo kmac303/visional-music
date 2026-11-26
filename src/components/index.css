@@ -1542,7 +1542,7 @@ section.page-section {
 }
 
 .section-header {
-  margin-bottom: 44px;
+  margin-bottom: 28px;
 }
 
 .section-header .section-label {
@@ -1868,6 +1868,12 @@ section.page-section {
 .events-group-label {
   margin-top: 48px;
   margin-bottom: 16px;
+}
+
+/* The first group label (Upcoming) sits the same distance under SHOW LOG as other
+   sections' content sits under their titles */
+.show-log-header + .events-group-label {
+  margin-top: 0;
 }
 
 /* Three across (two on phones). Any leftover flyers in the last row sit centered,
