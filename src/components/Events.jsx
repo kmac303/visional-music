@@ -1,6 +1,100 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 import { buildLineup } from "./artists";
+
+// After the lineup wraps into lines, rearrange names within each line so red names don't
+// sit right under a red name on the line above (on narrow screens they'd stack into red
+// columns). Names only trade places with their neighbors on the same line, using the CSS
+// order property, so where lines break never changes and the ranking moves by one spot at
+// most. Re-checked on resize.
+function useStaggeredReds(listRef) {
+    useEffect(() => {
+        const list = listRef.current;
+        if (!list) return;
+        const items = [...list.children];
+
+        // Every way to rearrange a line where each name moves at most one spot
+        const nudges = (count) => {
+            if (count <= 1) return [[...Array(count).keys()]];
+            const results = [];
+            const build = (prefix, next) => {
+                if (next >= count) { results.push(prefix); return; }
+                build([...prefix, next], next + 1);
+                if (next + 1 < count) build([...prefix, next + 1, next], next + 2);
+            };
+            build([], 0);
+            return results;
+        };
+
+        const arrange = () => {
+            items.forEach((item, index) => { item.style.order = index; });
+            const gap = parseFloat(getComputedStyle(list).columnGap) || 0;
+            const width = list.clientWidth;
+            // Group names into the lines the browser wrapped them into
+            const lines = [];
+            items.forEach((item) => {
+                const box = item.getBoundingClientRect();
+                const entry = { item, width: box.width, red: item.classList.contains("is-red"), top: Math.round(box.top) };
+                const line = lines[lines.length - 1];
+                if (line && Math.abs(line[0].top - entry.top) < 4) line.push(entry);
+                else lines.push([entry]);
+            });
+            // Where each name lands in a centered line, in a given order
+            const spans = (line) => {
+                const total = line.reduce((sum, entry) => sum + entry.width, 0) + gap * (line.length - 1);
+                let x = (width - total) / 2;
+                return line.map((entry) => {
+                    const span = { red: entry.red, left: x, right: x + entry.width };
+                    x += entry.width + gap;
+                    return span;
+                });
+            };
+            // How much red names line up under red names above
+            const stacking = (above, below) => below.filter((b) => b.red).reduce((score, b) => score + Math.max(0, ...above.filter((a) => a.red).map((a) => {
+                const overlap = Math.min(a.right, b.right) - Math.max(a.left, b.left);
+                return overlap / Math.min(a.right - a.left, b.right - b.left);
+            })), 0);
+
+            let order = 0;
+            let previous = null;
+            lines.forEach((line) => {
+                let best = line;
+                if (previous) {
+                    let bestScore = Infinity;
+                    for (const arrangement of nudges(line.length)) {
+                        const candidate = arrangement.map((index) => line[index]);
+                        const score = stacking(previous, spans(candidate));
+                        if (score < bestScore - 0.01) { bestScore = score; best = candidate; }
+                    }
+                }
+                best.forEach((entry) => { entry.item.style.order = order++; });
+                previous = spans(best);
+            });
+        };
+
+        arrange();
+        // Fonts change the widths, so arrange again once they've loaded and on resize
+        document.fonts?.ready.then(arrange);
+        // Wait for a resize to settle before measuring, so it uses the final layout
+        let width = list.clientWidth;
+        let timer;
+        const onResize = () => {
+            if (list.clientWidth === width) return;
+            width = list.clientWidth;
+            clearTimeout(timer);
+            timer = setTimeout(arrange, 150);
+        };
+        const observer = new ResizeObserver(onResize);
+        observer.observe(list);
+        window.addEventListener("resize", onResize);
+        return () => {
+            observer.disconnect();
+            window.removeEventListener("resize", onResize);
+            clearTimeout(timer);
+        };
+    }, [listRef]);
+}
 
 // Today's date in Denver as "YYYY-MM-DD", so shows roll over at midnight local time
 function denverToday() {
@@ -29,6 +123,8 @@ function formatShowDate(date, endDate) {
 
 function Events() {
     const lineup = buildLineup();
+    const lineupRef = useRef(null);
+    useStaggeredReds(lineupRef);
 
     // List of events (upcoming & past).
     // date (and endDate for multi-day shows) is "YYYY-MM-DD". A dated show appears under
@@ -206,7 +302,7 @@ function Events() {
             </div>
             {/* The artist lineup leads, for a quick sense of who Visional has worked with */}
             <SectionHeader index="02" label="artists.json" title="Worked with" />
-            <ul className="artist-cloud">
+            <ul className="artist-cloud" ref={lineupRef}>
                 {lineup.map((artist) => (
                     <li key={artist.name} className={artist.red ? "is-red" : undefined}>
                         {artist.name}
