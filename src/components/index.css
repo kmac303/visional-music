@@ -2600,6 +2600,22 @@ ul.hud-bar-links {
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* Desktop only: the landing screen and the rest of the site are two snap stops, so a
+   scroll from the hero glides into About like turning a page (and back up to the hero
+   from the top of About). Everything after the hero is one tall snap block, and the
+   page scrolls freely inside it. Phones keep plain scrolling: snapping there fought
+   swipes on the background and Safari's shrinking address bar. */
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+
+  #top,
+  .snap-rest {
+    scroll-snap-align: start;
+  }
+}
+
 /* Sections land below the strip when jumped to */
 .page-section {
   scroll-margin-top: 64px;

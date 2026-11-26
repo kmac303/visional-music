@@ -39,10 +39,14 @@ function Home() {
     return (
         <main className="page">
             <Hero />
-            <About />
-            <Events />
-            <Gallery />
-            <Contact />
+            {/* Everything after the landing screen, as one block: on desktop the page snaps
+                between the hero and this block, and scrolls freely inside it */}
+            <div className="snap-rest">
+                <About />
+                <Events />
+                <Gallery />
+                <Contact />
+            </div>
         </main>
     );
 }
