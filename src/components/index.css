@@ -1954,7 +1954,7 @@ ul.artist-cloud {
    every name) fits on one screen */
 @media (max-width: 768px) {
   ul.artist-cloud {
-    font-size: 1.35rem;
+    font-size: 22px;
     gap: 2px 16px;
     line-height: 1.1;
   }
