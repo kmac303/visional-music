@@ -5,25 +5,26 @@ import { buildLineup } from "./artists";
 
 // After the lineup wraps into lines, rearrange names within each line so red names don't
 // sit right under a red name on the line above (on narrow screens they'd stack into red
-// columns). Names only trade places with their neighbors on the same line, using the CSS
-// order property, so where lines break never changes and the ranking moves by one spot at
-// most. Re-checked on resize.
+// columns), spread across the left, middle and right, and don't sit side by side. Names
+// only move within their own line, two spots at most, using the CSS order property, so
+// where lines break never changes and the ranking barely moves. Re-checked on resize.
 function useStaggeredReds(listRef) {
     useEffect(() => {
         const list = listRef.current;
         if (!list) return;
         const items = [...list.children];
 
-        // Every way to rearrange a line where each name moves at most one spot
+        // Every way to rearrange a line where each name moves at most two spots
         const nudges = (count) => {
-            if (count <= 1) return [[...Array(count).keys()]];
             const results = [];
-            const build = (prefix, next) => {
-                if (next >= count) { results.push(prefix); return; }
-                build([...prefix, next], next + 1);
-                if (next + 1 < count) build([...prefix, next + 1, next], next + 2);
+            const build = (prefix, used) => {
+                if (prefix.length === count) { results.push(prefix); return; }
+                const slot = prefix.length;
+                for (let index = Math.max(0, slot - 2); index <= Math.min(count - 1, slot + 2); index++) {
+                    if (!used.has(index)) build([...prefix, index], new Set(used).add(index));
+                }
             };
-            build([], 0);
+            build([], new Set());
             return results;
         };
 
@@ -56,20 +57,34 @@ function useStaggeredReds(listRef) {
                 return overlap / Math.min(a.right - a.left, b.right - b.left);
             })), 0);
 
+            // Which third of the width (left, middle, right) a name's center falls in
+            const third = (span) => Math.min(2, Math.max(0, Math.floor(((span.left + span.right) / 2 / width) * 3)));
+
             let order = 0;
             let previous = null;
+            // Which thirds the red names of the last few lines landed in, newest last
+            const recentThirds = [];
             lines.forEach((line) => {
                 let best = line;
-                if (previous) {
-                    let bestScore = Infinity;
-                    for (const arrangement of nudges(line.length)) {
-                        const candidate = arrangement.map((index) => line[index]);
-                        const score = stacking(previous, spans(candidate));
-                        if (score < bestScore - 0.01) { bestScore = score; best = candidate; }
-                    }
+                let bestScore = Infinity;
+                for (const arrangement of nudges(line.length)) {
+                    const candidate = arrangement.map((index) => line[index]);
+                    const placed = spans(candidate);
+                    // Red right under red is the worst; then reds in a third used lately;
+                    // then two reds side by side; and a small cost for moving away from the ranking
+                    let score = previous ? stacking(previous, placed) * 3 : 0;
+                    placed.forEach((span, slot) => {
+                        if (!span.red) return;
+                        const zone = third(span);
+                        recentThirds.slice(-4).forEach((used, age) => { if (used === zone) score += 0.4 + 0.15 * age; });
+                        if (placed[slot + 1]?.red) score += 1.5;
+                    });
+                    score += arrangement.reduce((sum, index, slot) => sum + Math.abs(index - slot), 0) * 0.05;
+                    if (score < bestScore - 0.001) { bestScore = score; best = candidate; }
                 }
                 best.forEach((entry) => { entry.item.style.order = order++; });
                 previous = spans(best);
+                previous.forEach((span) => { if (span.red) recentThirds.push(third(span)); });
             });
         };
 
