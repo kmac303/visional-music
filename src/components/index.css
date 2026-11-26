@@ -1839,7 +1839,8 @@ section.page-section {
 /* Bleeds past the section's padding so it spans the full width, flush with the top */
 .events-banner {
   max-width: none;
-  margin: -104px -28px 72px;
+  /* The gap below is a bit taller than the corner logo, so WORKED WITH has room to breathe */
+  margin: -104px -28px 120px;
   /* Grows with the window so big monitors show as much of the stage as laptops do,
      but never taller than most of the screen */
   height: clamp(220px, 42vw, 75vh);
@@ -2360,7 +2361,7 @@ ul.hud-bar-links {
   }
 
   .events-banner {
-    margin: -72px -16px 56px;
+    margin: -72px -16px 96px;
   }
 
   /* The phone crop: keep the bottom row of name screens in view on wider phones,
