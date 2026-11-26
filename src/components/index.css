@@ -1950,6 +1950,20 @@ ul.artist-cloud {
   text-transform: uppercase;
 }
 
+/* Phones: smaller names and a tighter header, so the whole lineup (label, title and
+   every name) fits on one screen */
+@media (max-width: 768px) {
+  ul.artist-cloud {
+    font-size: 1.12rem;
+    gap: 2px 14px;
+    line-height: 1.1;
+  }
+
+  .events-section .section-header:has(+ .artist-cloud) {
+    margin-bottom: 20px;
+  }
+}
+
 .artist-cloud li {
   padding: 0;
   text-align: center;
